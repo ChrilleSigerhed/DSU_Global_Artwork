@@ -1,20 +1,44 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using DSU21_5.Areas.Identity.Data
-
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+﻿@model IEnumerable<DSU21_5.Models.ImageModel>
 
 @{
-    var user = await UserManager.GetUserAsync(User);
+    ViewData["Title"] = "Index";
 }
-<div class="col-md-6">
-    <h1>Sida för profil</h1>
-    <h1>
-        @user.Firstname @user.Lastname
-    </h1>
-    <h1>
-        @user.Email
-    </h1>
-</div>
 
+<h1>Index</h1>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ImageId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ImageId">Delete</a>
+            </td>
+            <td>
+                <img src="@("image/"+item.ImageName)"/>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
