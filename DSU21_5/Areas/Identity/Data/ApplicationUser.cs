@@ -14,9 +14,13 @@ namespace DSU21_5.Areas.Identity.Data
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string Firstname { get; set; }
+       
         [PersonalData]
         [Column(TypeName = "nvarchar(100)")]
         public string Lastname { get; set; }
+        
+
+
 
     }
 }
