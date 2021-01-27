@@ -16,7 +16,7 @@ Koppla upp sig mot de lokala databaserna:
 
 Ångra ändringarna som blivit i Team explorer/Git changes (så slipper man pusha upp onödig kod:) ) 
 
-Koppla upp sig mot skarp databas (kolla så att inte connectionsstring är bortkommenterad):
+Koppla upp sig mot skarp databas:
 - Gå in på SQL Server Object Explorer
 - Högerklicka på SQL Server och välj Add SQL server
 - Ange server name: dsvkurs.miun.se
