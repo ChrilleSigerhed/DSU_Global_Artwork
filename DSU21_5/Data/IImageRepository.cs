@@ -8,6 +8,6 @@ namespace DSU21_5.Data
     {
         ImageModel GetImageFromDb(string Id);
         ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment,ImageModel imgModel);
-        Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id, ImageModel image);
+        Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id);
     }
 }

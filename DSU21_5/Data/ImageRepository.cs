@@ -18,32 +18,44 @@ namespace DSU21_5.Data
             
             db = context;
         }
+        /// <summary>
+        /// Input is UserId from current user that is using the application, the method takes that ID and checks it against the DataBase, to controll if the user already has a profilepicture uploaded.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ImageModel GetImageFromDb(string Id)
         {
             var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
             return image;
            
         }
-        public int GetImageFromDb1()
-        {
-           
-            return 1;
-
-        }
-
+        /// <summary>
+        /// Removes the entry in Database and also clears the /image/ folder
+        /// </summary>
+        /// <param name="hostEnvironment"></param>
+        /// <param name="imgModel"></param>
+        /// <returns></returns>
         public ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment, ImageModel imgModel)
         {
+            db.Images.Remove(imgModel); 
             string wwwRootPath = hostEnvironment.WebRootPath;
-            db.Images.Remove(imgModel);
-            string PATH = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);
-            FileInfo file = new FileInfo(PATH);
+            string path = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);
+            FileInfo file = new FileInfo(path);
             if (file.Exists)
             {
-                File.Delete(PATH);
+                File.Delete(path);
             }
             return imgModel;
         }
-        public async Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id, ImageModel img)
+        /// <summary>
+        /// Input is the UserId from the current user that is using the application, also an empty imageModel that is beeing build in the method. Later it is added to the database and returns the imageModel for display
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="hostEnvironment"></param>
+        /// <param name="imageModel"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public async Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
