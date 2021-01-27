@@ -125,6 +125,11 @@ h1, h2, h3, h4, h5, h6, figure {
   padding: 20px 0;
   z-index: 1001;
 }
+
+.login-register{
+    float:right;
+}
+
 @media screen and (max-width: 768px) {
   .gtco-nav {
     padding: 20px 0;
@@ -260,7 +265,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #gtco-header {
-  background: #fdd035;
+   background: #fdd035;
 }
 
 #gtco-simple-header{

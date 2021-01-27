@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Counter-art: Global Showcase  &mdash; Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="css/site.css">
 
     <!-- Animate.css -->
     <link rel="stylesheet" href="css/animate.css">
@@ -27,6 +25,8 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Login/Register style  -->
+    <link rel="stylesheet" href="css/site.css">
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -35,31 +35,7 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-    @*<header>*@
-    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Counter-Art - Global Showcase</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Entrance</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial.cshtml" />
-                </div>
-            </div>
-        </nav>*@  
+<body> 
     <div id="page">
     <div class="page-inner">
     <nav class="gtco-nav" role="navigation">
@@ -81,17 +57,16 @@
                                 <li><a href="#">Portraits</a></li>
                             </ul>
                         </li>
-                        <li><a class="nav-link text-dark" asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibitions</a></li>
+                        <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibition</a></li>
                         <li><a href="community.html">Community</a></li>
-                        <li class="btn-cta"><a href="signuplogin.html"><span>Login/Signup</span></a></li>
+                        <li class="login-register"><partial name="_LoginPartial.cshtml" /></li>
                     </ul>
-                    <partial name="_LoginPartial.cshtml" />
+                    
                 </div>
             </div>
 
         </div>
     </nav>
-    @*</header>*@
     <div id="page">
         <div class="container">
             <main role="main" class="pb-3">
@@ -182,16 +157,6 @@
     <script src="js/magnific-popup-options.js"></script>
     <!-- Main -->
     <script src="js/main.js"></script>
-
-
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - DSU21_5 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>*@
 
     @RenderSection("Scripts", required: false)
 </body>
