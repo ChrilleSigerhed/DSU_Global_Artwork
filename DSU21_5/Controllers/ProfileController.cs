@@ -26,7 +26,7 @@ namespace DSU21_5.Controllers
         }
 
         // GET: Profile
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
            // return View(await _context.Images.ToListAsync());
@@ -70,10 +70,8 @@ namespace DSU21_5.Controllers
                     var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
                     if (checkIfUserHadProfilePictureAlready != null)
                     {
-                        //TODO: Titta på möjligheter att även tömma mappen för images i programmet
-                        image = ImageRepository.RemoveImageFromDb(checkIfUserHadProfilePictureAlready);
+                        image = ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
                     }
-                    //TODO: Gör en separat metod för att ta bort från filen /image/
                     image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id, image);
                 }
             }

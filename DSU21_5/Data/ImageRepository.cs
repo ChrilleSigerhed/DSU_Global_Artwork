@@ -22,10 +22,25 @@ namespace DSU21_5.Data
         {
             var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
             return image;
+           
         }
-        public ImageModel RemoveImageFromDb(ImageModel imgModel)
+        public int GetImageFromDb1()
         {
+           
+            return 1;
+
+        }
+
+        public ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment, ImageModel imgModel)
+        {
+            string wwwRootPath = hostEnvironment.WebRootPath;
             db.Images.Remove(imgModel);
+            string PATH = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);
+            FileInfo file = new FileInfo(PATH);
+            if (file.Exists)
+            {
+                File.Delete(PATH);
+            }
             return imgModel;
         }
         public async Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id, ImageModel img)
@@ -33,15 +48,9 @@ namespace DSU21_5.Data
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
             string extention = Path.GetExtension(imageModel.ImageFile.FileName);
-            imageModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention; //TODO Change date extention
+            imageModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention; 
             imageModel.UserId = Id;
             string path = Path.Combine(wwwRootPath + "/image/", fileName);
-            string PATH = Path.Combine(wwwRootPath + "/image/", img.ImageName);
-            FileInfo file = new FileInfo(PATH);
-            if (file.Exists)
-            {
-                File.Delete(PATH);
-            }
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await imageModel.ImageFile.CopyToAsync(fileStream);

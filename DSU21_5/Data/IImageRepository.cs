@@ -7,7 +7,7 @@ namespace DSU21_5.Data
     public interface IImageRepository
     {
         ImageModel GetImageFromDb(string Id);
-        ImageModel RemoveImageFromDb(ImageModel imgModel);
+        ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment,ImageModel imgModel);
         Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id, ImageModel image);
     }
 }
