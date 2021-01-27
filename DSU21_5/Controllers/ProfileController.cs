@@ -16,19 +16,21 @@ namespace DSU21_5.Controllers
     {
         private readonly ImageDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        public IImageRepository ImageRepository { get; set; }
 
-        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment)
+        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            ImageRepository = imageRepository;
         }
 
         // GET: Profile
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Images.ToListAsync());
+            return View();
+           // return View(await _context.Images.ToListAsync());
         }
-
         // GET: Profile/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,24 +62,28 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] ImageModel imageModel, string Id)
         {
-            if (ModelState.IsValid)
+            var image = imageModel;
+            try
             {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
-                string extention = Path.GetExtension(imageModel.ImageFile.FileName);
-                imageModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff")+extention; //TODO Change date extention
-                string path = Path.Combine(wwwRootPath + "/image", fileName);
-                imageModel.UserId = Id;
-
-                using (var fileStream = new FileStream(path,FileMode.Create))                
+                if (ModelState.IsValid)
                 {
-                    await imageModel.ImageFile.CopyToAsync(fileStream);
+                    var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
+                    if (checkIfUserHadProfilePictureAlready != null)
+                    {
+                        //TODO: Titta på möjligheter att även tömma mappen för images i programmet
+                        image = ImageRepository.RemoveImageFromDb(checkIfUserHadProfilePictureAlready);
+                    }
+                    //TODO: Gör en separat metod för att ta bort från filen /image/
+                    image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id, image);
                 }
-                _context.Add(imageModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            return View(imageModel);
+            catch(Exception ex)
+            {
+                //TODO: Fixa en errorsida
+                return View("Error", ex);
+            }
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Profile/Edit/5
@@ -95,6 +101,11 @@ namespace DSU21_5.Controllers
             }
             return View(imageModel);
         }
+
+        // Ladda upp bild, lägga till en ny bild.
+        // Profilsida där vi visar profilbilden
+        // 
+
 
         // POST: Profile/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

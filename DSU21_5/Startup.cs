@@ -29,6 +29,7 @@ namespace DSU21_5
             services.AddDbContext<ImageDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ImageDbContextConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<IImageRepository, ImageRepository>();
             
         }
 
