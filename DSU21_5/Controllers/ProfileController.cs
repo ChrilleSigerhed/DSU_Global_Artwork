@@ -43,7 +43,7 @@ namespace DSU21_5.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] ImageModel imageModel, string Id)
+        public async Task<IActionResult> UploadProfileImage([Bind("ImageId,ImageFile,UserId")] ImageModel imageModel, string Id)
         {
             var image = imageModel;
             try
