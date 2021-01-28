@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -45,7 +46,7 @@
     <div id="plus-sign">+</div>
     <div id="blocker">
         <div id="instructions">
-            <span style="font-size:36px">Welcome to Counter-Art! Click to start</span>
+            <span style="font-size:36px">Counter-Art! Click to start</span>
             <br /><br />
             Move: WASD<br />
             Look: MOUSE
@@ -54,16 +55,16 @@
             <h1 id="painting-name"></h1>
             <br /><br />
             <div id=art-image><img src="#"></div>
-            Move: that bus<br />
-            Jump: MonaLisa my dude<br />
-            Look: at that
+            Name: Mona Lisa<br />
+            Artist: Picasso<br />
+            Year: 2005
         </div>
         <div id="exit">
             <h1>Do you want to exit the exhibition?</h1>
-            <a href="https://www.louvre.fr/en">
-                <button>Yes</button>
-            </a>
-            <button id="exit-no">No</button>
+            <form>
+                <input type="button" value="Yes" onclick="history.back()">
+                <input type="button" id="exit-no" value="No">
+            </form>
         </div>
 
     </div>
@@ -144,12 +145,13 @@
                 instructions.style.display = 'none';
                 blocker.style.display = 'none';
                 artIsClicked = false;
+                exitIsClicked = false;
                 artInfo.style.display = 'none'
                 exitScreen.style.display = 'none';
             });
 
             controls.addEventListener('unlock', function () {
-
+                console.log("vi är inne");
                 if (artIsClicked === true) {
                     blocker.style.display = 'block';
                     artInfo.style.display = 'block';
@@ -178,7 +180,6 @@
             scene.add(controls.getObject());
 
             const onKeyDown = function (event) {
-
                 switch (event.keyCode) {
 
                     case 38: // up
@@ -200,7 +201,6 @@
                     case 68: // d
                         moveRight = true;
                         break;
-
                 }
 
             };
@@ -228,6 +228,7 @@
                     case 68: // d
                         moveRight = false;
                         break;
+                    
 
                 }
 
@@ -345,8 +346,9 @@
 
 
             //väggFramInner
+            var art = new THREE.TextureLoader().load('/ShowroomImages/global-art-tack.jpg');
             var geometry = new THREE.BoxGeometry(45, 35, 1);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
+            var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.name = "VäggFramInner"
             scene.add(mesh);
