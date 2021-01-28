@@ -18,6 +18,7 @@ namespace DSU21_5.Models
         [DisplayName("Image Name")]
         public string ImageName { get; set; }
 
+        [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string UserId { get; set; }
 
