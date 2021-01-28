@@ -48,6 +48,7 @@ namespace DSU21_5.Controllers
             var image = imageModel;
             try
             {
+                //TODO: CHECK WHY NOT WORKING, MAYBE CSS?
                 if (ModelState.IsValid)
                 {
                     var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);

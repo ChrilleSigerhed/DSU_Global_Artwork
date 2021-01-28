@@ -1,16 +1,18 @@
-﻿@model IEnumerable<DSU21_5.Models.ImageModel>
+﻿@model IEnumerable<DSU21_5.Models.Image>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <p>
-    <a asp-action="Create">Create New</a>
+
+
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
                 @Html.DisplayNameFor(model => model.ImageName)
             </th>
             <th>
@@ -39,4 +41,6 @@
                 </tr>
         }*@
     <!--</tbody>-->
+    <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
 </table>
+    <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>

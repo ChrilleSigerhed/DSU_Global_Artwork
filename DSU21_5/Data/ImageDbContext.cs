@@ -11,8 +11,8 @@ namespace DSU21_5.Data
     {
         public ImageDbContext(DbContextOptions<ImageDbContext> options) : base(options)
         {
-
         }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Artwork> Artworks { get; set; }
     }
 }

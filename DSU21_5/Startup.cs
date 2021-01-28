@@ -30,6 +30,7 @@ namespace DSU21_5
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IArtRepository, ArtRepository>(); 
             
         }
 
