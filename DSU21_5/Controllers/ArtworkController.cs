@@ -10,6 +10,7 @@ namespace DSU21_5.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
     }
