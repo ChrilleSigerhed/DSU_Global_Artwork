@@ -1,13 +1,9 @@
-# DSU21_5
+# Databas
 
 Koppla upp sig mot de lokala databaserna: 
 - Radera "migrations"-mappen i solution explorer
 - Klicka på Tools -> Nuget Package Manager -> Package Manager Console
 - Skriv consolen och tryck enter efter varje rad: 
-
-    add-migration "initial-create" -context ImageDbContext    (TRYCK ENTER)
-    
-    add-migration "initial-create" -context AuthDbContext     (TRYCK ENTER)
     
     update-database -context ImageDbContext                   (TRYCK ENTER)
     
