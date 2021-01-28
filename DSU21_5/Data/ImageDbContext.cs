@@ -13,6 +13,6 @@ namespace DSU21_5.Data
         {
 
         }
-        public DbSet<ImageModel> Images { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }
