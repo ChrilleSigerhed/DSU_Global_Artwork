@@ -30,8 +30,9 @@ namespace DSU21_5
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IImageRepository, ImageRepository>();
-            services.AddScoped<IArtRepository, ArtRepository>(); 
-            
+            services.AddScoped<IArtRepository, ArtRepository>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

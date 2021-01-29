@@ -18,19 +18,35 @@ namespace DSU21_5.Controllers
         private readonly ImageDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         public IImageRepository ImageRepository { get; set; }
+        public IMemberRepository MemberRepository { get; set; }
+        public IArtRepository ArtRepository { get; set; }
 
-        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository)
+
+        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
             ImageRepository = imageRepository;
+            MemberRepository = memberRepository;
+            ArtRepository = artRepository;
         }
 
         // GET: Profile
         public IActionResult Index(string Id)
         {
            var image=  ImageRepository.GetImageFromDb(Id);
-            return View(image);
+            if(image != null)
+            {
+                return View(image);
+            }
+            else
+            {
+                image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+                };
+                return View(image);
+            }
            // return View(await _context.Images.ToListAsync());
         }
 
@@ -47,7 +63,6 @@ namespace DSU21_5.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
         {
             var image = imageModel;
@@ -71,28 +86,29 @@ namespace DSU21_5.Controllers
             return RedirectToAction($"Index", new {Id});
 
         }
-        public async Task<IActionResult> Create1([Bind("ImageId,ImageFile,UserId")] Image imageModel,  string Id)
+        //TODO: Skapa CreateArtView
+        public IActionResult CreateArt(string Id)
         {
-            var image = imageModel;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId")] Artwork imageModel, string Id)
+        {
+            Member member = await MemberRepository.GetMember(Id);
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
-                    if (checkIfUserHadProfilePictureAlready != null)
-                    {
-                        ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
-                    }
-                    image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id);
+                    var artwork = await ArtRepository.AddArt( _context,_hostEnvironment, imageModel, member);
                 }
             }
             catch (Exception ex)
             {
                 //TODO: Fixa en errorsida
-                return View("Error", ex);
+                return View();
             }
-            return RedirectToAction($"Index", new {Id});
-
+            return RedirectToAction($"Index", new { Id });
         }
     }
 }

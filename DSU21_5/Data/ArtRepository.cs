@@ -21,26 +21,26 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return images;
         }
-        public async Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, string Id)
+        public async Task<Artwork> AddArt(ImageDbContext context,IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);
-            string extention = Path.GetExtension(imageModel.ImageFile.FileName);
-            imageModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
-            imageModel.UserId = Id;
-            imageModel.Firstname = "";
-            imageModel.Lastname = "";
-            imageModel.Description = "";
-            imageModel.ArtName = "";
+            string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageFile.FileName);
+            string extention = Path.GetExtension(artworkModel.ImageFile.FileName);
+            artworkModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+            artworkModel.UserId = member.MemberId;
+            artworkModel.Firstname = member.Firstname;
+            artworkModel.Lastname = member.Lastname;
+            artworkModel.Description = "En jättefin tavla"; //TODO: Hämta description från gränssnittet
+            artworkModel.ArtName = "Jättefin tavla"; //TODO: Hämta Artname från gränssnittet
             
-            string path = Path.Combine(wwwRootPath + "/image/", fileName);
+            string path = Path.Combine(wwwRootPath + "/imagesArt/", fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                await imageModel.ImageFile.CopyToAsync(fileStream);
+                await artworkModel.ImageFile.CopyToAsync(fileStream);
             }
-            context.Add(imageModel);
-            await context.SaveChangesAsync();
-            return imageModel;
+            context.Add(artworkModel);
+            await db.SaveChangesAsync();
+            return artworkModel;
         }
     }
 }

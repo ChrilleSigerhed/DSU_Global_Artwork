@@ -60,8 +60,6 @@
                         <h3>@user.Firstname @user.Lastname</h3>
                         <div class="form-group">
                             <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id" ></a>
-                            <a asp-action="Create1"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user"></a>
-
                         </div>
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">
@@ -74,8 +72,6 @@
                                 <li class="icon-instagram"><a href="#">artinsta</a></li>
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -89,7 +85,7 @@
                     <div class="col-md-6 animate-box">
                         <h3>Showcase Your Artwork</h3>
                         <div class="form-group">
-                            <a asp-action="Create"><input type="submit" value="Upload Artwork" class="btn btn-primary"></a>
+                            <a asp-action="CreateArt"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
                         </div>
                     </div>
                 </div>
