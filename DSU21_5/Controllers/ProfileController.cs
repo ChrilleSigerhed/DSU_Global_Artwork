@@ -9,6 +9,7 @@ using DSU21_5.Data;
 using DSU21_5.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using DSU21_5.Areas.Identity.Data;
 
 namespace DSU21_5.Controllers
 {
@@ -26,16 +27,19 @@ namespace DSU21_5.Controllers
         }
 
         // GET: Profile
-        public IActionResult Index()
+        public IActionResult Index(string Id)
         {
-            return View();
+           var image=  ImageRepository.GetImageFromDb(Id);
+            return View(image);
            // return View(await _context.Images.ToListAsync());
         }
 
         // GET: Profile/Create
-        public IActionResult Create()
+        public IActionResult Create(string Id)
         {
-            return View();
+            // ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, Id);l
+            var image = ImageRepository.GetImageFromDb(Id);
+            return View(image);
         }
 
         // POST: Profile/Create
@@ -44,12 +48,11 @@ namespace DSU21_5.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> UploadProfileImage([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
+        public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
         {
             var image = imageModel;
             try
             {
-                //TODO: CHECK WHY NOT WORKING, MAYBE CSS?
                 if (ModelState.IsValid)
                 {
                     var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
@@ -65,8 +68,33 @@ namespace DSU21_5.Controllers
                 //TODO: Fixa en errorsida
                 return View("Error", ex);
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction($"Index", new {Id});
+
+        }
+        public async Task<IActionResult> Create1([Bind("ImageId,ImageFile,UserId")] Image imageModel,  string Id)
+        {
+            var image = imageModel;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
+                    if (checkIfUserHadProfilePictureAlready != null)
+                    {
+                        ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
+                    }
+                    image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Fixa en errorsida
+                return View("Error", ex);
+            }
+            return RedirectToAction($"Index", new {Id});
 
         }
     }
 }
+
+

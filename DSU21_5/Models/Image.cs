@@ -16,7 +16,7 @@ namespace DSU21_5.Models
         [Column(TypeName = "nvarchar(100)")]
         [DisplayName("Image Name")]
         public string ImageName { get; set; }
-        [Required]
+        [ForeignKey("UserId")]
         [Column(TypeName = "nvarchar(100)")]
         public string UserId { get; set; }
         [NotMapped]
