@@ -58,13 +58,14 @@
                 @for (int i = 0; i < Model.Images.Count; i++)
                 {
                     <li id="@(i+1)" style="display: none">
-                        <h1 id="painting-title">@Model.Images[i].Title</h1>
-                        <br /><br />
+                        <div id="art-info-text">
+                            <h1 id="painting-title">@Model.Images[i].Title</h1>
+                            <p id="art-artist">@Model.Images[i].Artist</p>
+                            <p id="art-year">@Model.Images[i].Year</p>
+                            <p id="art-description">@Model.Images[i].Description</p>
+                            <p id="art-height-width">@Model.Images[i].Height x @Model.Images[i].Width cm</p>
+                        </div>
                         <div id=art-source><img src="@Model.Images[i].Source"></div>
-                        <p id="art-artist">@Model.Images[i].Artist</p><br />
-                        <p id="art-year">@Model.Images[i].Year</p>
-                        <p id="art-description">@Model.Images[i].Description</p>
-                        <p id="art-height-width">@Model.Images[i].Height x @Model.Images[i].Width cm</p>
                     </li>
                 }
             </ul>

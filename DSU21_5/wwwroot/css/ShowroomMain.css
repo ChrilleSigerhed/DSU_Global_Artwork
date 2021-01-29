@@ -13,9 +13,9 @@ a {
     text-decoration: none;
 }
 
-    a:hover {
-        text-decoration: underline;
-    }
+a:hover {
+    text-decoration: underline;
+}
 
 button {
     cursor: pointer;
@@ -62,14 +62,14 @@ a, button, input, select {
     background: rgba(0,0,0,0.7);
 }
 
-    #overlay button {
-        background: #ffffff;
-        border: 0;
-        color: #000000;
-        padding: 16px 20px;
-        text-transform: uppercase;
-        cursor: pointer;
-    }
+#overlay button {
+    background: #ffffff;
+    border: 0;
+    color: #000000;
+    padding: 16px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
 
 #notSupported {
     width: 50%;
