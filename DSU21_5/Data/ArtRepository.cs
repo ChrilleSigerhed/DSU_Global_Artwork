@@ -13,11 +13,11 @@ namespace DSU21_5.Data
         {
             db = context;
         }
-        public IEnumerable<Image> GetArtThatsPosted()
+        public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
-            //TODO: Change Images to Artwork
-            var images = db.Images;
-            return images.ToList();
+            IEnumerable<Artwork> images = db.Artworks;
+            await db.SaveChangesAsync();
+            return images;
         }
     }
 }

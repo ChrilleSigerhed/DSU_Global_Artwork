@@ -1,8 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Exhibition";
+﻿@model ArtworkViewModel
+
+@{
+    ViewData["Title"] = "Artwork";
     Layout = "_Layout";
 }
-
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 
@@ -14,18 +15,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="images/exhibit1.jpeg" class="fh5co-project-item image-popup">
-                    <figure>
-                        <div class="overlay"><i class="ti-plus"></i></div>
-                        <img src="images/exhibit1.jpeg" alt="Image" class="img-responsive">
-                    </figure>
-                    <div class="fh5co-text">
-                        <h2>Exhibition name</h2>
-                        <p>2021-01-25 till 2021-02-01</p>
-                    </div>
-                </a>
-            </div>
+            @for (int i = 0; i < Model.CollectiveArt.Count; i++)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a href="images/exhibit1.jpeg" class="fh5co-project-item image-popup">
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="image/@Model.CollectiveArt[i].ImageFile" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>Exhibition name</h2>
+                            <p>2021-01-25 till 2021-02-01</p>
+                        </div>
+                    </a>
+                </div>
+            }
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <a href="images/exhibit2.jpeg" class="fh5co-project-item image-popup">
                     <figure>

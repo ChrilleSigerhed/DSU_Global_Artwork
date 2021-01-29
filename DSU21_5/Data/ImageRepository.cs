@@ -37,6 +37,7 @@ namespace DSU21_5.Data
         /// <returns></returns>
         public Image RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel)
         {
+            //TODO: Add async and save
             db.Images.Remove(imgModel); 
             string wwwRootPath = hostEnvironment.WebRootPath;
             string path = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);

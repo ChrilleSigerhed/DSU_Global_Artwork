@@ -8,6 +8,6 @@ namespace DSU21_5.Data
 {
     public interface IArtRepository
     {
-        IEnumerable<Image> GetArtThatsPosted();
+        Task<IEnumerable<Artwork>> GetArtThatsPosted();
     }
 }
