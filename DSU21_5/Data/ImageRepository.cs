@@ -23,7 +23,7 @@ namespace DSU21_5.Data
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public ImageModel GetImageFromDb(string Id)
+        public Image GetImageFromDb(string Id)
         {
             var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
             return image;
@@ -35,8 +35,9 @@ namespace DSU21_5.Data
         /// <param name="hostEnvironment"></param>
         /// <param name="imgModel"></param>
         /// <returns></returns>
-        public ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment, ImageModel imgModel)
+        public Image RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel)
         {
+            //TODO: Add async and save
             db.Images.Remove(imgModel); 
             string wwwRootPath = hostEnvironment.WebRootPath;
             string path = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);
@@ -55,7 +56,7 @@ namespace DSU21_5.Data
         /// <param name="imageModel"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id)
+        public async Task<Image> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, Image imageModel, string Id)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);

@@ -18,7 +18,41 @@ namespace DSU21_5.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DSU21_5.Models.ImageModel", b =>
+            modelBuilder.Entity("DSU21_5.Models.Artwork", b =>
+                {
+                    b.Property<string>("ArtworkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ArtName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("ArtworkId");
+
+                    b.ToTable("Artworks");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Image", b =>
                 {
                     b.Property<int>("ImageId")
                         .ValueGeneratedOnAdd()
@@ -29,6 +63,7 @@ namespace DSU21_5.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ImageId");
