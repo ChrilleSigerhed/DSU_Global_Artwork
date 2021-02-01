@@ -22,9 +22,12 @@
 <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
+        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name">
+        <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
+
         <input asp-for="ImageFile" type="file" class="form-control-file">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
-        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id"/>
+        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
 </form>
 <div class="gtco-section border-bottom">

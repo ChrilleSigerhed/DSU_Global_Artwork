@@ -30,8 +30,6 @@ namespace DSU21_5.Data
             artworkModel.UserId = member.MemberId;
             artworkModel.Firstname = member.Firstname;
             artworkModel.Lastname = member.Lastname;
-            artworkModel.Description = "En jättefin tavla"; //TODO: Hämta description från gränssnittet
-            artworkModel.ArtName = "Jättefin tavla"; //TODO: Hämta Artname från gränssnittet
             
             string path = Path.Combine(wwwRootPath + "/imagesArt/", fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
@@ -41,6 +39,12 @@ namespace DSU21_5.Data
             context.Add(artworkModel);
             await db.SaveChangesAsync();
             return artworkModel;
+        }
+        public async Task<IEnumerable<Artwork>> GetPostedArtFromUniqueUser(string Id)
+        {
+            IEnumerable<Artwork> art = db.Artworks.Where(x => x.UserId == Id);
+            await db.SaveChangesAsync();
+            return art;
         }
     }
 }

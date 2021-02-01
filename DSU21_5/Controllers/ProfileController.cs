@@ -10,6 +10,7 @@ using DSU21_5.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using DSU21_5.Areas.Identity.Data;
+using DSU21_5.Models.ViewModel;
 
 namespace DSU21_5.Controllers
 {
@@ -20,6 +21,7 @@ namespace DSU21_5.Controllers
         public IImageRepository ImageRepository { get; set; }
         public IMemberRepository MemberRepository { get; set; }
         public IArtRepository ArtRepository { get; set; }
+        public ProfileViewModel ProfileViewModel { get; set; }
 
 
         public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
@@ -32,22 +34,27 @@ namespace DSU21_5.Controllers
         }
 
         // GET: Profile
-        public IActionResult Index(string Id)
+        public async Task<IActionResult> Index(string Id)
         {
-           var image=  ImageRepository.GetImageFromDb(Id);
-            if(image != null)
-            {
-                return View(image);
-            }
-            else
-            {
-                image = new Image()
-                {
-                    ImageName = "profile.jpeg"
-                };
-                return View(image);
-            }
-           // return View(await _context.Images.ToListAsync());
+           Image image=  ImageRepository.GetImageFromDb(Id);
+           Member member = await MemberRepository.GetMember(Id);
+           IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+           ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            return View(ProfileViewModel);
+            
+            //if(image != null)
+            //{
+            //    return View(image);
+            //}
+            //else
+            //{
+            //    image = new Image()
+            //    {
+            //        ImageName = "profile.jpeg"
+            //    };
+            //    return View(image);
+            //}
+           //return View(await _context.Images.ToListAsync());
         }
 
         // GET: Profile/Create
@@ -93,7 +100,7 @@ namespace DSU21_5.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId")] Artwork imageModel, string Id)
+        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
             try
