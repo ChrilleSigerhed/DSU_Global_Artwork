@@ -38,3 +38,29 @@
     font-size: 30px;
     color: red;
 }
+
+#arrow-keys{
+    display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+
+
+    #arrow-keys {
+        display: block;
+        position: fixed;
+        top: 65%;
+        left: 5%;
+    }
+    #arrow-move-forward {
+        padding-bottom: 20px;
+        font-size: 80px;
+        color: black;
+    }
+
+    #arrow-move-backward {
+        padding-top: 20px;
+        font-size: 80px;
+        color: black;
+    }
+}

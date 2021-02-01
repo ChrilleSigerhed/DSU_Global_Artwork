@@ -237,7 +237,7 @@ Object.assign(EventDispatcher.prototype, {
 		return listeners[type] !== undefined && listeners[type].indexOf(listener) !== - 1;
 
 	},
-
+	
 	removeEventListener: function (type, listener) {
 
 		if (this._listeners === undefined) return;

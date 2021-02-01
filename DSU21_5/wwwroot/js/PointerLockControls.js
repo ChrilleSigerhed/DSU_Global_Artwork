@@ -25,12 +25,14 @@ var PointerLockControls = function (camera, domElement) {
 	// internals
 	//
 
-	var scope = this;
+	
 
+	var scope = this;
 	var changeEvent = { type: 'change' };
 	var lockEvent = { type: 'lock' };
 	var unlockEvent = { type: 'unlock' };
 	var unlockForArtEvent = { type: 'unlockForArt' };
+	var onMobile = true;
 
 	var euler = new Euler(0, 0, 0, 'YXZ');
 
@@ -38,15 +40,38 @@ var PointerLockControls = function (camera, domElement) {
 
 	var vec = new Vector3();
 
+	var previousTouch;
+
 	function onMouseMove(event) {
 
-		if (scope.isLocked === false) return;
+		var movementX, movementY;
+		console.log('drar');
+		if (scope.isLocked === false && onMobile === false) return;
+		console.log('drar efter');
 
-		var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+		if (event.type === 'touchmove') {
+			const touch = event.touches[0];
+			if (previousTouch) {
+				// be aware that these only store the movement of the first touch in the touches array
+				event.movementX = -(touch.pageX - previousTouch.pageX);
+				event.movementY = -(touch.pageY - previousTouch.pageY);
+			};
+
+			previousTouch = touch;
+		} 
+
+
+			movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+			movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+        
+
+		
+
+
 
 		euler.setFromQuaternion(camera.quaternion);
 
+        
 		euler.y -= movementX * 0.002;
 		euler.x -= movementY * 0.002;
 
@@ -86,6 +111,10 @@ var PointerLockControls = function (camera, domElement) {
 	this.connect = function () {
 
 		scope.domElement.ownerDocument.addEventListener('mousemove', onMouseMove, false);
+		scope.domElement.ownerDocument.addEventListener('touchmove', onMouseMove, false);
+		scope.domElement.ownerDocument.addEventListener("touchend", (e) => {
+			previousTouch = null;
+		});
 		scope.domElement.ownerDocument.addEventListener('pointerlockchange', onPointerlockChange, false);
 		scope.domElement.ownerDocument.addEventListener('pointerlockerror', onPointerlockError, false);
 

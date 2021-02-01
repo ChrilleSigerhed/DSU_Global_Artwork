@@ -46,6 +46,11 @@
 <body>
     
     <div id="plus-sign">+</div>
+    <div id="arrow-keys">
+        <div id="arrow-move-forward">▲</div>
+        <div id="arrow-move-backward">▼</div>
+    </div>
+
     <div id="blocker">
         <div id="instructions">
             <span style="font-size:36px">Counter-Art! Click to start</span>
@@ -57,17 +62,17 @@
             <ul id="myUL">
                 @for (int i = 0; i < Model.Images.Count; i++)
                 {
-                    <li id="@(i+1)" style="display: none">
-                        <div id="art-info-text">
-                            <h1 id="painting-title">@Model.Images[i].Title</h1>
-                            <p id="art-artist">Artist: @Model.Images[i].Artist</p>
-                            <p id="art-year">Year: @Model.Images[i].Year</p>
-                            <p id="art-description">Description: @Model.Images[i].Description</p>
-                            <p id="art-type">Type: @Model.Images[i].Type</p>
-                            <p id="art-height-width">Measurements: @Model.Images[i].Height x @Model.Images[i].Width cm</p>
-                        </div>
-                        <div id=art-source><img src="@Model.Images[i].Source"></div>
-                    </li>
+                        <li id="@(i+1)" style="display: none">
+                            <div id="art-info-text">
+                                <h1 id="painting-title">@Model.Images[i].Title</h1>
+                                <p id="art-artist">Artist: @Model.Images[i].Artist</p>
+                                <p id="art-year">Year: @Model.Images[i].Year</p>
+                                <p id="art-description">Description: @Model.Images[i].Description</p>
+                                <p id="art-type">Type: @Model.Images[i].Type</p>
+                                <p id="art-height-width">Measurements: @Model.Images[i].Height x @Model.Images[i].Width cm</p>
+                            </div>
+                            <div id=art-source><img src="@Model.Images[i].Source"></div>
+                        </li>
                 }
             </ul>
             @*<h1 id="painting-name"></h1>
@@ -88,6 +93,8 @@
         </div>
 
     </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <script type="module">
@@ -99,6 +106,7 @@
         let camera, scene, renderer, controls;
 
         const objects = [];
+       
 
         let raycaster;
 
@@ -109,6 +117,7 @@
         let canJump = false;
         let artIsClicked = false;
         let exitIsClicked = false;
+        let onMobileDevice = false;
         let artInfoPicture;
         let artInfoName;
 
@@ -118,6 +127,7 @@
         const vertex = new THREE.Vector3();
         const color = new THREE.Color();
         var mouse = new THREE.Vector2();
+        var lastX, lastY;
 
         init();
         animate();
@@ -209,6 +219,10 @@
                 artInfo.style.display = 'none'
                 exitScreen.style.display = 'none';
                 hideAllArtInfo();
+
+                if (onMobileDevice === true) {
+                    controls.unlock();
+                }
             });
 
             controls.addEventListener('unlock', function () {
@@ -224,8 +238,9 @@
                     blocker.style.display = 'block';
                     exitScreen.style.display = 'block';
 
-                }
-                else {
+                } else if (onMobileDevice === true && exitIsClicked != true && artIsClicked != true) {
+                    blocker.style.display = 'none';
+                } else {
 
                     blocker.style.display = 'block';
                     instructions.style.display = '';
@@ -239,6 +254,26 @@
             });
 
             scene.add(controls.getObject());
+
+
+
+            //Movement keys
+            document.getElementById('arrow-move-forward').addEventListener('touchstart', function () {
+                moveForward = true;
+            });
+            document.getElementById('arrow-move-forward').addEventListener('touchend', function () {
+                moveForward = false;
+            });
+
+
+            document.getElementById('arrow-move-backward').addEventListener('touchstart', function () {
+                moveBackward = true;
+            });
+            document.getElementById('arrow-move-backward').addEventListener('touchend', function () {
+                moveBackward = false;
+            });
+
+
 
             const onKeyDown = function (event) {
                 switch (event.keyCode) {
@@ -298,6 +333,7 @@
             document.addEventListener('keydown', onKeyDown, false);
             document.addEventListener('keyup', onKeyUp, false);
             document.addEventListener('mousedown', onDocumentMouseDown);
+            document.addEventListener('touchstart', onDocumentMouseDown);
 
             raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
 
@@ -678,26 +714,43 @@
 
             renderer.setSize(window.innerWidth, window.innerHeight);
 
+            if (window.innerWidth < 1000) {
+                onMobileDevice = true;
+                console.log('mobileDeviceTrue');
+            } else {
+                onMobileDevice = false;
+                console.log('mobileDeviceFalse');
+            }
+
         }
 
 
-            function onDocumentMouseDown(event) {
-            mouse.x = 0/*( event.clientX / renderer.domElement.width ) * 2 - 1;*/
-            mouse.y = 0/*- ( event.clientY / renderer.domElement.height ) * 2 + 1;*/ //If you want the raycaster to look at the position of the mouse
+        function onDocumentMouseDown(event) {
 
+            if (onMobileDevice === true) {
+                mouse.x = (event.clientX / renderer.domElement.width ) * 2 - 1;
+                mouse.y = -(event.clientY / renderer.domElement.height ) * 2 + 1;
+            }
+            else {
+                
+                mouse.x = 0; /*( event.clientX / renderer.domElement.width ) * 2 - 1;*/
+                mouse.y = 0;/*- ( event.clientY / renderer.domElement.height ) * 2 + 1;*/ //If you want the raycaster to look at the position of the mouse
+            }
 
             raycaster.setFromCamera(mouse, camera);
-            raycaster.far = 65;
+            raycaster.far = 100;
             raycaster.near = 0;
 
             var intersects = raycaster.intersectObjects(scene.children);
-
+            console.log(intersects);
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
                 controls.unlock();
             } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall') {
 
                 artIsClicked = true;
+                controls.lock();
+                controls.unlock();
                 let image = intersects[0].object;
                 showArtInfo(image);
                 //let fuck = 0;
@@ -721,7 +774,7 @@
 
             const time = performance.now();
 
-            if (controls.isLocked === true) {
+            if (controls.isLocked === true || onMobileDevice === true) {
 
                 /* raycaster.ray.origin.copy( controls.getObject().position );
                  raycaster.ray.origin.y -= 10;
