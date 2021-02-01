@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Member : IMember
+    public interface IMember
     {
         [Key]
         public string MemberId { get; set; }
-
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string Firstname { get; set; }
@@ -24,8 +22,5 @@ namespace DSU21_5.Models
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; }
-
-
-
     }
 }

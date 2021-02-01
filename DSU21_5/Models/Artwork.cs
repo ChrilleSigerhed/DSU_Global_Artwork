@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Artwork
+    public class Artwork : IArtwork
     {
         [Key]
         public int ArtworkId { get; set; }

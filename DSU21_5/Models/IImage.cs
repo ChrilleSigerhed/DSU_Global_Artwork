@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Image : IImage
+    public interface IImage
     {
         [Key]
         public int ImageId { get; set; }
