@@ -1,44 +1,74 @@
 ﻿using DSU21_5.Data;
 using DSU21_5.Models;
+using DSU21_5;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-
+using DSU21_5.Models.ViewModel;
 
 namespace DSU21_5Tests.Profile
 {
     public class ProfileTest
     {
-    //    ImageDbContext context;
-    //    ImageRepository imageRepository;
+        [Fact]
+        public void CheckIfViewModelReturnsCorrectArtName_ReturnsCorrectValues()
+        {
+            Member member = new Member();
+            Image image = new Image();
+            Artwork art = new Artwork()
+            {
+                ArtName = "Mona Lisa"
+            };
 
-    //    [Theory]
-    //    [InlineData("8b419d66-22b0-4151-b81b-880c3319513f")]
-    //    public void GetImageFromDb_ShouldReturnImage(string id)
-    //    {
-    //        var mock = new Mock<IImageRepository>();
+            List<Artwork> listOfArt = new List<Artwork>();
+            listOfArt.Add(art);
+            IEnumerable<Artwork> artwork = listOfArt;
 
-    //        mock.
-    //        imageRepository = new ImageRepository(context);
-    //        // Arrange
-    //        string expected = id;
+            ProfileViewModel profileViewModel = new ProfileViewModel(artwork, member, image);
+            string expected = art.ArtName;
+            string actual = profileViewModel.AllArtwork[0].ArtName;
 
-    //        // Act
-    //        var actual = imageRepository.GetImageFromDb(id);
-            
-    //        // Assert
-    //        Assert.Equal(expected, actual.UserId);
+            Assert.Equal(art.ArtName, profileViewModel.AllArtwork[0].ArtName);
+        }
+        [Fact]
+        public void CheckIfViewModelReturnsCorrectImageName_ReturnsCorrectValues()
+        {
+            Member member = new Member();
+            Artwork art = new Artwork();
+            List<Artwork> listOfArt = new List<Artwork>();
+            Image image = new Image()
+            {
+                ImageName = "Röd drake"
+            };
 
-    //    }
-    //    [Fact]
-    //    public void GetImageFromDb1_fsdf()
-    //    {
-    //        int ex = 1;
-    //        int ac= imageRepository.GetImageFromDb1();
-    //        Assert.Equal(ex, ac);
-    //    }
+            listOfArt.Add(art);
+            IEnumerable<Artwork> artwork = listOfArt;
+
+            ProfileViewModel profileViewModel = new ProfileViewModel(artwork, member, image);
+            string expected = image.ImageName;
+            string actual = profileViewModel.ProfilePicture.ImageName;
+
+            Assert.Equal(expected, actual);
+        }
+        [Fact]
+        public void CheckIfViewModelReturnsCorrectImageNameWhenNull_ReturnsCorrectValues()
+        {
+            Member member = new Member();
+            Artwork art = new Artwork();
+            Image image = null;
+            List<Artwork> listOfArt = new List<Artwork>();
+
+            listOfArt.Add(art);
+            IEnumerable<Artwork> artwork = listOfArt;
+
+            ProfileViewModel profileViewModel = new ProfileViewModel(artwork, member, image);
+            string expected = "profile.jpeg";
+            string actual = profileViewModel.ProfilePicture.ImageName;
+
+            Assert.Equal(expected, actual);
+        }
 
     }
 }
