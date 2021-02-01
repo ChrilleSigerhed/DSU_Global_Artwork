@@ -9,16 +9,28 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Image : IImage
+   public interface IArtwork
     {
+
         [Key]
-        public int ImageId { get; set; }
+        public int ArtworkId { get; set; }
+        //[Required]
         [Column(TypeName = "nvarchar(100)")]
-        [DisplayName("Image Name")]
         public string ImageName { get; set; }
-        [ForeignKey("UserId")]
+        //[Required]
+        [Column(TypeName = "nvarchar(100)")]
+        public string ArtName { get; set; }
+        //[Required]
         [Column(TypeName = "nvarchar(100)")]
         public string UserId { get; set; }
+        //[Required]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Firstname { get; set; }
+        //[Required]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Lastname { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string Description { get; set; }
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }
