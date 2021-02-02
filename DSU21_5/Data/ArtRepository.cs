@@ -46,6 +46,16 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return art;
         }
-        
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            Artwork artwork = db.Artworks.Where(x => x.ArtworkId == id).FirstOrDefault();
+            return artwork;
+        }
+        public async Task<Artwork> DeleteArtworkFromArtworkTable(Artwork artwork)
+        {
+            db.Artworks.Remove(artwork);
+            await db.SaveChangesAsync();
+            return artwork;
+        }
     }
 }
