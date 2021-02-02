@@ -3,14 +3,16 @@ using DSU21_5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations
+namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
-    partial class ImageDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210202082150_IntitialCreate")]
+    partial class IntitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,9 +43,11 @@ namespace DSU21_5.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ArtworkId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Artworks");
                 });
@@ -59,9 +63,11 @@ namespace DSU21_5.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Images");
                 });
@@ -86,6 +92,20 @@ namespace DSU21_5.Migrations
                     b.HasKey("MemberId");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Artwork", b =>
+                {
+                    b.HasOne("DSU21_5.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Image", b =>
+                {
+                    b.HasOne("DSU21_5.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -33,41 +33,20 @@ namespace DSU21_5.Controllers
             ArtRepository = artRepository;
         }
 
-        // GET: Profile
         public async Task<IActionResult> Index(string Id)
         {
-           Image image=  ImageRepository.GetImageFromDb(Id);
-           Member member = await MemberRepository.GetMember(Id);
-           IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-           ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
-            
-            //if(image != null)
-            //{
-            //    return View(image);
-            //}
-            //else
-            //{
-            //    image = new Image()
-            //    {
-            //        ImageName = "profile.jpeg"
-            //    };
-            //    return View(image);
-            //}
-           //return View(await _context.Images.ToListAsync());
         }
 
-        // GET: Profile/Create
         public IActionResult Create(string Id)
         {
-            // ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, Id);l
             var image = ImageRepository.GetImageFromDb(Id);
             return View(image);
         }
-
-        // POST: Profile/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
@@ -85,15 +64,14 @@ namespace DSU21_5.Controllers
                     image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //TODO: Fixa en errorsida
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new {Id});
+            return RedirectToAction($"Index", new { Id });
 
         }
-        //TODO: Skapa CreateArtView
         public IActionResult CreateArt(string Id)
         {
             return View();
@@ -107,7 +85,7 @@ namespace DSU21_5.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var artwork = await ArtRepository.AddArt( _context,_hostEnvironment, imageModel, member);
+                    var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member);
                 }
             }
             catch (Exception ex)
