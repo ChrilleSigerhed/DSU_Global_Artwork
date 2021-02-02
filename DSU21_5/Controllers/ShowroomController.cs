@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSU21_5.Data;
 using DSU21_5.Models;
-using DSU21_5.Models.ViewModels;
+using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DSU21_5.Controllers

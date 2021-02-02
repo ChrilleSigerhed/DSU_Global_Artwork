@@ -1,5 +1,5 @@
 ﻿using DSU21_5.Models;
-using DSU21_5.Models.ViewModels;
+using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
