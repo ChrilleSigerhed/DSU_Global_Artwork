@@ -1,4 +1,5 @@
 ﻿using DSU21_5.Models;
+using DSU21_5.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -27,7 +28,6 @@ namespace DSU21_5.Data
         {
             var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
             return image;
-           
         }
         /// <summary>
         /// Removes the entry in Database and also clears the /image/ folder
@@ -73,9 +73,10 @@ namespace DSU21_5.Data
             return imageModel;
         }
 
-      
-
-       
+        public Task<ShowroomViewModel> GetShowroomImages()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
