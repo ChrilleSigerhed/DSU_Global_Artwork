@@ -23,13 +23,13 @@
     <div class="form-group">
 
         @*<input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">*@
-        <input asp-for="ImageName" type="text" class="form-control-art" placeholder="Image name">
+        <input asp-for="ImageName" type="text" class="form-control-art" style="" placeholder="Image name">
 
-        <input asp-for="ArtName" type="text" class="form-control-art" placeholder="Art Name">
+        <input asp-for="ArtName" type="text" class="form-control-art" style=" margin-left: 1%;" placeholder="Art Name">
 
-        <input asp-for="ImageFile" type="file" class="form-control-file">
+        <input asp-for="ImageFile" type="file"  style="margin-top:1%;" class="form-control-file">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
-        <textarea class="textarea-art" asp-for="Description" rows="4" cols="50" type="text" class="form-control1">Add description</textarea>
+        <textarea class="textarea-art" asp-for="Description" style=" box-shadow: 1px 1px #3A3A3A; margin-top: 1%;" rows="4" cols="50" type="text">Add description</textarea>
         </br>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
 

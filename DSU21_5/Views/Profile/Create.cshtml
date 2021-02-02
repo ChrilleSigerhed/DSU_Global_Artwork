@@ -17,24 +17,17 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
 </header>
 
-<h2>Showcase Your Artwork</h2>
+<h2>Upload profile picture</h2>
 
 <form asp-action="UploadArtWork" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="ImageFile" type="file" class="form-control-file">
+        <input asp-for="ImageFile" type="file" class="form-control-file" style="margin-top: 1%;" >
         <span asp-validation-for="ImageFile" class="text-danger"></span>
-        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;"/>
     </div>
 </form>
-<div class="gtco-section border-bottom">
-    <div class="artwork-container">
-        <h4>Uploaded Artworks</h4>
-        <picture>
-            <img src="images/art.jpg">
-        </picture>
-    </div>
-</div>
+
 
 @*<h1>Create</h1>
 
