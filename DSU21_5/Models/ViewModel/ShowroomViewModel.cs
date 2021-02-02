@@ -7,10 +7,17 @@ namespace DSU21_5.Models.ViewModel
 {
     public class ShowroomViewModel
     {
-        public List<ShowroomImageModel> Images { get; set; }
+        public List<Artwork> Images { get; set; }
 
-        public ShowroomViewModel(List<ShowroomImageModel> list)
+        public ShowroomViewModel(List<Artwork> list)
         {
+            for (int i = list.Count; i < 17; i++)
+            {
+                list.Add(new Artwork
+                {
+                    ImageName = "EmptySpaceInShowroom.jpg"
+                });
+            }
             Images = list;
         }
     }

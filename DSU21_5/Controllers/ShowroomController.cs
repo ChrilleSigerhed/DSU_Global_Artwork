@@ -11,17 +11,19 @@ namespace DSU21_5.Controllers
 {
     public class ShowroomController : Controller
     {
-        private IImageRepository imageRepository;
+        private IArtRepository artRepository;
         public ShowroomViewModel viewModel;
-        public ShowroomController(IImageRepository imageRepository)
+        public ShowroomController(IArtRepository artRepository)
         {
-            this.imageRepository = imageRepository;
+            this.artRepository = artRepository;
         }
         [Route("Showroom")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-            var viewModel = await imageRepository.GetShowroomImages();
-            return View(viewModel);
+            id = "aca28772-e443-4b6f-a7bb-6088c20131e6";
+            var listfuck = await artRepository.GetPostedArtFromUniqueUser(id);
+            
+            return View(new ShowroomViewModel(listfuck.ToList()));
         }
     }
 }

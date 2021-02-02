@@ -1,4 +1,5 @@
 ﻿using DSU21_5.Models;
+using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return art;
         }
-        
+       
+
     }
 }
