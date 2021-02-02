@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210126122405_initial-create")]
+    [Migration("20210129130939_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,9 +41,11 @@ namespace DSU21_5.Migrations.AuthDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")

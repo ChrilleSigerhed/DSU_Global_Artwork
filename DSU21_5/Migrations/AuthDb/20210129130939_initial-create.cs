@@ -40,8 +40,8 @@ namespace DSU21_5.Migrations.AuthDb
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Firstname = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Lastname = table.Column<string>(type: "nvarchar(100)", nullable: true)
+                    Firstname = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Lastname = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {

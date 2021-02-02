@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using DSU21_5.Models;
+using DSU21_5.Data;
 
 namespace DSU21_5.Areas.Identity.Pages.Account
 {
@@ -22,6 +24,7 @@ namespace DSU21_5.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ImageDbContext db;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
@@ -29,8 +32,10 @@ namespace DSU21_5.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ImageDbContext context)
         {
+            db = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
@@ -87,6 +92,10 @@ namespace DSU21_5.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Firstname = Input.Firstname,  Lastname = Input.Lastname };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                var member = new Member { Firstname = Input.Firstname, Lastname = Input.Lastname, Email = Input.Email, MemberId = user.Id };
+                MemberRepository memberRepository = new MemberRepository(db);
+                var results = await memberRepository.AddMember(member);
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -98,7 +107,7 @@ namespace DSU21_5.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
+                    
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

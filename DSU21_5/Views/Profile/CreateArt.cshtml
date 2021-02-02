@@ -1,4 +1,4 @@
-﻿@model DSU21_5.Models.Image
+﻿@model DSU21_5.Models.Artwork
 @using Microsoft.AspNetCore.Identity
 @using DSU21_5.Areas.Identity.Data
 
@@ -10,7 +10,7 @@
 }
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateArt";
     Layout = "_Layout";
 }
 
@@ -19,9 +19,12 @@
 
 <h2>Showcase Your Artwork</h2>
 
-<form asp-action="UploadArtWork" asp-controller="Profile" enctype="multipart/form-data" method="post">
+<form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
+        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name">
+        <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
+
         <input asp-for="ImageFile" type="file" class="form-control-file">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />

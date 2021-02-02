@@ -39,9 +39,11 @@ namespace DSU21_5.Migrations.AuthDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")
