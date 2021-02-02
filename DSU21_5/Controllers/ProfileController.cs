@@ -93,7 +93,7 @@ namespace DSU21_5.Controllers
             catch (Exception ex)
             {
                 //TODO: Fixa en errorsida
-                return View();
+                return View(ex);
             }
             return RedirectToAction($"Index", new { Id });
         }
@@ -102,8 +102,16 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteArtConfirm(int Id)
         {
-            Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
-            await ArtRepository.DeleteArtworkFromArtworkTable(artwork);
+            try
+            {
+                Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
+                await ArtRepository.DeleteArtworkFromArtworkTable(artwork);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Fixa en errorsida
+                return View(ex);
+            }
             return Json(true);
         }
     }
