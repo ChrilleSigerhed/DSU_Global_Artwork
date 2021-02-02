@@ -75,14 +75,8 @@
                         </li>
                 }
             </ul>
-            @*<h1 id="painting-name"></h1>
-            <br /><br />
-            <div id=art-source><img src="#"></div>
-            <p id="art-title"></p><br />
-            <p id="art-artist"></p><br />
-            <p id="art-year"></p>
-            <p id="art-description"></p>
-            <p id="art-height-width"></p>*@
+            <div id="cross"><img src="/images/cross.png" /></div>
+           
         </div>
         <div id="exit" style="display: none">
             <h1>Do you want to exit the exhibition?</h1>
@@ -132,13 +126,7 @@
         init();
         animate();
         function hideAllArtInfo() {
-            //var ul, li
-            //ul = document.getElementById('myUL')
-            //li = ul.getElementByTagName('li')
-            //for (var i = 0; i < li.length; i++) {
 
-            //    li[i].style.display = "none"
-            //}
             for (var i = 0; i < document.getElementById("myUL").children.length; i++) {
 
                 document.getElementById("myUL").children[i].style.display = "none"
@@ -154,9 +142,7 @@
                     li[i].style.display = "block"
                 }
             }
-            //var ID = image.Number
-            //console.log(ID)
-            //document.getElementById("myUL").children[ID].style.display = "block"
+
         }
         function init() {
 
@@ -183,12 +169,7 @@
 
             const artInfo = document.getElementById('artInfo');
             const artInfoSource = document.getElementById('myUL');
-            //const artInfoTitle = document.getElementById('art-title');
-            //const artInfoArtist = document.getElementById('art-artist');
-            //const artInfoYear = document.getElementById('art-year');
-            //const artInfoDescription = document.getElementById('art-description');
-            //const artInfoHeightWidth = document.getElementById('art-height-width');
-            //const artInfoNameContent = document.getElementById('painting-name');
+            const exitDetailsCross = document.getElementById('cross');
 
 
 
@@ -199,6 +180,10 @@
 
             artInfo.style.display = 'none';
             exitScreen.style.display = 'none';
+
+            exitDetailsCross.addEventListener('touchstart', function () {
+                controls.lock();
+            });
 
             instructions.addEventListener('click', function () {
 
@@ -230,8 +215,7 @@
                 if (artIsClicked === true) {
                     blocker.style.display = 'block';
                     artInfo.style.display = 'block';
-                    //artInfoSource.innerHTML = artInfoPicture;
-                    //artInfoNameContent.innerHTML = artInfoName
+
 
                 }
                 else if (exitIsClicked === true) {
@@ -742,9 +726,9 @@
             raycaster.near = 0;
 
             var intersects = raycaster.intersectObjects(scene.children);
-            console.log(intersects);
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
+                controls.lock();
                 controls.unlock();
             } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall') {
 
@@ -753,15 +737,11 @@
                 controls.unlock();
                 let image = intersects[0].object;
                 showArtInfo(image);
-                //let fuck = 0;
-                //artInfoPicture = image.material.map.image.outerHTML;
-                //artInfoName = image.name;
+                 
+            
 
                 controls.unlock();
-                /*
-                instructions.style.display = 'none';
-                artInfo.style.display = '';
-                */
+            
 
             }
         }
@@ -775,15 +755,6 @@
             const time = performance.now();
 
             if (controls.isLocked === true || onMobileDevice === true) {
-
-                /* raycaster.ray.origin.copy( controls.getObject().position );
-                 raycaster.ray.origin.y -= 10;
-
-                 const intersections = raycaster.intersectObjects( scene.children );
-
-
-                 const onObject = intersections.length > 0;
-                 */
 
 
 
@@ -835,13 +806,6 @@
                     controls.getObject().position.z = -142;
                 }
 
-
-                /* if ( onObject === true ) {
-
-                     console.log(intersections);
-                     velocity.y = Math.max( 0, velocity.y );
-                     canJump = true;
-                 }*/
 
                 controls.moveRight(- velocity.x * delta);
                 controls.moveForward(- velocity.z * delta);

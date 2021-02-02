@@ -24,7 +24,7 @@ var PointerLockControls = function (camera, domElement) {
 	//
 	// internals
 	//
-
+	
 	
 
 	var scope = this;
@@ -32,7 +32,7 @@ var PointerLockControls = function (camera, domElement) {
 	var lockEvent = { type: 'lock' };
 	var unlockEvent = { type: 'unlock' };
 	var unlockForArtEvent = { type: 'unlockForArt' };
-	var onMobile = true;
+	
 
 	var euler = new Euler(0, 0, 0, 'YXZ');
 
@@ -45,9 +45,7 @@ var PointerLockControls = function (camera, domElement) {
 	function onMouseMove(event) {
 
 		var movementX, movementY;
-		console.log('drar');
-		if (scope.isLocked === false && onMobile === false) return;
-		console.log('drar efter');
+		//if (scope.isLocked === false) return;
 
 		if (event.type === 'touchmove') {
 			const touch = event.touches[0];
