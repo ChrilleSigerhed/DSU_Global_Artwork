@@ -40,7 +40,14 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  box-shadow: 1px 1px black;
 }
+
+.textarea-art, .from-control-art{ 
+    margin-top: 1%;
+}
+
+
 
 
 // Links
