@@ -115,6 +115,70 @@ h1, h2, h3, h4, h5, h6, figure {
   text-align: center;
 }
 
+
+.art-details {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+}
+
+.art-image img {
+    width: 500px;
+    height: 700px;
+    margin-top: 70px;
+    margin-left: 70px;
+}
+
+.image-info {
+    margin-top: 70px;
+    font-size: 16px;
+    padding-left: 70px;
+    padding-right: 20px;
+}
+
+    .image-info h1 {
+        text-decoration: underline;
+    }
+
+.view-art {
+    display: flex;
+    padding: 20px;
+}
+
+.artist-artwork {
+    margin: 40px;
+}
+
+.artwork-img img {
+    width: 150px;
+    height: 200px;
+}
+
+.art-container {
+    border-top: 1px solid #f2f2f2;
+    margin-top: 40px;
+}
+
+    .art-container h2 {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+.artwork-info h3 {
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.artwork-info p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+}
+
 .gtco-nav {
   position: absolute;
   top: 0;
