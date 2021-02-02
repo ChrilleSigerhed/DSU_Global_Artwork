@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using DSU21_5.Infrastructure;
-using DSU21_5.Models.ViewModels;
+using DSU21_5.Models.ViewModel;
 
 namespace DSU21_5.Mock
 {
@@ -20,17 +20,17 @@ namespace DSU21_5.Mock
             basePath = $"{webHostEnvironment.ContentRootPath}\\Mock\\";
         }
         
-        public Task<ImageModel> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, ImageModel imageModel, string Id)
+        public Task<Image> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, Image imageModel, string Id)
         {
             throw new NotImplementedException();
         }
 
-        public ImageModel GetImageFromDb(string Id)
+        public Image GetImageFromDb(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public ImageModel RemoveImageFromDb(IWebHostEnvironment hostEnvironment, ImageModel imgModel)
+        public Image RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel)
         {
             throw new NotImplementedException();
         }
