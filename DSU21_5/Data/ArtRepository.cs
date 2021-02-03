@@ -51,10 +51,18 @@ namespace DSU21_5.Data
             Artwork artwork = db.Artworks.Where(x => x.ArtworkId == id).FirstOrDefault();
             return artwork;
         }
-        public async Task<Artwork> DeleteArtworkFromArtworkTable(Artwork artwork)
+        public async Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment hostEnvironment, Artwork artwork)
         {
             db.Artworks.Remove(artwork);
             await db.SaveChangesAsync();
+            string wwwRootPath = hostEnvironment.WebRootPath;
+            string path = Path.Combine(wwwRootPath + "/imagesArt/", artwork.ImageName);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                File.Delete(path);
+            }
+           
             return artwork;
         }
     }
