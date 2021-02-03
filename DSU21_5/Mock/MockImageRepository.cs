@@ -41,7 +41,9 @@ namespace DSU21_5.Mock
             return  new ShowroomViewModel(FileHandler.GetData<List<ShowroomImageModel>>($"{basePath}ShowroomImageMock.json"));
         }
 
-
-      
+        public List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

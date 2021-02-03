@@ -1,4 +1,4 @@
-﻿@model List<Member>
+﻿@model CommunityViewModel
 
 @{
     ViewData["Title"] = "Community";
@@ -12,11 +12,11 @@
 <div class="community-container">
     <div class="members-container">
         <h1>Members</h1>
-        @foreach (Member member in Model)
+        @foreach (var member in Model.CommunityMembers)
         {
             <div class="member">
                 <div class="member-img">
-                    <img src="images/person_1.jpg" />
+                    <img src="image/@member.ProfilePicture" />
                 </div>
                 <div class="member-info">
                     <h2>@member.Firstname @member.Lastname</h2>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         }
-
+       
       
     <div class="chat-container">
         <form action="#">
