@@ -18,15 +18,16 @@
             @for (int i = 0; i < Model.CollectiveArt.Count; i++)
             {
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/exhibit2.jpeg" class="fh5co-project-item image-popup">
+
+                    <a href="~/imagesArt/@Model.CollectiveArt[i].ImageName" class="fh5co-project-item image-popup">
 
                         <figure>
                             <div class="overlay"><i class="ti-plus"></i></div>
                             <img src="~/imagesArt/@Model.CollectiveArt[i].ImageName" alt="Image" class="img-responsive">
                         </figure>
                         <div class="fh5co-text">
-                            <h2>Exhibition name</h2>
-                            <p>2021-01-25 till 2021-02-01</p>
+                            <h2>@Model.CollectiveArt[i].ArtName</h2>
+                            <p>Uploaded by @Model.CollectiveArt[i].Firstname @Model.CollectiveArt[i].Lastname </p>
                         </div>
                     </a>
                 </div>

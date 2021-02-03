@@ -33,6 +33,18 @@ namespace DSU21_5.Models
         [Column(TypeName = "nvarchar(100)")]
         public string Description { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
+        public string Year { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        public string Height { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        public string Width { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        public string Type { get; set; }
+
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }

@@ -32,7 +32,7 @@ var PointerLockControls = function (camera, domElement) {
 	var lockEvent = { type: 'lock' };
 	var unlockEvent = { type: 'unlock' };
 	var unlockForArtEvent = { type: 'unlockForArt' };
-	
+
 
 	var euler = new Euler(0, 0, 0, 'YXZ');
 
@@ -45,7 +45,7 @@ var PointerLockControls = function (camera, domElement) {
 	function onMouseMove(event) {
 
 		var movementX, movementY;
-		//if (scope.isLocked === false) return;
+		if (scope.isLocked === false && event.type != 'touchmove') return;
 
 		if (event.type === 'touchmove') {
 			const touch = event.touches[0];

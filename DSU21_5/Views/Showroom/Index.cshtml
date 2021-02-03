@@ -60,20 +60,36 @@
         </div>
         <div id="artInfo">
             <ul id="myUL">
-                @for (int i = 0; i < Model.Images.Count; i++)
+                @for (int i = 0; i < Model.Images.Count(); i++)
                 {
-                        <li id="@(i+1)" style="display: none">
-                            <div id="art-info-text">
-                                <h1 id="painting-title">@Model.Images[i].Title</h1>
-                                <p id="art-artist">Artist: @Model.Images[i].Artist</p>
-                                <p id="art-year">Year: @Model.Images[i].Year</p>
-                                <p id="art-description">Description: @Model.Images[i].Description</p>
-                                <p id="art-type">Type: @Model.Images[i].Type</p>
-                                <p id="art-height-width">Measurements: @Model.Images[i].Height x @Model.Images[i].Width cm</p>
-                            </div>
-                            <div id=art-source><img src="@Model.Images[i].Source"></div>
-                        </li>
+                    <li id="@(i+1)" style="display: none">
+                        <div id="art-info-text">
+                            <h1 id="painting-title">@Model.Images.ElementAt(i).ArtName</h1>
+                            <p id="art-artist">Artist: @Model.Images.ElementAt(i).Firstname @Model.Images.ElementAt(i).Lastname</p>
+                            <p id="art-year">Year: @Model.Images.ElementAt(i).Year</p>
+                            <p id="art-description">Description: @Model.Images.ElementAt(i).Description</p>
+                            <p id="art-type">Type: @Model.Images.ElementAt(i).Type</p>
+                            <p id="art-height-width">Measurements: @Model.Images.ElementAt(i).Height x @Model.Images.ElementAt(i).Width cm</p>
+                        </div>
+                        <div id=art-source><img src="/imagesArt/@Model.Images.ElementAt(i).ImageName"></div>
+                    </li>
                 }
+
+                @*Detta är bara för att det inte finns tillräckligt mycket konstverk att titta på ATM.*@
+                @*@for (int i = 0; i < 16; i++)
+                {
+                    <li id="@(i+1)" style="display: none">
+                        <div id="art-info-text">
+                            <h1 id="painting-title">@Model.Images.ElementAt(0).ArtName</h1>
+                            <p id="art-artist">Artist: @Model.Images.ElementAt(0).Firstname @Model.Images.ElementAt(0).Lastname</p>
+                            <p id="art-year">Year: @Model.Images.ElementAt(0).Year</p>
+                            <p id="art-description">Description: @Model.Images.ElementAt(0).Description</p>
+                            <p id="art-type">Type: @Model.Images.ElementAt(0).Type</p>
+                            <p id="art-height-width">Measurements: @Model.Images.ElementAt(0).Height x @Model.Images.ElementAt(0).Width cm</p>
+                        </div>
+                        <div id=art-source><img src="/imagesArt/@Model.Images.ElementAt(0).ImageName"></div>
+                    </li>
+                }*@
             </ul>
             <div id="cross"><img src="/images/cross.png" /></div>
            
@@ -100,7 +116,7 @@
         let camera, scene, renderer, controls;
 
         const objects = [];
-       
+
 
         let raycaster;
 
@@ -505,25 +521,29 @@
             mesh.position.set(126, 17.5, 11);
 
             //Tavlor Vänsteryttervägg
-            var art = new THREE.TextureLoader().load('@Model.Images[0].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(0).ImageName');
+
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 1;
+            //mesh.background = 0xFFFFFF;
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -27);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[1].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(1).ImageName');
+            console.log(art);
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 2;
+            //mesh.background = 0xFFFFFF;
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -70);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[2].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(2).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -532,7 +552,7 @@
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -113);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[3].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(3).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -543,7 +563,7 @@
 
             //Tavlor YtterFramVägg
 
-            var art = new THREE.TextureLoader().load('@Model.Images[4].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(4).ImageName');
             var geometry = new THREE.BoxGeometry(8, 10, 0.1);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -553,7 +573,7 @@
             mesh.position.set(7, 12, -191.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[5].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(5).ImageName');
             var geometry = new THREE.BoxGeometry(8, 10, 0.1);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -562,7 +582,7 @@
             mesh.position.set(50, 12, -191.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[6].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(6).ImageName');
             var geometry = new THREE.BoxGeometry(8, 10, 0.1);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -573,7 +593,7 @@
 
             //Tavlor YtterHögerVägg
 
-            var art = new THREE.TextureLoader().load('@Model.Images[7].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(7).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -582,7 +602,7 @@
             mesh.position.set(126.5, 12, -27);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[8].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(8).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -591,7 +611,7 @@
             scene.add(mesh);
             mesh.position.set(126.5, 12, -70);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[9].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(9).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -600,7 +620,7 @@
             scene.add(mesh);
             mesh.position.set(126.5, 12, -113);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[10].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(10).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -612,16 +632,16 @@
             //Tavla YtterväggBak
 
 
-            var art = new THREE.TextureLoader().load('@Model.Images[11].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(11).ImageName');
             var geometry = new THREE.BoxGeometry(8, 10, 0.1);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1, map: art });
+            var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 12;
 
             mesh.position.set(50, 12, 11.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[12].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(12).ImageName');
             var geometry = new THREE.BoxGeometry(8, 10, 0.1);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -632,16 +652,16 @@
 
 
             //Tavla InnerväggVänster
-            var art = new THREE.TextureLoader().load('@Model.Images[13].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(13).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 8, 13);
-            var material = new THREE.MeshLambertMaterial({ map: art });
+            var material = new THREE.MeshLambertMaterial({map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 14;
 
             mesh.position.set(26.5, 12, -70);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[14].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(14).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 8, 13);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -651,16 +671,17 @@
             scene.add(mesh);
 
             //TavlorInnerväggHöger
-            var art = new THREE.TextureLoader().load('@Model.Images[15].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(15).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
+            material.color = { r: 255, g: 255, b: 255 };
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 16;
 
             mesh.position.set(73.5, 12, -70);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('@Model.Images[16].Source');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(16).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
@@ -716,7 +737,7 @@
                 mouse.y = -(event.clientY / renderer.domElement.height ) * 2 + 1;
             }
             else {
-                
+
                 mouse.x = 0; /*( event.clientX / renderer.domElement.width ) * 2 - 1;*/
                 mouse.y = 0;/*- ( event.clientY / renderer.domElement.height ) * 2 + 1;*/ //If you want the raycaster to look at the position of the mouse
             }
@@ -726,24 +747,27 @@
             raycaster.near = 0;
 
             var intersects = raycaster.intersectObjects(scene.children);
+            console.log(intersects[0].object)
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
                 controls.lock();
                 controls.unlock();
-            } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall') {
+            } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall' && intersects[0].object.material.map.image.outerHTML != '<img crossorigin="anonymous" src="/imagesArt/EmptySpaceInShowroom.jpg">') {
 
+                let image = intersects[0].object;
                 artIsClicked = true;
                 controls.lock();
                 controls.unlock();
-                let image = intersects[0].object;
+                
                 showArtInfo(image);
-                 
-            
+
+
 
                 controls.unlock();
-            
+
 
             }
+           
         }
 
 

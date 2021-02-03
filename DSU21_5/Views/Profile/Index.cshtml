@@ -17,13 +17,13 @@
     <thead>
         <tr>
             @*<th>
-                <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
-                @Html.DisplayNameFor(model => model.ImageName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>*@
+                    <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th></th>*@
         </tr>
     </thead>
     <!--<tbody>-->
@@ -46,7 +46,7 @@
                 </tr>
         }*@
     <!--</tbody>-->
- 
+
     <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
     </header>
 
@@ -58,7 +58,7 @@
                         <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
                         <h3>@user.Firstname @user.Lastname</h3>
                         <div class="form-group">
-                            <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id" ></a>
+                            <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
                         </div>
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">
@@ -91,17 +91,29 @@
             </div>
             <div class="artwork-container">
                 <h4>My Artworks</h4>
-                @*TODO: Skapa en foreach för*@
                 @foreach (var item in Model.AllArtwork)
                 {
-                    <picture>
-                        <img src="~/imagesArt/@item.ImageName">
-                    </picture>
+                      <div id="removeMe-@item.ArtworkId">
+                              <picture>
+                                  <img src="~/imagesArt/@item.ImageName">
+                              </picture>
+                              <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                  <input type="submit" value="Delete" class="btn btn-danger" />
+                              </form>
+                     </div>
                 }
             </div>
         </div>
     </div>
 
+    <script src="~/js/jquery.countTo.js"></script>
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="~/js/site.js"></script>
     @*<p>
             <a asp-action="Create">Create New</a>
         </p>
@@ -138,4 +150,4 @@
         }*@
     <!--</tbody>-->
 </table>
-<a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
+

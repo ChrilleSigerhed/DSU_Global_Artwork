@@ -12,7 +12,7 @@ using DSU21_5.Models.ViewModel;
 
 namespace DSU21_5.Mock
 {
-    public class MockImageRepository : IImageRepository
+    public class MockImageRepository : IArtRepository
     { 
         private string basePath;
         public MockImageRepository(IWebHostEnvironment webHostEnvironment)
@@ -35,13 +35,40 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public async Task<ShowroomViewModel> GetShowroomImages()
+        public Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
-            await Task.Delay(0);
-            return  new ShowroomViewModel(FileHandler.GetData<List<ShowroomImageModel>>($"{basePath}ShowroomImageMock.json"));
+            throw new NotImplementedException();
         }
 
+        public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member)
+        {
+            throw new NotImplementedException();
+        }
 
-      
+        public async Task<ShowroomViewModel> GetPostedArtFromUniqueUser(string Id)
+        {
+            await Task.Delay(0);
+            return new ShowroomViewModel(FileHandler.GetData<List<Artwork>>($"{basePath}ShowroomImageMock.json"));
+        }
+
+        Task<IEnumerable<Artwork>> IArtRepository.GetPostedArtFromUniqueUser(string Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ArtworkViewModel> GetViewModel()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
