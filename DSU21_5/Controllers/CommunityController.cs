@@ -13,12 +13,17 @@ namespace DSU21_5.Controllers
     {
         public IMemberRepository MemberRepository {get; set;}
         public IImageRepository ImageRepository { get; set; }
+        public IArtRepository ArtRepository { get; set; }
+        public ProfileViewModel ProfileViewModel { get; set; }
+
         public CommunityViewModel CommunityViewModel { get; set; }
 
-        public CommunityController(IMemberRepository memberRepository, IImageRepository imageRepository)
+
+        public CommunityController(IMemberRepository memberRepository, IImageRepository imageRepository, IArtRepository artRepository)
         {
             MemberRepository = memberRepository;
             ImageRepository = imageRepository;
+            ArtRepository = artRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -28,6 +33,16 @@ namespace DSU21_5.Controllers
             
             CommunityViewModel = new CommunityViewModel(listOfImages, listOfMembers);
             return View(CommunityViewModel);
+        }
+    
+        public async Task<IActionResult> Profile(string Id)
+        {
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            return View(ProfileViewModel);
+        
         }
     }
 }

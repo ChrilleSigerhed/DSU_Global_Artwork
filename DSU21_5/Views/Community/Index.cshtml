@@ -14,15 +14,21 @@
         <h1>Members</h1>
         @foreach (var member in Model.CommunityMembers)
         {
-            <div class="member">
-                <div class="member-img">
-                    <img src="image/@member.ProfilePicture" />
+           
+                <div class="member">
+                    <div class="member-img">
+                        <img src="image/@member.ProfilePicture" />
+                    </div>
+                    <div class="member-info">
+                        <h2>@member.Firstname @member.Lastname</h2>
+                        <p>@member.Email</p>
+                        <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view"/></a>
+                    </div>
                 </div>
-                <div class="member-info">
-                    <h2>@member.Firstname @member.Lastname</h2>
-                    <p>@member.Email</p>
-                </div>
-            </div>
+
+             
+               
+       
         }
        
       

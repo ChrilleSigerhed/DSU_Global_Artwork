@@ -1344,7 +1344,19 @@ form label {
   background: #f54c53;
   color: #fff;
   border: 2px solid #f54c53 !important;
+
 }
+.btn-primary-view {
+    background: #1b6ec2;
+    color: #fff;
+    border: 2px solid #f54c53 !important;
+    font-size: 10px;
+}
+    .btn-primary-view:hover {
+        background: #f6646a !important;
+        border-color: #f6646a !important;
+        font-size: 10px;
+    }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background: #f6646a !important;
   border-color: #f6646a !important;
