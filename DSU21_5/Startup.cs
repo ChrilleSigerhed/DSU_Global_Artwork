@@ -30,7 +30,8 @@ namespace DSU21_5
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IImageRepository, ImageRepository>();
-            services.AddScoped<IArtRepository, ArtRepository>(); 
+            services.AddScoped<IArtRepository, ArtRepository>();
+            services.AddSignalR();
             
         }
 
@@ -55,12 +56,18 @@ namespace DSU21_5
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSignalR(routes => 
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
