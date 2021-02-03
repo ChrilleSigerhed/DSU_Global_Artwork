@@ -12,6 +12,8 @@ namespace DSU21_5.Data
         Task<IEnumerable<Artwork>> GetArtThatsPosted();
         Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member); //TODO: Kolla varför interface inte klagar på att man inte implementerat alla metoder
         Task<IEnumerable<Artwork>> GetPostedArtFromUniqueUser(string Id);
+        Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork);
+        Artwork GetArtworkThatsGonnaBeDeleted(int id);
 
 
     }

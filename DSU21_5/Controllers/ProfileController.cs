@@ -33,6 +33,7 @@ namespace DSU21_5.Controllers
             ArtRepository = artRepository;
         }
 
+        [Route("/Profile/Index/{Id}")]
         public async Task<IActionResult> Index(string Id)
         {
             Image image = ImageRepository.GetImageFromDb(Id);
@@ -47,6 +48,7 @@ namespace DSU21_5.Controllers
             var image = ImageRepository.GetImageFromDb(Id);
             return View(image);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
@@ -91,9 +93,26 @@ namespace DSU21_5.Controllers
             catch (Exception ex)
             {
                 //TODO: Fixa en errorsida
-                return View();
+                return View(ex);
             }
             return RedirectToAction($"Index", new { Id });
+        }
+
+        [HttpPost, ActionName("DeleteArt")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteArtConfirm(int Id)
+        {
+            try
+            {
+                Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
+                await ArtRepository.DeleteArtworkFromArtworkTable(_hostEnvironment, artwork);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Fixa en errorsida
+                return View(ex);
+            }
+            return Json(Id);
         }
     }
 }
