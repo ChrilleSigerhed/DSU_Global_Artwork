@@ -117,6 +117,17 @@ namespace DSU21_5.Controllers
             }
             return RedirectToAction($"Index", new { Id });
         }
+
+        public async Task<IActionResult> Edit(string Id)
+        {
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            return View(ProfileViewModel);
+        }
+
+
     }
 }
 
