@@ -36,6 +36,9 @@ namespace DSU21_5
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddScoped<IMemberRepository, MemberRepository>();
 
+            services.AddScoped<IArtRepository, ArtRepository>();
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,12 +62,18 @@ namespace DSU21_5
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSignalR(routes => 
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
