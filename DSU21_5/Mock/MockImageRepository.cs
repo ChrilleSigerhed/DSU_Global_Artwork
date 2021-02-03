@@ -65,5 +65,10 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<ArtworkViewModel> GetViewModel()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
