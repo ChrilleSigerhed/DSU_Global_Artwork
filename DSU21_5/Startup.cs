@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSU21_5.Areas.Identity.Data;
 using DSU21_5.Data;
+using DSU21_5.Mock;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,10 +30,15 @@ namespace DSU21_5
             services.AddDbContext<ImageDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ImageDbContextConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+
             services.AddScoped<IImageRepository, ImageRepository>();
+            //services.AddScoped<IImageRepository, MockImageRepository>();
+            services.AddScoped<IArtRepository, ArtRepository>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
+
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddSignalR();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

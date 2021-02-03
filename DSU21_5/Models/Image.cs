@@ -9,16 +9,19 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Image
+    public class Image : IImage
     {
         [Key]
         public int ImageId { get; set; }
+
         [Column(TypeName = "nvarchar(100)")]
         [DisplayName("Image Name")]
         public string ImageName { get; set; }
-        [Required]
-        [Column(TypeName = "nvarchar(100)")]
+
+        [ForeignKey("Member")]
         public string UserId { get; set; }
+        public Member Member { get; set; }
+
         [NotMapped]
         [DisplayName("Upload File")]
         public IFormFile ImageFile { get; set; }

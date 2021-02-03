@@ -115,6 +115,50 @@ h1, h2, h3, h4, h5, h6, figure {
   text-align: center;
 }
 
+
+.community-container {
+    width: 100%;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+}
+
+.members-container {
+    margin-right: 300px;
+    padding: 20px;
+    float: left;
+}
+
+.member {
+    display: flex;
+    margin: 10px;
+}
+
+.member-img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.member-info h2 {
+    font-size: 16px;
+    padding: 3px;
+    margin: 0;
+}
+
+.member-info p {
+    font-size: 12px;
+    margin: 3px;
+}
+
+.chat-container {
+    margin-top: 50px;
+    padding: 0;
+    float: right;
+}
+
+
+
 .gtco-nav {
   position: absolute;
   top: 0;
