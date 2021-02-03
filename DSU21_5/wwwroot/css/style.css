@@ -112,7 +112,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #community-header-text {
-    margin-right: 15%;
+    margin-right: 5%;
 }
 
 .artwork-container img {
@@ -137,12 +137,16 @@ h1, h2, h3, h4, h5, h6, figure {
   z-index: 1001;
 }
 
-.login-register{
+.login-register {
     float:right;
 }
 
+#navbar-login {
+    display: inline;
+}
+
 @media screen and (max-width: 768px) {
-  .gtco-nav {
+    .gtco-nav {
     padding: 20px 0;
   }
 }

@@ -26,11 +26,56 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
     <link rel="stylesheet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
     <link rel="stylesheet" href="~/css/profile.css">
+
+    <link rel="stylesheet" href="~/css/modal.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+
 </head>
 
-<div class="profile-page">
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">My Bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        
+
+            <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Description:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div>
+
+            </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="profile-page">
     <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+    
+
     <div class="main main-raised">
         <div class="profile-content">
             <div class="container">
@@ -43,30 +88,43 @@
                                 <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
 
                             </div>
-                            
 
-                                <div id="upload-profile-pic-button" class="form-group">
-                                    <a asp-action="Edit"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
-                                </div>
+
+                            <div id="upload-profile-pic-button" class="form-group">
+                                <a asp-action="Edit"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
+                            </div>
                             <div class="name">
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
                                 <h6>Artist</h6>
                             </div>
-                            
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <a asp-action="Edit"><input type="submit" value="Edit Bio" class="btn btn-primary" asp-for="@user.Id"></a>
+                    @*<a><input type="submit" value="Edit Bio" class="btn btn-primary" asp-for="@user.Id" data-toggle="modal" data-target="#myModal"></a>*@
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit Bio</button>
                 </div>
+
+
                 <div class="description text-center">
 
                     <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
                 </div>
-                
+
+
+
+
+
+
+
+
+
+
+
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
@@ -164,6 +222,9 @@
 
 
 </div>
+
+
+
 
 @*GAMMALT*@
 

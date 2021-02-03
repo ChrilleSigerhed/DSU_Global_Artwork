@@ -53,7 +53,10 @@
     display: contents;
 }
 
-
+#edit-bio-button {
+    position: absolute;
+    z-index: 2000;
+}
 
 
 
