@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210201103301_initial-create")]
-    partial class initialcreate
+    [Migration("20210203141450_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,9 @@ namespace DSU21_5.Migrations.ImageDb
                 {
                     b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -39,8 +39,9 @@ namespace DSU21_5.Controllers
            Image image=  ImageRepository.GetImageFromDb(Id);
            Member member = await MemberRepository.GetMember(Id);
            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-           ProfileViewModel = new ProfileViewModel(artwork, member, image);
-            return View(ProfileViewModel);
+           String bio = member.Bio;
+           ProfileViewModel = new ProfileViewModel(artwork, member, image, bio);
+           return View(ProfileViewModel);
             
             //if(image != null)
             //{
@@ -123,7 +124,8 @@ namespace DSU21_5.Controllers
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            String bio = member.Bio;
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, bio);
             return View(ProfileViewModel);
         }
 

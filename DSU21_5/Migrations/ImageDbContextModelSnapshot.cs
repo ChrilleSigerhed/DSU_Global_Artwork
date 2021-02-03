@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
     partial class ImageDbContextModelSnapshot : ModelSnapshot
@@ -70,6 +70,9 @@ namespace DSU21_5.Migrations.ImageDb
                 {
                     b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Email")
                         .IsRequired()

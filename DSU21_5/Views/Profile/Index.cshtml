@@ -39,7 +39,7 @@
                             
 
                                 <div class="avatar">
-                                            <a asp-action="Edit" asp-for="@user.Id"> @*TODO: Fixa klart hover på profilbild*@
+                                            <a asp-action="Edit" asp-route-id="@user.Id"> @*TODO: Fixa klart hover på profilbild*@
                                                 <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid"/>
                                         <div class="item">
                                                 <div class="edit-profile">
@@ -59,7 +59,7 @@
                         </div>
                 </div>
                 <div class="description text-center">
-                    <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                    <p>@Model.Bio</p>
                 </div>
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
@@ -83,32 +83,31 @@
                     </div>
                 </div>
 
-                <div class="artwork-container">
-                    <h4>My Artworks</h4>
-                    @foreach (var item in Model.AllArtwork)
-                    {
-                        <picture>
-                            <img src="~/imagesArt/@item.ImageName">
-
-                        </picture>
-
-                    }
-                </div>
-
                 <div class="tab-content tab-space">
                     <div class="tab-pane active text-center gallery" id="studio">
                         <div class="row">
                             <div class="col-md-3 ml-auto">
-                                <img src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80" class="rounded">
-                                <img src="https://images.unsplash.com/photo-1528249227670-9ba48616014f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=66b8e7db17b83084f16fdeadfc93b95b&auto=format&fit=crop&w=357&q=80" class="rounded">
+                                @for (int i = 0; i < Model.AllArtwork.Count; i++)
+                                {
+                                    if (i % 2 == 1)
+                                    {
+                                        <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded">
+                                    }
+                                }
                             </div>
                             <div class="col-md-3 mr-auto">
-                                <img src="https://images.unsplash.com/photo-1521341057461-6eb5f40b07ab?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=72da2f550f8cbd0ec252ad6fb89c96b2&auto=format&fit=crop&w=334&q=80" class="rounded">
-                                <img src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80" class="rounded">
+                                @for (int i = 0; i < Model.AllArtwork.Count; i++)
+                                {
+                                    if (i % 2 == 0)
+                                    {
+                                        <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded">
+                                    }
+                                }
                             </div>
                         </div>
                     </div>
                     
+                    TODO: Fix favourites function or delete this
                     <div class="tab-pane text-center gallery" id="favorite">
                         <div class="row">
                             <div class="col-md-3 ml-auto">
@@ -123,8 +122,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -138,14 +135,9 @@
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
-
-
-
 </div>
 
 @*GAMMALT*@
-
-
 
 <!--<div class="gtco-section border-bottom">
     <div class="gtco-container">

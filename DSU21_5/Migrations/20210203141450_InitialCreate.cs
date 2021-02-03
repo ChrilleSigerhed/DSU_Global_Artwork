@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,8 @@ namespace DSU21_5.Migrations.ImageDb
                     MemberId = table.Column<string>(nullable: false),
                     Firstname = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(500)", nullable: true)
                 },
                 constraints: table =>
                 {
