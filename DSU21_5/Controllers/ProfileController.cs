@@ -112,7 +112,7 @@ namespace DSU21_5.Controllers
                 //TODO: Fixa en errorsida
                 return View(ex);
             }
-            return Json(true);
+            return Json(Id);
         }
     }
 }

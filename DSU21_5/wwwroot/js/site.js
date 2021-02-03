@@ -10,9 +10,8 @@ jQueryAjaxDelete = form => {
                 data: new FormData(form),
                 contentType: false,
                 processData: false,
-                success: function (res) {
-                    console.log("we did it");
-                    $("#removeMe").remove();
+                success: function (data) {
+                    $(`#removeMe-${data}`).remove();
                 },
                 error: function (err) {
                     console.log(err)

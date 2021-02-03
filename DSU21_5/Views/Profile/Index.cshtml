@@ -93,7 +93,7 @@
                 <h4>My Artworks</h4>
                 @foreach (var item in Model.AllArtwork)
                 {
-                      <div id="removeMe">
+                      <div id="removeMe-@item.ArtworkId">
                               <picture>
                                   <img src="~/imagesArt/@item.ImageName">
                               </picture>
