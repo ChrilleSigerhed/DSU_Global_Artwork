@@ -1,0 +1,34 @@
+﻿@model List<Member>
+
+@{
+    ViewData["Title"] = "Search Results";
+    Layout = "_Layout";
+}
+
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
+</header>
+
+<div class="search-result">
+    <h1>Search results</h1>
+    <div class="search-form">
+        @foreach (Member member in Model)
+        {
+            <div class="searched-person">
+                <div class="person-info">
+                    <div class="search-img">
+                        <img src="images/person_1.jpg" />
+                    </div>
+                    <div class="name-connection">
+                        <h2>@member.Firstname @member.Lastname</h2>
+                        <p>friend/mutual friend</p>
+                    </div>
+                </div>
+                <div aria-label="addfriend" class="add-friend" role="button" tabindex="0" onclick="changeIcon()">
+                        <i class="fas fa-user-plus" id="addIcon"></i>
+                    
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

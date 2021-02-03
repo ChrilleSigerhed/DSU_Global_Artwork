@@ -118,9 +118,10 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .community-container {
     width: 100%;
-    height: auto;
+    height: 100%;
     margin: 5px;
     padding: 5px;
+    display: flex !important;
 }
 
 .members-container {
@@ -157,17 +158,85 @@ h1, h2, h3, h4, h5, h6, figure {
     float: right;
 }
 
+.s-bar{
+    width: 200px;
+}
+
+.search-result{
+    padding-top: 120px;
+}
+
+.search-result h1{
+    margin-left:60px;
+}
+
+
+.search-form {
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+    max-width: 600px;
+}
+
+.searched-person {
+    display: flex;
+    border-bottom: 1.5px solid #f2f2f2;
+}
+
+.person-info {
+    display: flex;
+}
+
+.search-img img {
+    margin: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.name-connection {
+    margin-top: 20px;
+    width: 400px;
+    height: 50px;
+    text-align: left;
+}
+
+    .name-connection h2 {
+        font-size: 16px;
+        padding: 3px;
+        margin: 0;
+    }
+
+    .name-connection p {
+        font-size: 12px;
+        margin: 3px;
+    }
+
+.add-friend {
+    background-color: #cccccc;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.searched-person .fas {
+    font-size: 20px;
+    color: #000;
+    margin-top: 8px;
+}
 
 
 .gtco-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  padding: 20px 0;
-  z-index: 1001;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 1001;
 }
 
 .login-register{
