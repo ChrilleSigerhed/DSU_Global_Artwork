@@ -55,5 +55,15 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
