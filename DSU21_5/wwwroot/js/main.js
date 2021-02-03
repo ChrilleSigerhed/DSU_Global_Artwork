@@ -286,3 +286,8 @@
 
 
 }());
+
+function changeIcon() {
+	document.querySelector('#addIcon').setAttribute("class", "fas fa-check")
+	document.querySelector('#addIcon').setAttribute("style", "color:purple")
+}
