@@ -14,55 +14,83 @@
         <h1>Members</h1>
         @foreach (var member in Model.CommunityMembers)
         {
-           
-                <div class="member">
-                    <div class="member-img">
-                        <img src="image/@member.ProfilePicture" />
-                    </div>
-                    <div class="member-info">
-                        <h2>@member.Firstname @member.Lastname</h2>
-                        <p>@member.Email</p>
-                        <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view"/></a>
-                    </div>
+
+            <div class="member">
+                <div class="member-img">
+                    <img src="image/@member.ProfilePicture" />
                 </div>
-        }
-       
-     </div>
- </div>
-    <div class="chat-container">
-        <form action="#">
-            <div class="row form-group">
-                <div class="col-md-12">
-                    <label class="sr-only" for="message">Message</label>
-                    <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
+
+                <div class="member-info">
+                    <h2>@member.Firstname @member.Lastname</h2>
+                    <p>@member.Email</p>
+                    <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
                 </div>
             </div>
-            </form>
+        }
+
+
         <div class="chat-container">
             <form action="#">
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label class="sr-only" for="messageBox">Message</label>
-                        <textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
-                        <ul class="form-control" id="messageList"></ul>
+                        <label class="sr-only" for="message">Message</label>
+                        <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
                     </div>
                 </div>
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <input type="text" id="name" class="form-control" placeholder="Write your message">
-                        <input type="text" id="message" class="form-control" placeholder="Write your message">
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <input type="button" id="sendMessageBtn" value="Send Message" class="btn btn-primary">
-                </div>
-
             </form>
+            <div class="chat-container">
+                <form action="#">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="sr-only" for="messageBox">Message</label>
+                            <textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
+                            <ul class="form-control" id="messageList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="text" id="name" class="form-control" placeholder="Write your message">
+                            <input type="text" id="message" class="form-control" placeholder="Write your message">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="sendMessageBtn" value="Send Message" class="btn btn-primary">
+                    </div>
+
+                </form>
+            </div>
         </div>
+        
+
+                   
+
+               
+            
+            <div class="col-12 col-md-7 align-self-center fh5co_mediya_right" id="noPaddingID">
+                <div class="md-form active-pink active-pink-2 mt-0">
+                    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for a movie...">
+                </div>
+                <div class="clearfix" id="fixed">
+                    <ul id="searchUL" style="display: none">
+                        @for (int i = 0; i < Model.CommunityMembers.Count(); i++)
+                        {
+                            <li>
+                                <a asp-action="Index" asp-controller="Profile" asp-route-id="@Model.CommunityMembers.ElementAt(i).MemberId">
+                                    <img class="search-Icon" src="image/@Model.CommunityMembers.ElementAt(i).ProfilePicture">
+                                    <p id="firstname">@Model.CommunityMembers.ElementAt(i).Firstname</p>
+                                    <p id="lastname">@Model.CommunityMembers.ElementAt(i).Lastname</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+    <script src="~/js/searchHandler.js"></script>
     <script src="~/lib/signalr/signalr.js"></script>
     <script src="~/js/site.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
