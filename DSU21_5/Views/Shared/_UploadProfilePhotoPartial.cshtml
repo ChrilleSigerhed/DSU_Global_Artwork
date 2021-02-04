@@ -1,0 +1,48 @@
+﻿@model DSU21_5.Models.Image
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+<div class="modal-header">
+    <h5 class="modal-title">Upload Profile Photo</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <h1>Remote Partial Content</h1>
+
+
+
+@*<h2>Upload profile picture</h2>*@
+
+<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
+        <input asp-for="ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+    </div>
+</form>
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

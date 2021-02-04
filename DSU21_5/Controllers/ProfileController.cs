@@ -23,7 +23,6 @@ namespace DSU21_5.Controllers
         public IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
 
-
         public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
         {
             _context = context;
@@ -39,31 +38,8 @@ namespace DSU21_5.Controllers
            Image image=  ImageRepository.GetImageFromDb(Id);
            Member member = await MemberRepository.GetMember(Id);
            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-           String bio = member.Bio;
-           ProfileViewModel = new ProfileViewModel(artwork, member, image, bio);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
            return View(ProfileViewModel);
-            
-            //if(image != null)
-            //{
-            //    return View(image);
-            //}
-            //else
-            //{
-            //    image = new Image()
-            //    {
-            //        ImageName = "profile.jpeg"
-            //    };
-            //    return View(image);
-            //}
-           //return View(await _context.Images.ToListAsync());
-        }
-
-        // GET: Profile/Create
-        public IActionResult Create(string Id)
-        {
-            // ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, Id);l
-            var image = ImageRepository.GetImageFromDb(Id);
-            return View(image);
         }
 
         // POST: Profile/Create
@@ -71,7 +47,7 @@ namespace DSU21_5.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
+        public async Task<IActionResult> UploadProfilePhoto([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
         {
             var image = imageModel;
             try
@@ -91,17 +67,13 @@ namespace DSU21_5.Controllers
                 //TODO: Fixa en errorsida
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new {Id});
-
+            //return RedirectToAction($"Index", new {Id});
+            return PartialView("_UploadProfilePhotoPartial");
         }
-        //TODO: Skapa CreateArtView
-        public IActionResult CreateArt(string Id)
-        {
-            return View();
-        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
+        public async Task<IActionResult> UploadArtwork([Bind("ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
             try
@@ -116,21 +88,26 @@ namespace DSU21_5.Controllers
                 //TODO: Fixa en errorsida
                 return View();
             }
-            return RedirectToAction($"Index", new { Id });
+            //return RedirectToAction($"Edit", new { Id });
+            return PartialView("_UploadArtPartial");
         }
-
+        
         public async Task<IActionResult> Edit(string Id)
         {
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            String bio = member.Bio;
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, bio);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
         }
+        public async Task<IActionResult> Edited(string Id, string bio)
+        {
 
 
-    }
+
+            return RedirectToAction("Edit");
+        }
+        }
 }
 
 
