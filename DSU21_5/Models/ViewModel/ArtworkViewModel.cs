@@ -9,14 +9,16 @@ namespace DSU21_5.Models.ViewModel
     public class ArtworkViewModel 
     {
         public List<Artwork> CollectiveArt { get; set; } = new List<Artwork>();
-
+        public Member Member { get; set; }
+        public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
 
         /// <summary>
         /// Slumpar ordningen på listan som ska presentera uppladdade konstverk
         /// </summary>
         /// <param name="collectiveArt"></param>
-        public ArtworkViewModel(IEnumerable<Artwork> collectiveArt)
+        public ArtworkViewModel(IEnumerable<Artwork> collectiveArt, Member member)
         {
+            Member = member;
             int?[] newOrderOfArt = new int?[collectiveArt.ToList().Count];
             Random random = new Random();
             random.Next(0, collectiveArt.ToList().Count);
@@ -50,6 +52,33 @@ namespace DSU21_5.Models.ViewModel
                     }
                 }
             }
+            GetListOfArtworkInformation(member, CollectiveArt);
+        }
+        public List<ArtworkInformation> GetListOfArtworkInformation(Member member, List<Artwork> postedArt)
+        {
+            foreach (var item in postedArt)
+            {
+
+                    ArtworkInformation.Add(new ArtworkInformation
+                    {
+                        Firstname = member.Firstname,
+                        Source = item.ImageName,
+                        Lastname = member.Lastname,
+                        Height = item.Height,
+                        Width = item.Width,
+                        Type = item.Type,
+                        Year = item.Year,
+                        Description = item.Description,
+                        Title = item.ArtName,
+                        UserId = member.MemberId
+
+                    });
+            }
+                
+                
+       
+            
+            return ArtworkInformation;
         }
     }
 }

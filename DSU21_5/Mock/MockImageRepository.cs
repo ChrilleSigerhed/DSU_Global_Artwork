@@ -45,11 +45,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public async Task<ShowroomViewModel> GetPostedArtFromUniqueUser(string Id)
-        {
-            await Task.Delay(0);
-            return new ShowroomViewModel(FileHandler.GetData<List<Artwork>>($"{basePath}ShowroomImageMock.json"));
-        }
+      
 
         Task<IEnumerable<Artwork>> IArtRepository.GetPostedArtFromUniqueUser(string Id)
         {
@@ -71,6 +67,11 @@ namespace DSU21_5.Mock
 
         public Task<ArtworkViewModel> GetViewModel()
 
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ArtworkInformation>> GetAllInformation(string Id)
         {
             throw new NotImplementedException();
         }

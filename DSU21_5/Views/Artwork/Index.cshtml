@@ -19,15 +19,15 @@
             {
                 <div class="col-lg-4 col-md-4 col-sm-6">
 
-                    <a href="~/imagesArt/@Model.CollectiveArt[i].ImageName" class="fh5co-project-item image-popup">
+                    <a href="~/imagesArt/@Model.ArtworkInformation[i].Source" class="fh5co-project-item image-popup">
 
                         <figure>
                             <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="~/imagesArt/@Model.CollectiveArt[i].ImageName" alt="Image" class="img-responsive">
+                            <img src="~/imagesArt/@Model.ArtworkInformation[i].Source" alt="Image" class="img-responsive">
                         </figure>
                         <div class="fh5co-text">
-                            <h2>@Model.CollectiveArt[i].ArtName</h2>
-                            <p>Uploaded by @Model.CollectiveArt[i].Firstname @Model.CollectiveArt[i].Lastname </p>
+                            <h2>@Model.ArtworkInformation[i].Title</h2>
+                            <p>Uploaded by @Model.ArtworkInformation[i].Firstname @Model.ArtworkInformation[i].Lastname </p>
                         </div>
                     </a>
                 </div>
