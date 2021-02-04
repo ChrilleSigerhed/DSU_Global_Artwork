@@ -17,13 +17,14 @@ namespace DSU21_5.Controllers
 
         public ArtworkViewModel ArtworkViewModel;
 
-        public ArtworkController(IArtRepository artRepository)
+        public ArtworkController(IArtRepository artRepository, IMemberRepository memberRepository)
         {
             ArtRepository = artRepository;
+            MemberRepository = memberRepository;
         }
         public async Task<IActionResult> Index(string Id)
         {
-            var member = await MemberRepository.GetMember(Id);
+            var member = await MemberRepository.GetAllMembers();
             IEnumerable<Artwork> listOfMovies = await ArtRepository.GetArtThatsPosted();
             ArtworkViewModel = new ArtworkViewModel(listOfMovies, member);
             return View(ArtworkViewModel);

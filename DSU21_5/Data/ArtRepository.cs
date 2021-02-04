@@ -17,10 +17,10 @@ namespace DSU21_5.Data
         {
             db = context;
         }
-        public async Task<ArtworkViewModel> GetViewModel()
+        public async Task<ArtworkViewModel> GetViewModel(List<Member> members)
         {
             var list = await GetArtThatsPosted();
-            var model = new ArtworkViewModel(list);
+            var model = new ArtworkViewModel(list, members);
             return model;
         }
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()

@@ -9,27 +9,75 @@ namespace DSU21_5.Models.ViewModel
     public class ArtworkViewModel 
     {
         public List<Artwork> CollectiveArt { get; set; } = new List<Artwork>();
-        public Member Member { get; set; }
+        public List<Member> Members { get; set; }
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
 
         /// <summary>
         /// Slumpar ordningen på listan som ska presentera uppladdade konstverk
         /// </summary>
         /// <param name="collectiveArt"></param>
-        public ArtworkViewModel(IEnumerable<Artwork> collectiveArt, Member member)
+        public ArtworkViewModel(IEnumerable<Artwork> collectiveArt, List<Member> members)
         {
-            Member = member;
-            int?[] newOrderOfArt = new int?[collectiveArt.ToList().Count];
+            Members = members;
+            CollectiveArt = collectiveArt.ToList();
+
+            var listOFArtworkinformation  = GetListOfArtworkInformation();
+            ArtworkInformation = GetRandomListOfArtworkInformation(listOFArtworkinformation);
+
+            //int?[] newOrderOfArt = new int?[collectiveArt.ToList().Count];
+            //Random random = new Random();
+            //random.Next(0, collectiveArt.ToList().Count);
+            //for (int i = 0; i < collectiveArt.ToList().Count; i++)
+            //{
+            //    if (collectiveArt.ElementAt(i).ArtName == null)
+            //    {
+            //        collectiveArt.ElementAt(i).ArtName = "Name is missing";
+            //    }
+
+            //    int number = random.Next(0, collectiveArt.ToList().Count);
+            //    bool keepgoing = true;
+            //    while (keepgoing)
+            //    {
+            //        if (newOrderOfArt[number] == null)
+            //        {
+            //            newOrderOfArt[number] = i;
+            //            keepgoing = false;
+            //        }
+            //        number = random.Next(0, collectiveArt.ToList().Count);
+            //    }
+            //}
+
+            //for (int i = 0; i < collectiveArt.ToList().Count; i++)
+            //{
+            //    for (int j = 0; j < collectiveArt.ToList().Count; j++)
+            //    {
+            //        if (i == newOrderOfArt[j])
+            //        {
+            //            CollectiveArt.Add(collectiveArt.ElementAt(j));
+            //        }
+            //    }
+            //}
+
+        }
+        public List<ArtworkInformation> GetRandomListOfArtworkInformation(List<ArtworkInformation> artworkInformation)
+        {
+
+            List<ArtworkInformation> newListOfArt = new List<ArtworkInformation>();
+            List<ArtworkInformation> artworkInformationNewOrder = new List<ArtworkInformation>();
+
+            int?[] newOrderOfArt = new int?[artworkInformation.Count];
+            newListOfArt = artworkInformation;
+
             Random random = new Random();
-            random.Next(0, collectiveArt.ToList().Count);
-            for (int i = 0; i < collectiveArt.ToList().Count; i++)
+            random.Next(0, newListOfArt.Count);
+            for (int i = 0; i < newListOfArt.Count; i++)
             {
-                if(collectiveArt.ElementAt(i).ArtName == null)
+                if (newListOfArt.ElementAt(i).Title == null)
                 {
-                    collectiveArt.ElementAt(i).ArtName = "Name is missing";
+                    newListOfArt.ElementAt(i).Title = "Name is missing";
                 }
 
-                int number = random.Next(0, collectiveArt.ToList().Count);
+                int number = random.Next(0, newListOfArt.Count);
                 bool keepgoing = true;
                 while (keepgoing)
                 {
@@ -38,46 +86,50 @@ namespace DSU21_5.Models.ViewModel
                         newOrderOfArt[number] = i;
                         keepgoing = false;
                     }
-                    number = random.Next(0, collectiveArt.ToList().Count); 
+                    number = random.Next(0, newListOfArt.Count);
                 }
             }
 
-            for (int i = 0; i < collectiveArt.ToList().Count; i++)
+            for (int i = 0; i < newListOfArt.Count; i++)
             {
-                for (int j = 0; j < collectiveArt.ToList().Count; j++)
+                for (int j = 0; j < newListOfArt.Count; j++)
                 {
-                    if(i == newOrderOfArt[j])
+                    if (i == newOrderOfArt[j])
                     {
-                        CollectiveArt.Add(collectiveArt.ElementAt(j));
+                        artworkInformationNewOrder.Add(newListOfArt.ElementAt(j));
                     }
                 }
             }
-            GetListOfArtworkInformation(member, CollectiveArt);
+            return artworkInformationNewOrder;
         }
-        public List<ArtworkInformation> GetListOfArtworkInformation(Member member, List<Artwork> postedArt)
+        public List<ArtworkInformation> GetListOfArtworkInformation()
         {
-            foreach (var item in postedArt)
+
+            foreach (var item in Members)
             {
-
-                    ArtworkInformation.Add(new ArtworkInformation
+                for (int i = 0; i < CollectiveArt.Count; i++)
+                {
+                    if (CollectiveArt[i].UserId == item.MemberId)
                     {
-                        Firstname = member.Firstname,
-                        Source = item.ImageName,
-                        Lastname = member.Lastname,
-                        Height = item.Height,
-                        Width = item.Width,
-                        Type = item.Type,
-                        Year = item.Year,
-                        Description = item.Description,
-                        Title = item.ArtName,
-                        UserId = member.MemberId
+                        ArtworkInformation.Add(new ArtworkInformation
+                        {
+                            Firstname = item.Firstname,
+                            Source = CollectiveArt[i].ImageName,
+                            Lastname = item.Lastname,
+                            Height = CollectiveArt[i].Height,
+                            Width = CollectiveArt[i].Width,
+                            Type = CollectiveArt[i].Type,
+                            Year = CollectiveArt[i].Year,
+                            Description = CollectiveArt[i].Description,
+                            Title = CollectiveArt[i].ArtName,
+                            UserId = item.MemberId
 
-                    });
+                        });
+                    }
+
+                }
             }
-                
-                
-       
-            
+
             return ArtworkInformation;
         }
     }

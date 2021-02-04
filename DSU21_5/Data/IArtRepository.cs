@@ -15,8 +15,7 @@ namespace DSU21_5.Data
         Task<IEnumerable<Artwork>> GetPostedArtFromUniqueUser(string Id);
         Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork);
         Artwork GetArtworkThatsGonnaBeDeleted(int id);
-        Task<ArtworkViewModel> GetViewModel();
-        //Task<List<ArtworkInformation>> GetAllInformation();
+        Task<ArtworkViewModel> GetViewModel(List<Member> members);
         Task<List<ArtworkInformation>> GetAllInformation(string Id);
 
 

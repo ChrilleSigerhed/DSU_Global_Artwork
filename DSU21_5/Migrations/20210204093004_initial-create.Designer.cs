@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210203205549_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210204093004_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
