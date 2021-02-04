@@ -59,26 +59,29 @@
             </div>
                
             <div class="modal-body">
+                @*<div class="form-group">
+                    <label for="message-text" class="col-form-label">Description:</label>
+                    <textarea class="form-control" id="message-text" type="text"></textarea>
+                </div>*@
+
+                <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="message-text"  type="text"></textarea>
+                        <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
+                        @*<input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />*@
                     </div>
+                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" value="Save Changes" class="btn btn-primary"  ></button>
+                <input type="submit" value="Save Changes" class="btn btn-primary" asp-route-id="@user.Id"/>
             </div>
                 
         </div>
 
     </div>
 </div>
-<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
-    <div class="form-group">
-        <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
-        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
-    </div>
-</form>
+
 
 
 <!-- uploadProfilePhotoModal -->
@@ -92,7 +95,7 @@
 
 
 
-
+<!--------------- THE PAGE ---------------->
 
 <div class="profile-page">
     <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
@@ -127,18 +130,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @*<a><input type="submit" value="Edit Bio" class="btn btn-primary" asp-for="@user.Id" data-toggle="modal" data-target="#myModal"></a>*@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBioModal">Edit Bio</button>
                 </div>
 
 
                 <div class="description text-center">
-                    <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+                    @*<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
                         <div class="form-group">
                             <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
                             <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
                         </div>
-                    </form>
+                    </form>*@
+
+                    <p>@Model.Member.Bio</p>
+
                 </div>
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
@@ -163,7 +168,7 @@
                 </div>
 
                 <div class="form-group">
-                    <a asp-action="CreateArt"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
+                    <a asp-action="UploadArtwork"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
                 </div>
 
                 <div class="tab-content tab-space">
