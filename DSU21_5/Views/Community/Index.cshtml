@@ -1,0 +1,68 @@
+﻿@model CommunityViewModel
+
+@{
+    ViewData["Title"] = "Community";
+    Layout = "_Layout";
+}
+
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
+</header>
+
+
+<div class="community-container">
+    <div class="members-container">
+        <h1>Members</h1>
+        @foreach (var member in Model.CommunityMembers)
+        {
+           
+                <div class="member">
+                    <div class="member-img">
+                        <img src="image/@member.ProfilePicture" />
+                    </div>
+                    <div class="member-info">
+                        <h2>@member.Firstname @member.Lastname</h2>
+                        <p>@member.Email</p>
+                        <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view"/></a>
+                    </div>
+                </div>
+        }
+       
+      
+    <div class="chat-container">
+        <form action="#">
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label class="sr-only" for="message">Message</label>
+                    <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
+                </div>
+            </div>
+
+        <div class="chat-container">
+            <form action="#">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label class="sr-only" for="messageBox">Message</label>
+                        <textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>
+                        <ul class="form-control" id="messageList"></ul>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="text" id="name" class="form-control" placeholder="Write your message">
+                        <input type="text" id="message" class="form-control" placeholder="Write your message">
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="button" id="sendMessageBtn" value="Send Message" class="btn btn-primary">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+

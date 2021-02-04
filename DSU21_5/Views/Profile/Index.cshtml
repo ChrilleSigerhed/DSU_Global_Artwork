@@ -13,19 +13,7 @@
     var user = await UserManager.GetUserAsync(User);
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            @*<th>
-                    <a asp-area="" asp-controller="Profile" asp-action="Create">Create New</a>
-                    @Html.DisplayNameFor(model => model.ImageName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserId)
-                </th>
-                <th></th>*@
-        </tr>
-    </thead>
+
     <!--<tbody>-->
     @*@foreach (var item in Model) {
                 <tr>
@@ -58,7 +46,10 @@
                         <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
                         <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
                         <div class="form-group">
-                            <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@Model.Member.MemberId"></a>
+
+                            <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" ></a>
+
+
                         </div>
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">
@@ -84,13 +75,14 @@
                     <div class="col-md-6 animate-box">
                         <h3>Showcase Your Artwork</h3>
                         <div class="form-group">
-                            <a asp-action="CreateArt"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
+                            <a asp-action="CreateArt" asp-route-id="@user.Id"><input type="submit" value="Upload Artwork" class="btn btn-primary"></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="artwork-container">
                 <h4>My Artworks</h4>
+
                 @foreach (var item in Model.AllArtwork)
                 {
                       <div id="removeMe-@item.ArtworkId">
@@ -149,5 +141,5 @@
                 </tr>
         }*@
     <!--</tbody>-->
-</table>
+
 

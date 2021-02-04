@@ -26,5 +26,23 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return member;
         }
+
+        public async Task<List<Member>> GetAllMembers()
+        {
+            List <Member> members = new List<Member>();
+
+            List<String> Ids = db
+            .Members
+            .Select(u => u.MemberId)
+            .ToList();
+
+            foreach (string id in Ids)
+            {
+                Member member = await GetMember(id);
+                members.Add(member);
+            }
+
+            return members;
+        }
     }
 }

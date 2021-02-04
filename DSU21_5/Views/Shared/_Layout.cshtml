@@ -42,38 +42,38 @@
             <nav class="gtco-nav" role="navigation">
                 <div class="gtco-container">
 
-                    <div class="row">
-                        <div class="col-sm-4 col-xs-12">
-                            <div id="gtco-logo"><a href="/">Counter-art: Global Showcase <em>.</em></a></div>
-                        </div>
-                        <div class="col-xs-8 text-right menu-1">
-                            <ul>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                                <li class="has-dropdown">
-                                    <a href="#">Artworks</a>
-                                    <ul class="dropdown">
-                                        <li><a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a></li>
-                                        <li><a href="#">Sculpture</a></li>
-                                        <li><a href="#">Modern Art</a></li>
-                                        <li><a href="#">Portraits</a></li>
-                                    </ul>
-                                </li>
-                                <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibition</a></li>
-                                <li><a href="community.html">Community</a></li>
-                                <li class="login-register"><partial name="_LoginPartial.cshtml" /></li>
-                            </ul>
-
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <div id="gtco-logo"><a href="/">Counter-art: Global Showcase <em>.</em></a></div>
                 </div>
-            </nav>
-            <div id="page">
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+                <div class="col-xs-8 text-right menu-1">
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="has-dropdown">
+                            <a href="#">Artworks</a>
+                            <ul class="dropdown">
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a></li>
+                                <li><a href="#">Sculpture</a></li>
+                                <li><a href="#">Modern Art</a></li>
+                                <li><a href="#">Portraits</a></li>
+                            </ul>
+                        </li>
+                        <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibition</a></li>
+                        <li><a asp-area="" asp-controller="Community" asp-action="Index">Community</a></li>
+                        <li class="login-register"><partial name="_LoginPartial.cshtml" /></li>
+                    </ul>
+                    
                 </div>
             </div>
+        </div>
+    </nav>
+    <div id="page">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
 
 
             <footer id="gtco-footer" role="contentinfo">
