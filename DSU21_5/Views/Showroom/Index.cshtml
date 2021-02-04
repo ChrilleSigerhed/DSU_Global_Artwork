@@ -64,14 +64,14 @@
                 {
                     <li id="@(i+1)" style="display: none">
                         <div id="art-info-text">
-                            <h1 id="painting-title">@Model.Images.ElementAt(i).ArtName</h1>
-                            <p id="art-artist">Artist: @Model.Images.ElementAt(i).Firstname @Model.Images.ElementAt(i).Lastname</p>
-                            <p id="art-year">Year: @Model.Images.ElementAt(i).Year</p>
-                            <p id="art-description">Description: @Model.Images.ElementAt(i).Description</p>
-                            <p id="art-type">Type: @Model.Images.ElementAt(i).Type</p>
-                            <p id="art-height-width">Measurements: @Model.Images.ElementAt(i).Height x @Model.Images.ElementAt(i).Width cm</p>
+                            <h1 id="painting-title">@Model.ArtworkInformation.ElementAt(i).Title</h1>
+                           <p id="art-artist">Artist: @Model.ArtworkInformation.ElementAt(i).Firstname @Model.ArtworkInformation.ElementAt(i).Lastname</p>
+                            <p id="art-year">Year: @Model.ArtworkInformation.ElementAt(i).Year</p>
+                            <p id="art-description">Description: @Model.ArtworkInformation.ElementAt(i).Description</p>
+                            <p id="art-type">Type: @Model.ArtworkInformation.ElementAt(i).Type</p>
+                            <p id="art-height-width">Measurements: @Model.ArtworkInformation.ElementAt(i).Height x @Model.ArtworkInformation.ElementAt(i).Width cm</p>
                         </div>
-                        <div id=art-source><img src="/imagesArt/@Model.Images.ElementAt(i).ImageName"></div>
+                        <div id=art-source><img src="/imagesArt/@Model.ArtworkInformation.ElementAt(i).Source"></div>
                     </li>
                 }
 

@@ -13,18 +13,22 @@ namespace DSU21_5.Controllers
     public class HomeController : Controller
     {
         public IArtRepository ArtRepository { get; set; }
+        public IMemberRepository MemberRepository { get; set; }
+
 
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, IArtRepository artRepository)
+        public HomeController(ILogger<HomeController> logger, IArtRepository artRepository, IMemberRepository memberRepository)
         {
             _logger = logger;
             ArtRepository = artRepository;
+            MemberRepository = memberRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-           var model = await ArtRepository.GetViewModel();
+            var members = await MemberRepository.GetAllMembers();
+           var model = await ArtRepository.GetViewModel(members);
 
             return View(model);
         }

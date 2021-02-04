@@ -94,10 +94,10 @@ namespace DSU21_5.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 var member = new Member { Firstname = Input.Firstname, Lastname = Input.Lastname, Email = Input.Email, MemberId = user.Id };
                 MemberRepository memberRepository = new MemberRepository(db);
-                var results = await memberRepository.AddMember(member);
                 
                 if (result.Succeeded)
                 {
+                    var results = await memberRepository.AddMember(member);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -24,11 +24,11 @@ namespace DSU21_5.Models
         public string UserId { get; set; }
         public Member Member { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string Firstname { get; set; }
+        //[Column(TypeName = "nvarchar(100)")]
+        //public string Firstname { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string Lastname { get; set; }
+        //[Column(TypeName = "nvarchar(100)")]
+        //public string Lastname { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Description { get; set; }

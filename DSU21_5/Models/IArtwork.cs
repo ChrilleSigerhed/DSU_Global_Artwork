@@ -23,13 +23,13 @@ namespace DSU21_5.Models
         //[Required]
         [Column(TypeName = "nvarchar(100)")]
         public string UserId { get; set; }
-        //[Required]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Firstname { get; set; }
-        //[Required]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Lastname { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
+        ////[Required]
+        //[Column(TypeName = "nvarchar(100)")]
+        //public string Firstname { get; set; }
+        ////[Required]
+        //[Column(TypeName = "nvarchar(100)")]
+        //public string Lastname { get; set; }
+        //[Column(TypeName = "nvarchar(100)")]
         public string Description { get; set; }
         [NotMapped]
         [DisplayName("Upload File")]

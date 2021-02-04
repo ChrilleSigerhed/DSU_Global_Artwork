@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210203143837_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20210204093004_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,16 +33,10 @@ namespace DSU21_5.Migrations.ImageDb
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Height")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Type")
