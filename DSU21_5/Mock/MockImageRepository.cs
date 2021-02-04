@@ -56,6 +56,9 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
+
+        public List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members)
+
         public Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork)
         {
             throw new NotImplementedException();
@@ -67,6 +70,7 @@ namespace DSU21_5.Mock
         }
 
         public Task<ArtworkViewModel> GetViewModel()
+
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,54 @@
+﻿@model ProfileViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
+</header>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 animate-box">
+                    <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                    <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-push-1 animate-box">
+                    <div class="gtco-contact-info">
+                        <h3>Contact Information</h3>
+                        <ul>
+                            <li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
+                            <li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
+                            <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
+                            <li class="icon-instagram"><a href="#">artinsta</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-12">
+        </div>
+        <div class="artwork-container">
+            <h4>@Model.Member.Firstname Artworks</h4>
+          
+            @foreach (var item in Model.AllArtwork)
+            {
+                <picture>
+                    <img src="~/imagesArt/@item.ImageName">
+                </picture>
+            }
+       
+        </div>
+    </div>
+        </div>
+</div>

@@ -30,6 +30,19 @@ namespace DSU21_5.Data
             var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
             return image;
         }
+        public List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members)
+        {
+            var listOfImages = new List<Image>();
+            for (int i = 0; i < members.Count; i++)
+            {
+                var task = db.Images.Where(x => x.UserId == members[i].MemberId).FirstOrDefault();
+                if(task != null)
+                {
+                    listOfImages.Add(task);
+                }
+            }
+            return listOfImages;
+        }
         /// <summary>
         /// Removes the entry in Database and also clears the /image/ folder
         /// </summary>

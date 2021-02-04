@@ -25,6 +25,9 @@ namespace DSU21_5.Models
         [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; }
 
+        [NotMapped]
+        public string ProfilePicture { get; set; }
+
 
 
     }
