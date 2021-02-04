@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210202082150_IntitialCreate")]
-    partial class IntitialCreate
+    [Migration("20210203143837_IntialCreate")]
+    partial class IntialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,14 +36,26 @@ namespace DSU21_5.Migrations.ImageDb
                     b.Property<string>("Firstname")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Height")
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Width")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Year")
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ArtworkId");
 

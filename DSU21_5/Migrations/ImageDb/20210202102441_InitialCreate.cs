@@ -2,7 +2,7 @@
 
 namespace DSU21_5.Migrations.ImageDb
 {
-    public partial class IntitialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,11 @@ namespace DSU21_5.Migrations.ImageDb
                     UserId = table.Column<string>(nullable: true),
                     Firstname = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Year = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Height = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Width = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(100)", nullable: true)
                 },
                 constraints: table =>
                 {

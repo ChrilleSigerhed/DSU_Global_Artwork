@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DSU21_5.Areas.Identity.Data;
+using System.Text.Encodings.Web; 
 using DSU21_5.Data;
 using DSU21_5.Mock;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DSU21_5.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace DSU21_5
 {
@@ -30,6 +33,7 @@ namespace DSU21_5
             services.AddDbContext<ImageDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ImageDbContextConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+
 
             services.AddScoped<IImageRepository, ImageRepository>();
             //services.AddScoped<IImageRepository, MockImageRepository>();
@@ -61,11 +65,6 @@ namespace DSU21_5
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseSignalR(routes => 
-            {
-                routes.MapHub<ChatHub>("/chatHub");
-            });
 
             app.UseEndpoints(endpoints =>
             {

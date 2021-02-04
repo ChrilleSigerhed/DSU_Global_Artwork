@@ -1,4 +1,5 @@
 ﻿using DSU21_5.Models;
+using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,12 @@ namespace DSU21_5.Data
         public ArtRepository(ImageDbContext context)
         {
             db = context;
+        }
+        public async Task<ArtworkViewModel> GetViewModel()
+        {
+            var list = await GetArtThatsPosted();
+            var model = new ArtworkViewModel(list);
+            return model;
         }
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
@@ -46,6 +53,25 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return art;
         }
-        
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            Artwork artwork = db.Artworks.Where(x => x.ArtworkId == id).FirstOrDefault();
+            return artwork;
+        }
+        public async Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment hostEnvironment, Artwork artwork)
+        {
+            db.Artworks.Remove(artwork);
+            await db.SaveChangesAsync();
+            string wwwRootPath = hostEnvironment.WebRootPath;
+            string path = Path.Combine(wwwRootPath + "/imagesArt/", artwork.ImageName);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                File.Delete(path);
+            }
+           
+            return artwork;
+        }
+
     }
 }
