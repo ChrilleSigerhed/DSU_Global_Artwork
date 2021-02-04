@@ -12,13 +12,14 @@ namespace DSU21_5.Data
 {
     public class ImageRepository : IImageRepository
     {
-        
+        private string basePath;
         ImageDbContext db;
         public ImageRepository(ImageDbContext context)
         {
             
             db = context;
         }
+
         /// <summary>
         /// Input is UserId from current user that is using the application, the method takes that ID and checks it against the DataBase, to controll if the user already has a profilepicture uploaded.
         /// </summary>

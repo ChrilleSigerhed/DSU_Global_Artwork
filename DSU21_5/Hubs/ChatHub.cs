@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 
-namespace DSU21_5
+namespace DSU21_5.Hubs
 {
     public class ChatHub: Hub
     {

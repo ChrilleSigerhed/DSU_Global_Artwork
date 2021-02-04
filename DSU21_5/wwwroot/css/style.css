@@ -116,48 +116,68 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 
-.community-container {
-    width: 100%;
-    height: auto;
-    margin: 5px;
-    padding: 5px;
-}
-
-.members-container {
-    margin-right: 300px;
-    padding: 20px;
-    float: left;
-}
-
-.member {
-    display: flex;
+.art-details {
     margin: 10px;
+    padding: 10px;
+    display: flex;
 }
 
-.member-img img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+.art-image img {
+    width: 500px;
+    height: 700px;
+    margin-top: 70px;
+    margin-left: 70px;
 }
 
-.member-info h2 {
+.image-info {
+    margin-top: 70px;
     font-size: 16px;
-    padding: 3px;
+    padding-left: 70px;
+    padding-right: 20px;
+}
+
+    .image-info h1 {
+        text-decoration: underline;
+    }
+
+.view-art {
+    display: flex;
+    padding: 20px;
+}
+
+.artist-artwork {
+    margin: 40px;
+}
+
+.artwork-img img {
+    width: 150px;
+    height: 200px;
+}
+
+.art-container {
+    border-top: 1px solid #f2f2f2;
+    margin-top: 40px;
+}
+
+    .art-container h2 {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+.artwork-info h3 {
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 0;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.artwork-info p {
     margin: 0;
-}
-
-.member-info p {
-    font-size: 12px;
-    margin: 3px;
-}
-
-.chat-container {
-    margin-top: 50px;
     padding: 0;
-    float: right;
+    text-align: center;
+    font-size: 14px;
 }
-
-
 
 .gtco-nav {
   position: absolute;
