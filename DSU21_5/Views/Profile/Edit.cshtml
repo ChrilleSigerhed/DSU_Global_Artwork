@@ -6,7 +6,8 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
 }
 
 @{
@@ -39,7 +40,7 @@
             $('#myInput').trigger('focus')
         })
 
-        
+
     </script>
 
 </head>
@@ -56,27 +57,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
-
+               
             <div class="modal-body">
-                <form>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Description:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <textarea class="form-control" id="message-text"  type="text"></textarea>
                     </div>
-
-                </form>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button asp-controller="Profile" asp-action="Edited" asp-route-id="@user.Id" type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" value="Save Changes" class="btn btn-primary"  ></button>
             </div>
+                
         </div>
 
     </div>
 </div>
-
+<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+    <div class="form-group">
+        <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
+        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+    </div>
+</form>
 
 
 <!-- uploadProfilePhotoModal -->
@@ -131,10 +133,13 @@
 
 
                 <div class="description text-center">
-
-                    <p>@Model.Member.Bio</p>
+                    <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+                        <div class="form-group">
+                            <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
+                            <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+                        </div>
+                    </form>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
@@ -229,7 +234,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-
+    <script src="~/js/jquery.countTo.js"></script>
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="~/js/site.js"></script>
 
 
 

@@ -10,5 +10,6 @@ namespace DSU21_5.Data
     {
         Task<Member> AddMember(Member member);
         Task<Member> GetMember(string Id);
+        Task<Member> UpdateBio(string Id, string bio);
     }
 }
