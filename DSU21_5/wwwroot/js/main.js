@@ -287,7 +287,7 @@
 
 }());
 
-function changeIcon() {
-	document.querySelector('#addIcon').setAttribute("class", "fas fa-check")
-	document.querySelector('#addIcon').setAttribute("style", "color:purple")
-}
+$(".add-friend").click(function () {
+	$(this).find("i").removeClass(".fas fa-user-plus").addClass(".fas fa-check");
+});
+
