@@ -91,7 +91,7 @@ namespace DSU21_5.Controllers
             catch (Exception ex)
             {
                 //TODO: Fixa en errorsida
-                return View();
+                return View("Error", ex);
             }
             return RedirectToAction($"Index", new { Id });
         }
