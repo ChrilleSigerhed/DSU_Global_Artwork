@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
     partial class ImageDbContextModelSnapshot : ModelSnapshot
@@ -31,16 +31,10 @@ namespace DSU21_5.Migrations.ImageDb
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Height")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Type")

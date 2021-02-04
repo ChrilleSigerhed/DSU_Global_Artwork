@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -29,8 +29,6 @@ namespace DSU21_5.Migrations.ImageDb
                     ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     ArtName = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    Firstname = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Lastname = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Year = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Height = table.Column<string>(type: "nvarchar(100)", nullable: true),

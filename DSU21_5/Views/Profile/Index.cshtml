@@ -56,9 +56,9 @@
                 <div class="col-md-12">
                     <div class="col-md-6 animate-box">
                         <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
-                        <h3>@user.Firstname @user.Lastname</h3>
+                        <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
                         <div class="form-group">
-                            <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
+                            <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@Model.Member.MemberId"></a>
                         </div>
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">

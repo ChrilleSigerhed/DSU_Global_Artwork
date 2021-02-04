@@ -12,6 +12,7 @@ namespace DSU21_5.Data
     public class ArtRepository : IArtRepository
     {
         ImageDbContext db;
+        public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
         public ArtRepository(ImageDbContext context)
         {
             db = context;
@@ -35,8 +36,8 @@ namespace DSU21_5.Data
             string extention = Path.GetExtension(artworkModel.ImageFile.FileName);
             artworkModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
             artworkModel.UserId = member.MemberId;
-            artworkModel.Firstname = member.Firstname;
-            artworkModel.Lastname = member.Lastname;
+           // artworkModel.Firstname = member.Firstname;
+            //artworkModel.Lastname = member.Lastname;
             
             string path = Path.Combine(wwwRootPath + "/imagesArt/", fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
@@ -52,6 +53,24 @@ namespace DSU21_5.Data
             IEnumerable<Artwork> art = db.Artworks.Where(x => x.UserId == Id);
             await db.SaveChangesAsync();
             return art;
+        }
+        public async Task<List<ArtworkInformation>> GetAllInformation(string Id)
+        {
+
+            IEnumerable<Artwork> artwork = db.Artworks.Where(x => x.UserId == Id);
+          
+            await db.SaveChangesAsync();
+            foreach (var item in artwork)
+            {
+                ArtworkInformation.Add(new ArtworkInformation()
+                {
+                    Description = item.Description,
+                    Source = item.ImageName,
+
+                }) ;
+            }
+            
+            return ArtworkInformation.ToList();
         }
         public Artwork GetArtworkThatsGonnaBeDeleted(int id)
         {

@@ -16,6 +16,8 @@ namespace DSU21_5.Data
         Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork);
         Artwork GetArtworkThatsGonnaBeDeleted(int id);
         Task<ArtworkViewModel> GetViewModel();
+        //Task<List<ArtworkInformation>> GetAllInformation();
+        Task<List<ArtworkInformation>> GetAllInformation(string Id);
 
 
     }
