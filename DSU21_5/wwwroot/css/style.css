@@ -1924,9 +1924,48 @@ form label {
   margin-bottom: 15px;
 }
 @media screen and (max-width: 768px) {
-  .fh5co-faq-list li h2 {
-    font-size: 26px;
-  }
+    .fh5co-faq-list li h2 {
+        font-size: 26px;
+    }
+}
+#myInput {
+    background-image: url('/css/searchicon.png'); 
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd; 
+    margin-bottom: 0px !important;
+}
+
+    #searchUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        z-index: 100;
+    }
+
+        #searchUL li a {
+            border: 1px solid #ddd;
+            margin-top: -1px;
+            background-color: #f6f6f6;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            color: black;
+            display: block;
+        }
+
+            #searchUL li a:hover:not(.header) {
+                background-color: #eee;
+            }
+.search-Icon {
+    height: 90px;
+    width: auto;
+    padding-right: 20px !important;
+    float: left;
+
 }
 
 /*# sourceMappingURL=style.css.map */
