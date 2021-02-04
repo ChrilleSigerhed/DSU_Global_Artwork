@@ -2029,6 +2029,23 @@ form label {
             #searchUL li a:hover:not(.header) {
                 background-color: #eee;
             }
+#fixed {
+    display: block;
+    position: absolute;
+    min-width: 100%;
+    padding-right: -15px;
+    text-align: left !important;
+}
+#header_body_fixed {
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    outline: none;
+}
+#noPaddingID {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
 .search-Icon {
     height: 90px;
     width: auto;
