@@ -58,6 +58,9 @@ namespace DSU21_5.Mock
 
 
         public List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork)
         {
