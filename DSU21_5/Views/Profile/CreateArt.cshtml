@@ -24,19 +24,28 @@
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
         <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name">
         <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
-
-        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file">
+        <input type="checkbox" name="exhibit-checkbox" value="a" class="form-control1" runat="server" /> <label>Exhibit</label>
+        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
 </form>
 <div class="gtco-section border-bottom">
-    <div class="artwork-container">
-        <h4>Uploaded Artworks</h4>
-        <picture>
-            <img src="images/art.jpg">
-        </picture>
-    </div>
+    @*<div class="artwork-container">
+        <h4>Uploaded art</h4>
+
+        @foreach (var item in Model.AllArtwork)
+        {
+            <div id="removeMe-@item.ArtworkId">
+                <picture>
+                    <img src="~/imagesArt/@item.ImageName">
+                </picture>
+                <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </div>
+        }
+    </div>*@
 </div>
 
 @*<h1>Create</h1>

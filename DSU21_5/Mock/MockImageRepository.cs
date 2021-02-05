@@ -83,5 +83,40 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exhibit> CreateExhibit(ImageDbContext context, Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Artwork>> GetArtToExhibitions(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Artwork>> GetAllArtToExhibitions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckIfIdExists(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int? GetExhibitId(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

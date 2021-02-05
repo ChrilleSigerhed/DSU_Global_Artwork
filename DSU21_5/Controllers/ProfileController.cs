@@ -23,6 +23,7 @@ namespace DSU21_5.Controllers
         public IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
 
+        //TODO: create try-catch
 
         public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
         {
@@ -80,14 +81,32 @@ namespace DSU21_5.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
+        public async Task<IActionResult> CreateArt([Bind("ImageName, ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
+            bool exist = ArtRepository.CheckIfIdExists(Id);
+           string selected = Request.Form["exhibit-checkbox"];
+            Exhibit exhibit = null;
             try
             {
                 if (ModelState.IsValid)
-                {
-                    var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member);
+                { //TODO: CHECK IF WORKING
+                    if (selected == "a" && exist == true)
+                    {
+                        var exhibitId = ArtRepository.GetExhibitId(Id);
+                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, imageModel, member, exhibitId);
+
+                    }
+                    else if (selected == "a" && exist == false)
+                    {
+                        exhibit = await ArtRepository.CreateExhibit(_context, member);
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+
+                    }
+                    else
+                    {
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                    }
                 }
             }
             catch (Exception ex)
