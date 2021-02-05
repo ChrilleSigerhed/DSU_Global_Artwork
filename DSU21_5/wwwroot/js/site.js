@@ -1,6 +1,4 @@
 ﻿
-
-
 jQueryAjaxDelete = form => {
     if (confirm('Are you sure to delete this artwork?')) {
         try {
@@ -50,9 +48,11 @@ document.getElementById("sendMessageBtn").addEventListener('click', async functi
     const name = document.getElementById("name").value;
     try {
         await connection.invoke("SendMessage", name, message);
+        document.getElementById("message").value = "";
     } catch (err) {
         console.log(err);
     }
+
 })
 
 connection.on("ReceiveMessage", (name, message) => {

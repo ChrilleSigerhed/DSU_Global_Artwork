@@ -2003,7 +2003,7 @@ form label {
     background-repeat: no-repeat;
     width: 100%;
     font-size: 16px;
-    padding: 12px 20px 12px 40px;
+    padding: 12px 20px 12px 10px;
     border: 1px solid #ddd; 
     margin-bottom: 0px !important;
 }
@@ -2013,17 +2013,16 @@ form label {
         padding: 0;
         margin: 0;
         z-index: 100;
+        width: 590px;
     }
 
         #searchUL li a {
             border: 1px solid #ddd;
-            margin-top: -1px;
             background-color: #f6f6f6;
-            padding: 12px;
             text-decoration: none;
-            font-size: 18px;
             color: black;
             display: block;
+            opacity: 1 !important;
         }
 
             #searchUL li a:hover:not(.header) {
@@ -2035,6 +2034,7 @@ form label {
     min-width: 100%;
     padding-right: -15px;
     text-align: left !important;
+    z-index: 100 !important;
 }
 #header_body_fixed {
     width: 100%;
@@ -2052,6 +2052,16 @@ form label {
     padding-right: 20px !important;
     float: left;
 
+}
+#messageList {
+    box-shadow: none;
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    height: 600px !important;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 /*# sourceMappingURL=style.css.map */
