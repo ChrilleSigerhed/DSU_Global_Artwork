@@ -6,21 +6,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DSU21_5.Models;
+using DSU21_5.Data;
 
 namespace DSU21_5.Controllers
 {
     public class HomeController : Controller
     {
+        public IArtRepository ArtRepository { get; set; }
+        public IMemberRepository MemberRepository { get; set; }
+
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IArtRepository artRepository, IMemberRepository memberRepository)
         {
             _logger = logger;
+            ArtRepository = artRepository;
+            MemberRepository = memberRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var members = await MemberRepository.GetAllMembers();
+           var model = await ArtRepository.GetViewModel(members);
+
+            return View(model);
         }
 
         public IActionResult Privacy()

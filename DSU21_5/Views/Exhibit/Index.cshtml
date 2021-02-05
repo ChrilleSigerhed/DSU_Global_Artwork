@@ -1,6 +1,100 @@
-﻿
+﻿@model ShowroomViewModel
+@{
+    ViewData["Title"] = "Exhibition";
+    Layout = "_Layout";
+}
 
-<div>
-    <p>Hej</p>
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
+</header>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                <h2>Featured Exhibitions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" asp-route-id="4d7efce1-f22b-46e5-aaee-a3df851bf74e" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit1.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" asp-route-id="aca28772-e443-4b6f-a7bb-6088c20131e6" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit2.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit3.jpg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit4.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit5.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" class="fh5co-project-item">
+                    <figure>
+
+                        <div class="overlay"><i class="ti-plus"></i></div>
+                        <img src="images/exhibit6.jpg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-01-25 till 2021-02-01</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
 </div>
-

@@ -1,0 +1,73 @@
+﻿@model DSU21_5.Models.Artwork
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@{
+    ViewData["Title"] = "CreateArt";
+    Layout = "_Layout";
+}
+
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
+</header>
+
+<h2>Showcase Your Artwork</h2>
+
+<form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
+        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name">
+        <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
+
+        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file">
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+    </div>
+</form>
+<div class="gtco-section border-bottom">
+    <div class="artwork-container">
+        <h4>Uploaded Artworks</h4>
+        <picture>
+            <img src="/images/art.jpg">
+        </picture>
+    </div>
+</div>
+
+@*<h1>Create</h1>
+
+    <h4>ImageModel</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ImageName" class="control-label"></label>
+                    <input asp-for="ImageName" class="form-control" />
+                    <span asp-validation-for="ImageName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" accept="image/*" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@user.Id" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

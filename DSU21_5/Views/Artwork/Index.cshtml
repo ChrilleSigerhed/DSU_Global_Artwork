@@ -1,0 +1,135 @@
+﻿@model ArtworkViewModel
+
+@{
+    ViewData["Title"] = "Artwork";
+    Layout = "_Layout";
+}
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
+</header>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                <h2>Collective Artwork</h2>
+            </div>
+        </div>
+        <div class="row">
+            @for (int i = 0; i < Model.CollectiveArt.Count; i++)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6">
+
+                    <a href="~/imagesArt/@Model.ArtworkInformation[i].Source" class="fh5co-project-item image-popup">
+
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="~/imagesArt/@Model.ArtworkInformation[i].Source" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>@Model.ArtworkInformation[i].Title</h2>
+                            <p>Uploaded by @Model.ArtworkInformation[i].Firstname @Model.ArtworkInformation[i].Lastname </p>
+                        </div>
+                    </a>
+                </div>
+            }
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit2.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-02-25 till 2021-03-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit3.jpg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-03-25 till 2021-04-01</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit4.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-04-25 till 2021-05-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit5.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-05-25 till 2021-06-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit6.jpg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-06-25 till 2021-07-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit4.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-04-25 till 2021-05-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit5.jpeg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-05-25 till 2021-06-01</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="ArtworkDetail" class="fh5co-project-item">
+                    <figure>
+                        <div class="overlay"></div>
+                        <img src="images/exhibit6.jpg" alt="Image" class="img-responsive">
+                    </figure>
+                    <div class="fh5co-text">
+                        <h2>Exhibition name</h2>
+                        <p>2021-06-25 till 2021-07-01</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
