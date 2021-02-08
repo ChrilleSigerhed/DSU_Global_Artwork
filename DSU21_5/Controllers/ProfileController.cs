@@ -100,14 +100,15 @@ namespace DSU21_5.Controllers
             ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
         }
-        public async Task<IActionResult> Edited(string Id, string bio)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Bio")] Member member, string Id)
         {
-
-
-
-            return RedirectToAction("Edit");
+            var task = await MemberRepository.UpdateBio(Id, member.Bio);
+            return Json(member.Bio);
         }
-        }
+    }
 }
 
 
