@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using DSU21_5.Infrastructure;
 using DSU21_5.Models.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace DSU21_5.Mock
 {
@@ -115,6 +116,26 @@ namespace DSU21_5.Mock
         }
 
         public Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Artwork>> GetArtFromExhibit(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<string>> GetUniqueIdsConnectedToExhibit()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Artwork>> IArtRepository.GetArtFromExhibit(string id)
         {
             throw new NotImplementedException();
         }

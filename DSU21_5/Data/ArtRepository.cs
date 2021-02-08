@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +16,86 @@ namespace DSU21_5.Data
         ImageDbContext db;
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
         public IEnumerable<Artwork> ArtToExhibits { get; set; }
+        public List<string> ListOfIds { get; set; } = new List<string>();
+        public ObservableCollection<ArtworkInformation> ListOfArtToExhibit { get; set; }
+
 
         public ArtRepository(ImageDbContext context)
         {
             db = context;
+        }
+        /// <summary>
+        /// Method that gets all art from one user that is connected to an exhibition
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>a list of art</returns>
+        public async Task<List<Artwork>> GetArtFromExhibit(string id)
+        {
+            List<Artwork> AllArt = new List<Artwork>();
+            var allArt = db.Artworks.Where(x => x.UserId == id && x.ExhibitId != null).Select(x => x.ImageName);
+            foreach (var item in allArt)
+            {
+                var art = db.Artworks.Where(x => x.ImageName == item).FirstOrDefault();
+                AllArt.Add(art);
+            }
+            await db.SaveChangesAsync();
+            return AllArt;
+        }
+        /// <summary>
+        /// Gets a list of unique ids
+        /// </summary>
+        /// <returns>list of ids</returns>
+        public async Task<List<string>> GetUniqueIdsConnectedToExhibit()
+        {
+            List<string> listOfIds = new List<string>();
+
+            var ids = db.Artworks.Where(x => x.ExhibitId != null).Select(x => x.UserId);
+            foreach (var item in ids)
+            {
+                if (!listOfIds.Contains(item))
+                {
+                    listOfIds.Add(item);
+                }
+            }
+            await db.SaveChangesAsync();
+            ListOfIds = listOfIds;
+            return ListOfIds;
+        }
+        /// <summary>
+        /// creates a list with all information of the art connected to an exhibition
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns>observablecollection of artwork-information</returns>
+        public async Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids)
+        {
+            ListOfArtToExhibit = new ObservableCollection<ArtworkInformation>();
+            ArtworkInformation artworkInformation;
+            foreach (var item in ids)
+            {
+                var member = db.Members.Where(x => x.MemberId == item).FirstOrDefault();
+                var artworks = db.Artworks.Where(x => x.UserId == item && x.ExhibitId != null).Select(x => x.ArtworkId);
+                foreach (var artwork in artworks)
+                {
+                    var art = db.Artworks.Where(x => x.ArtworkId == artwork).FirstOrDefault();
+                    artworkInformation = new ArtworkInformation()
+                    {
+                        Firstname = member.Firstname,
+                        Source = art.ImageName,
+                        Lastname = member.Lastname,
+                        Height = art.Height,
+                        Width = art.Width,
+                        Type = art.Type,
+                        Year = art.Year,
+                        Description = art.Description,
+                        Title = art.ArtName,
+                        UserId = member.MemberId
+                    };
+                    ListOfArtToExhibit.Add(artworkInformation);
+                }
+                await db.SaveChangesAsync();
+            }
+            return ListOfArtToExhibit;
+
         }
 
         public bool CheckIfIdExists(string id)
@@ -40,30 +117,7 @@ namespace DSU21_5.Data
             return exhibitId;
             
         }
-        /// <summary>
-        /// Get all ids from artwork-table
-        /// </summary>
-        /// <returns>list of user-ids</returns>
-        //public async Task<IEnumerable<string>> GetAllUserIdFromArtwork()
-        //{
-        //    IEnumerable<string> userId = db.Artworks.Select(x => x.UserId);
-        //   await db.SaveChangesAsync();
-        //    return userId;
-        //}
-
-        //public IEnumerable<string> GetListOfUniqueUserId(IEnumerable<string> listOfIds)
-        //{
-        //    List<string> uniqueIds = new List<string>();
-        //    foreach (var item in listOfIds)
-        //    {
-        //        if (!uniqueIds.Contains(item))
-        //        {
-        //            uniqueIds.Add(item);
-        //        }
-        //    }
-        //    return uniqueIds;
-        //}
-
+    
         
         public async Task<ArtworkViewModel> GetViewModel(List<Member> members)
         {
@@ -92,7 +146,7 @@ namespace DSU21_5.Data
         public async Task<Artwork> AddArt(ImageDbContext context,IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageFile.FileName);
+            string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageName);
             string extention = Path.GetExtension(artworkModel.ImageFile.FileName);
             artworkModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
             artworkModel.UserId = member.MemberId;
@@ -117,7 +171,7 @@ namespace DSU21_5.Data
         public async Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageFile.FileName);
+            string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageName);
             string extention = Path.GetExtension(artworkModel.ImageFile.FileName);
             artworkModel.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
             artworkModel.UserId = member.MemberId;

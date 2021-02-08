@@ -37,10 +37,13 @@ namespace DSU21_5.Controllers
         [Route("/Profile/Index/{Id}")]
         public async Task<IActionResult> Index(string Id)
         {
+            var art = await ArtRepository.GetArtFromExhibit(Id);
+            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
+            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
             return View(ProfileViewModel);
         }
 
@@ -75,17 +78,28 @@ namespace DSU21_5.Controllers
             return RedirectToAction($"Index", new { Id });
 
         }
-        public IActionResult CreateArt(string Id)
+        public async Task<IActionResult> CreateArt(string Id)
         {
-            return View();
+            var art = await ArtRepository.GetArtFromExhibit(Id);
+            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
+            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+            return View(ProfileViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageName, ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
+        public async Task<IActionResult> CreateArt([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
+            Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
             bool exist = ArtRepository.CheckIfIdExists(Id);
-           string selected = Request.Form["exhibit-checkbox"];
+            string selected = Request.Form["exhibit-checkbox"];
+            var files = Request.Form["files[]"];
+
+
             Exhibit exhibit = null;
             try
             {
