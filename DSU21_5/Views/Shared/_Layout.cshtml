@@ -36,6 +36,7 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
     <div id="page">
         <div class="page-inner">
@@ -50,7 +51,7 @@
                     <ul>
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                         <li class="has-dropdown">
-                            <a href="#">Artworks</a>
+                            <a>Artworks</a>
                             <ul class="dropdown">
                                 <li><a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a></li>
                                 <li><a href="#">Sculpture</a></li>
@@ -160,6 +161,6 @@
 
     <script src="~/js/site.js"></script>
 
-    @RenderSection("Scripts", required: false)
+    @*@RenderSection("Scripts", required: false)*@
 </body>
 </html>
