@@ -22,10 +22,10 @@
 <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name" required>
+        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name" required oninvalid="this.setCustomValidity('Please submit your artworks name!')" oninput="this.setCustomValidity('')"/>
         <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
 
-        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file" required>
+        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your artwork!')" oninput="this.setCustomValidity('')">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>

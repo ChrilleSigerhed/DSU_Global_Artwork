@@ -22,7 +22,7 @@
 <form asp-action="Create" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="ImageFile" type="file" class="form-control-file" required>
+        <input asp-for="ImageFile" type="file" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your picture!')" oninput="this.setCustomValidity('')">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
