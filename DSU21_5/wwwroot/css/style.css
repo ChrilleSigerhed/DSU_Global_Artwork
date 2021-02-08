@@ -19,6 +19,52 @@ body {
   background: #ececec;
 }
 
+.editprofilepicture {
+    width: 40%;
+    color: #fff;
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+    margin-top: 38px;
+    margin-left: 30%;
+    margin-right: 30%;
+    box-shadow: 0 2px 2px 0 #990099, 0 3px 1px -2px #990099, 0 1px 5px 0 #990099;
+    padding: 12px 30px;
+    font-size: .75rem;
+    font-weight: 400;
+    line-height: 1.428571;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border: 0;
+    border-radius: .2rem;
+    outline: 0;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1);
+    will-change: box-shadow,transform;
+}
+
+.editprofilebuttons {
+    width: 20%;
+    color: #fff;
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+    margin-top: 20px;
+    margin-left: 40%;
+    margin-right: 40%;
+    box-shadow: 0 2px 2px 0 #990099, 0 3px 1px -2px #990099, 0 1px 5px 0 #990099;
+    padding: 12px 30px;
+    font-size: .75rem;
+    font-weight: 400;
+    line-height: 1.428571;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border: 0;
+    border-radius: .2rem;
+    outline: 0;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1);
+    will-change: box-shadow,transform;
+}
+
 #page {
   position: relative;
   overflow-x: hidden;
