@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<DSU21_5.Models.Image>*@
-@model ProfileViewModel
+﻿@model ProfileViewModel
 @using Microsoft.AspNetCore.Identity
 @using DSU21_5.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
@@ -40,13 +39,12 @@
             $('#myInput').trigger('focus')
         })
 
-
     </script>
 
 </head>
 
 <!-- editBioModal -->
-<div class="modal fade" id="editBioModal" role="dialog">
+<div class="modal" id="editBioModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
 
         <!-- Modal content-->
@@ -57,42 +55,93 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-               
-            <div class="modal-body">
-                @*<div class="form-group">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea class="form-control" id="message-text" type="text"></textarea>
-                </div>*@
 
-                <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Bio" class="form-control-art" placeholder="@Model.Member.Bio"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Bio" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- uploadProfilePhotoModal -->
+<div class="modal" id="uploadProfilePhotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Profile Photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post">
                     <div class="form-group">
-                        <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
-                        @*<input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />*@
+                        <input asp-for="@Model.ProfilePicture.ImageName" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
                     </div>
                 </form>
 
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" value="Save Changes" class="btn btn-primary" asp-route-id="@user.Id"/>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
-                
-        </div>
 
+        </div>
     </div>
 </div>
 
 
 
-<!-- uploadProfilePhotoModal -->
-<div class="modal fade" id="uploadProfilePhotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- uploadArtworkModal -->
+<div class="modal" id="uploadArtworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
 
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Artwork</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <input asp-for="@Model.AllArtwork" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
         </div>
     </div>
 </div>
-
 
 
 <!--------------- THE PAGE ---------------->
@@ -116,7 +165,7 @@
 
 
                             <div id="upload-profile-pic-button" class="form-group">
-                                <a asp-action="UploadProfilePhoto" data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
+                                <a data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>
                             </div>
                             <div class="name">
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
@@ -136,13 +185,13 @@
 
                 <div class="description text-center">
                     @*<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
-                        <div class="form-group">
-                            <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
-                            <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
-                        </div>
-                    </form>*@
+                            <div class="form-group">
+                                <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
+                                <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+                            </div>
+                        </form>*@
 
-                    <p>@Model.Member.Bio</p>
+                    <p id="bio">@Model.Member.Bio</p>
 
                 </div>
                 <div class="row">
@@ -168,7 +217,8 @@
                 </div>
 
                 <div class="form-group">
-                    <a asp-action="UploadArtwork"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
+                    <a data-toggle="modal" data-target="#uploadArtworkModal"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>
+
                 </div>
 
                 <div class="tab-content tab-space">
@@ -230,10 +280,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="footer text-center ">
-        <p>Made with <a href="https://demos.creative-tim.com/material-kit/index.html" target="_blank">Material Kit</a> by Creative Tim</p>
-    </footer>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -312,3 +358,8 @@
         </div>
     </div>
 </div>-->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

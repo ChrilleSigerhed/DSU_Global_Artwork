@@ -7,8 +7,9 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    console.log("hej");
-                    $(`#myBio`).val(data);
+                    console.log("hej", $('#editBioModal'));
+                    $(`#bio`).text(data);
+                    $("#editBioModal .close").click()
                 },
                 error: function (err) {
                     console.log(err)
