@@ -72,6 +72,7 @@ namespace DSU21_5.Data
             ArtworkInformation artworkInformation;
             foreach (var item in ids)
             {
+                //TODO: hämtar en member, den metoden ligger också i memberrepository, kanske slå ihop dessa repon?
                 var member = db.Members.Where(x => x.MemberId == item).FirstOrDefault();
                 var artworks = db.Artworks.Where(x => x.UserId == item && x.ExhibitId != null).Select(x => x.ArtworkId);
                 foreach (var artwork in artworks)
@@ -135,9 +136,10 @@ namespace DSU21_5.Data
         {
             Exhibit exhibit = new Exhibit()
             {
-                
+
                 Date = "2020-10-12",
-                Name = "test"
+                Name = "test",
+                MemberId = member.MemberId
             };
             context.Add(exhibit);
             await db.SaveChangesAsync();

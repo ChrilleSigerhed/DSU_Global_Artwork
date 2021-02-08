@@ -7,20 +7,6 @@ namespace DSU21_5.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Exhibit",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Date = table.Column<string>(type: "nvarchar(100)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exhibit", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Members",
                 columns: table => new
                 {
@@ -32,6 +18,47 @@ namespace DSU21_5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.MemberId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Exhibit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Date = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    MemberId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exhibit", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Exhibit_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_Images_Members_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Members",
+                        principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,26 +94,6 @@ namespace DSU21_5.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    ImageId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.ImageId);
-                    table.ForeignKey(
-                        name: "FK_Images_Members_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Members",
-                        principalColumn: "MemberId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Artworks_ExhibitId",
                 table: "Artworks",
@@ -96,6 +103,11 @@ namespace DSU21_5.Migrations
                 name: "IX_Artworks_UserId",
                 table: "Artworks",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exhibit_MemberId",
+                table: "Exhibit",
+                column: "MemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_UserId",

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210204152420_initialCreate")]
+    [Migration("20210208113949_initialCreate")]
     partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,10 +74,15 @@ namespace DSU21_5.Migrations
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("MemberId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
 
                     b.ToTable("Exhibit");
                 });
@@ -133,6 +138,13 @@ namespace DSU21_5.Migrations
                     b.HasOne("DSU21_5.Models.Member", "Member")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Exhibit", b =>
+                {
+                    b.HasOne("DSU21_5.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId");
                 });
 
             modelBuilder.Entity("DSU21_5.Models.Image", b =>

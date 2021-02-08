@@ -15,8 +15,8 @@ namespace DSU21_5.Models
         public string Name { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Date { get; set; }
-        //[ForeignKey("Member")]
-        //public string MemberId { get; set; }
-        //public Member Member { get; set; }
+        [ForeignKey("Member")]
+        public string MemberId { get; set; }
+        public Member Member { get; set; }
     }
 }
