@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DSU21_5.Areas.Identity.Data;
 using DSU21_5.Data;
 using DSU21_5.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DSU21_5.Controllers
@@ -12,23 +14,33 @@ namespace DSU21_5.Controllers
     {
         public IMemberRepository MemberRepository { get; set; }
         public IRelationshipRepository RelationshipRepository { get; set; }
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SearchController(IMemberRepository memberRepository, IRelationshipRepository relationshipRepository)
+
+        public SearchController(IMemberRepository memberRepository, IRelationshipRepository relationshipRepository, UserManager<ApplicationUser> userManager)
         {
             MemberRepository = memberRepository;
             RelationshipRepository = relationshipRepository;
+            _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Index(string id)
         {
-            List<Member> listOfMembers = await MemberRepository.GetAllMembers();
-            return View(listOfMembers);
+            ViewBag.userid = _userManager.GetUserId(HttpContext.User);
+            var pendingFriends = await RelationshipRepository.GetPendingRelationship(id);
+            return View(pendingFriends);
+
+            //List<Member> listOfMembers = await MemberRepository.GetAllMembers();
+            //return View(listOfMembers);
         }
 
         //[HttpPost]
-        //public async Task<IActionResult> SendFriendRequest(string id1, string id2)
+        //public async Task<IActionResult> SendFriendRequest(/*Relationship relationship*/ )
         //{
-        //    var friendsList = await RelationshipRepository.AcceptRelationshipRequest(id1, id2);
+        //    //await RelationshipRepository.Create(relationship);
         //    return View();
         //}
     }

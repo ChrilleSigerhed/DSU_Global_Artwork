@@ -14,11 +14,11 @@ namespace DSU21_5.Models
 
         [Column(TypeName = "nvarchar(100)")]
         [ForeignKey("Member")]
-        public string UserId1 { get; set; }/* = "acb9a065-7600-420d-ab1e-db3b584604bc";*/
+        public string UserId1 { get; set; } /*= "49fda989-4a3f-47a1-864d-04149c15743b";*/
 
         [Column(TypeName = "nvarchar(100)")]
         [ForeignKey("Member")]
-        public string UserId2 { get; set; } /*= "ec0b3314-24bb-4592-b835-72c145db7c8f";*/
+        public string UserId2 { get; set; } /*= "cd2ba34a-f8d4-41b0-8230-e2d935f69f52";*/
 
         [Column(TypeName = "nvarchar(100)")]
         public int Status { get; set; } /*= 0;*/

@@ -1,4 +1,4 @@
-﻿@model List<Member>
+﻿@model List<Relationship>
 
 @{
     ViewData["Title"] = "Search Results";
@@ -8,21 +8,21 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
 </header>
 
-
 <div class="search-result">
     <h1>Search results</h1>
     <div class="search-form">
-        @foreach (Member member in Model)
+        <input id="id" type="button" value="@ViewBag.userid" />
+
+        @foreach (Relationship relationship in Model)
         {
             <div class="searched-person">
                 <form method="get" asp-action="Index" asp-controller="Search">
-                    <input type="hidden" value="@member.MemberId" />
                     <div class="person-info">
                         <div class="search-img">
                             <img src="images/person_1.jpg" />
                         </div>
                         <div class="name-connection">
-                            <h2>@member.Firstname @member.Lastname</h2>
+                            <h2>@relationship.UserId2</h2>
                             <p>friend/mutual friend</p>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                 <form method="post" asp-action="SendFriendRequest" asp-controller="Search">
                     <div aria-label="addfriend" class="add-friend" role="button" tabindex="0">
                         <i class="fas fa-user-plus" id="addIcon"></i>
-                        <input type="submit" value="@member.MemberId"/>
-                        
+                        <input type="submit" />
+
                     </div>
                 </form>
             </div>

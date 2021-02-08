@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DSU21_5.Models;
+using Microsoft.AspNetCore.Identity;
+using DSU21_5.Areas.Identity.Data;
 
 namespace DSU21_5.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(/*ILogger<HomeController> logger*/ UserManager<ApplicationUser> userManager)
         {
-            _logger = logger;
+            //_logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
+            ViewBag.userid = _userManager.GetUserId(HttpContext.User);
             return View();
         }
 
