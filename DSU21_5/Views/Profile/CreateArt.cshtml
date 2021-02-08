@@ -25,8 +25,8 @@
         <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name">
         <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
         
-        <label for="ArtType">Type of artwork:</label>
-        <select id="ArtType" name="ArtType" required oninvalid="this.setCustomValidity('Select a category')">
+        <label for="Type">Type of artwork:</label>
+        <select id="Type" name="Type" required oninvalid="this.setCustomValidity('Select a category')"  oninput="this.setCustomValidity('')">
             <option value="" selected disabled hidden>Type of artwork</option>
             <option value="Digital art">Digital art</option>
             <option value="Drawing">Drawing</option>

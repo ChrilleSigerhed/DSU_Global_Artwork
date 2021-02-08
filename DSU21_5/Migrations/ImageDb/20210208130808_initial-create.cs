@@ -28,7 +28,6 @@ namespace DSU21_5.Migrations.ImageDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     ArtName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    ArtType = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Year = table.Column<string>(type: "nvarchar(100)", nullable: true),

@@ -121,7 +121,6 @@ namespace DSU21_5.Models.ViewModel
                             Type = CollectiveArt[i].Type,
                             Year = CollectiveArt[i].Year,
                             Description = CollectiveArt[i].Description,
-                            ArtType = CollectiveArt[i].ArtType,
                             Title = CollectiveArt[i].ArtName,
                             UserId = item.MemberId
 

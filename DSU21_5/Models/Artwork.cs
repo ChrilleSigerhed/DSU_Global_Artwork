@@ -20,9 +20,6 @@ namespace DSU21_5.Models
         [Column(TypeName = "nvarchar(100)")]
         public string ArtName { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string ArtType { get; set; }
-
         [ForeignKey("Member")]
         public string UserId { get; set; }
         public Member Member { get; set; }

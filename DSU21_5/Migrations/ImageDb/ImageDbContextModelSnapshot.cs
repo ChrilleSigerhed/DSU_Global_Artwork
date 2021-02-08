@@ -28,9 +28,6 @@ namespace DSU21_5.Migrations.ImageDb
                     b.Property<string>("ArtName")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ArtType")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(100)");
 

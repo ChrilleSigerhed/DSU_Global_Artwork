@@ -80,7 +80,7 @@ namespace DSU21_5.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName, ArtType")] Artwork imageModel, string Id)
+        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName, Type")] Artwork imageModel, string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
             try

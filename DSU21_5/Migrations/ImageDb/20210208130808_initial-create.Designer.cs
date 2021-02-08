@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210208121926_initial-create")]
+    [Migration("20210208130808_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,9 +28,6 @@ namespace DSU21_5.Migrations.ImageDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ArtName")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("ArtType")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
