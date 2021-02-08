@@ -19,6 +19,7 @@ namespace DSU21_5.Models.ViewModel
         public int PreviousInList { get; set; }
         public int NextInList { get; set; }
         public int RandomIndex { get; set; }
+        public string ImageRatio { get; set; } = "1";
         public ShowroomViewModel(List<Artwork> list, Member member)
         {
             Member = member;
