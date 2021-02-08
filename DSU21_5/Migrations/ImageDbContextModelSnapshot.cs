@@ -3,16 +3,14 @@ using DSU21_5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210203142708_IntialCreate")]
-    partial class IntialCreate
+    partial class ImageDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +90,28 @@ namespace DSU21_5.Migrations.ImageDb
                     b.HasKey("MemberId");
 
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Relationship", b =>
+                {
+                    b.Property<int>("RelationshipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId2")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("RelationshipId");
+
+                    b.ToTable("Relationships");
                 });
 
             modelBuilder.Entity("DSU21_5.Models.Artwork", b =>
