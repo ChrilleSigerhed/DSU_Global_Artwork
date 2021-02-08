@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Data
 {
-    public class RelationshipRepository: IRelationshipRepository
+    public class RelationshipRepository : IRelationshipRepository
     {
         ImageDbContext db;
 
@@ -35,15 +35,15 @@ namespace DSU21_5.Data
         public async Task<IEnumerable<Relationship>> GetPendingRelationship(string id)
         {
             List<Relationship> pendingRelationships = db.Relationships.Where(x => x.UserId1 == id && x.Status == 0).ToList();
-            await db.SaveChangesAsync(); 
+            await db.SaveChangesAsync();
 
             return pendingRelationships;
         }
 
         public async Task<IEnumerable<Relationship>> GetRelationshipsByUserId(string id)
         {
-            List<Relationship> friendsList = db.Relationships.Where(x => x.UserId1 == id && x.Status == 1).ToList();
-            await db.SaveChangesAsync(); 
+            List<Relationship> friendsList = db.Relationships.Where(x => (x.UserId1 == id || x.UserId2 == id) && x.Status == 1).ToList();
+            await db.SaveChangesAsync();
 
             return friendsList;
         }
