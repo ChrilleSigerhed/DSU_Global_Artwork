@@ -22,7 +22,7 @@ namespace DSU21_5.Controllers
         [Route("Showroom")]
         public async Task<IActionResult> Index(string Id)
         {
-            //Id = "aca28772-e443-4b6f-a7bb-6088c20131e6";
+            //Id = "da83057b-424a-419c-994c-ab8c12208c9f";
             var postedArt = await artRepository.GetPostedArtFromUniqueUser(Id);
             var member = await memberRepository.GetMember(Id);
             

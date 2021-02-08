@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-    
+    <div id="mobile-menu-btn"><p>Menu</p></div>
     <div id="plus-sign">+</div>
     <div id="arrow-keys">
         <div id="arrow-move-forward">▲</div>
@@ -56,7 +56,9 @@
             <span style="font-size:36px">Counter-Art! Click to start</span>
             <br /><br />
             Move: WASD<br />
-            Look: MOUSE
+            Look: MOUSE<br />
+
+            <input id="exit-btn" type="button" value="Exit" onclick="history.back()">
         </div>
         <div id="artInfo">
             <ul id="myUL">
@@ -102,6 +104,23 @@
             </form>
         </div>
 
+        <div id="elevator">
+
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.PreviousInList]" class="fh5co-project-item">
+                <input type="button" value="Previous Exhibition" />
+            </a>
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.NextInList]" class="fh5co-project-item">
+                <input type="button" value="Next Exhibition" />
+            </a>
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.RandomIndex]" class="fh5co-project-item">
+                <input type="button" value="I'm Feeling Lucky!" />
+            </a>
+
+                
+                
+
+</div>
+
     </div>
 
 
@@ -128,6 +147,8 @@
         let artIsClicked = false;
         let exitIsClicked = false;
         let onMobileDevice = false;
+        let mobileMenuBtnIsClick = false;
+        let elevatorIsClicked = false;
         let artInfoPicture;
         let artInfoName;
 
@@ -193,9 +214,18 @@
 
             const exitScreen = document.getElementById('exit');
             const exitScreenNo = document.getElementById('exit-no');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const elevatorMenu = document.getElementById('elevator');
 
             artInfo.style.display = 'none';
             exitScreen.style.display = 'none';
+
+            mobileMenuBtn.addEventListener('click', function () {
+                console.log("tjafan");
+                mobileMenuBtnIsClick = true;
+                controls.lock();
+                controls.unlock();
+            });
 
             exitDetailsCross.addEventListener('touchstart', function () {
                 controls.lock();
@@ -231,14 +261,14 @@
                 if (artIsClicked === true) {
                     blocker.style.display = 'block';
                     artInfo.style.display = 'block';
-
-
                 }
                 else if (exitIsClicked === true) {
                     blocker.style.display = 'block';
                     exitScreen.style.display = 'block';
-
-                } else if (onMobileDevice === true && exitIsClicked != true && artIsClicked != true) {
+                } else if (elevatorIsClicked === true) {
+                    blocker.style.display = 'block';
+                    elevatorMenu.style.display = 'block';
+                } else if (onMobileDevice === true && exitIsClicked != true && artIsClicked != true && mobileMenuBtnIsClick != true) {
                     blocker.style.display = 'none';
                 } else {
 
@@ -523,7 +553,7 @@
             //Tavlor Vänsteryttervägg
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(0).ImageName');
 
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var geometry = new THREE.BoxGeometry(0.3, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 1;
@@ -699,6 +729,16 @@
             mesh.position.set(0, 10, 11.5);
             scene.add(mesh);
 
+            //Hiss BakreInnerVägg
+            var art = new THREE.TextureLoader().load('/ShowroomImages/elevator.png');
+            var geometry = new THREE.BoxGeometry(16, 20, 0.1);
+            var material = new THREE.MeshLambertMaterial({ map: art });
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.name = "elevator";
+
+            mesh.position.set(50, 10, -41.5);
+            scene.add(mesh);
+
 
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
@@ -748,6 +788,10 @@
             var intersects = raycaster.intersectObjects(scene.children);
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
+                controls.lock();
+                controls.unlock();
+            } else if(intersects.length > 0 && intersects[0].object.name === 'elevator'){
+                elevatorIsClicked = true;
                 controls.lock();
                 controls.unlock();
             } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall' && intersects[0].object.material.map.image.outerHTML != '<img crossorigin="anonymous" src="/imagesArt/EmptySpaceInShowroom.jpg">') {
