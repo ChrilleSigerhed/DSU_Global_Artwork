@@ -553,7 +553,7 @@
             //Tavlor Vänsteryttervägg
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(0).ImageName');
             var number = 1;
-            var geometry = GetPaintingRatio("1", number);
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(0).Height, @Model.Images.ElementAt(0).Width, number);
 
             //new THREE.BoxGeometry(0.3, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
@@ -568,9 +568,9 @@
             mesh.position.set(-26.5, 12, -27);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(1).ImageName');
-            var number= "2"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+            var number = 2;
+          
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(1).Height, @Model.Images.ElementAt(1).Width, number);
 
             //var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
@@ -582,9 +582,9 @@
             mesh.position.set(-26.5, 12, -70);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(2).ImageName');
-            var number= "3"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+            var number = 3;
+            
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(2).Height, @Model.Images.ElementAt(2).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -593,9 +593,9 @@
             mesh.position.set(-26.5, 12, -113);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(3).ImageName');
-            var number= "4"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+            var number = "4";
+          
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(3).Height, @Model.Images.ElementAt(3).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -606,9 +606,9 @@
             //Tavlor YtterFramVägg
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(4).ImageName');
-            var number= "5"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+            var number = "5";
+          
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(4).Height, @Model.Images.ElementAt(4).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -619,8 +619,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(5).ImageName');
             var number= "6"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+     
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(5).Height, @Model.Images.ElementAt(5).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -630,8 +630,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(6).ImageName');
             var number= "7"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+       
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(6).Height, @Model.Images.ElementAt(6).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -643,8 +643,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(7).ImageName');
             var number= "8"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+     
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(7).Height, @Model.Images.ElementAt(7).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -654,8 +654,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(8).ImageName');
             var number= "9"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+          
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(8).Height, @Model.Images.ElementAt(8).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -665,8 +665,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(9).ImageName');
             var number= "10"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+       
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(9).Height, @Model.Images.ElementAt(9).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -676,8 +676,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(10).ImageName');
             var number= "11"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+        
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(10).Height, @Model.Images.ElementAt(10).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -690,8 +690,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(11).ImageName');
             var number= "12"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+         
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(11).Height, @Model.Images.ElementAt(11).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -701,8 +701,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(12).ImageName');
             var number= "13"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+         
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(12).Height, @Model.Images.ElementAt(12).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -714,8 +714,8 @@
             //Tavla InnerväggVänster
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(13).ImageName');
             var number= "14"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+           
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(13).Height, @Model.Images.ElementAt(13).Width, number);
             var material = new THREE.MeshLambertMaterial({map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -725,8 +725,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(14).ImageName');
             var number= "15"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+      
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(14).Height, @Model.Images.ElementAt(14).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -737,8 +737,8 @@
             //TavlorInnerväggHöger
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(15).ImageName');
             var number= "16"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+         
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(15).Height, @Model.Images.ElementAt(15).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -748,8 +748,8 @@
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(16).ImageName');
             var number= "17"
-            var ratio = @Model.ImageRatio;
-            var geometry = GetPaintingRatio(ratio, number);
+          
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(16).Height, @Model.Images.ElementAt(16).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -941,26 +941,24 @@
 
         }
 
-        function GetPaintingRatio(measurementRatio, meshNumber) {
-            console.log("enters function");
+        function GetPaintingRatio(height, width, meshNumber) {
             let specialPaintings = [5, 6, 7, 12, 13];
             if (specialPaintings.includes(meshNumber)) {
-                console.log("enters first if");
-                if (measurementRatio === '1') {
+                if (height > width) {
                     return new THREE.BoxGeometry(8, 13, 0.3);
-                } else if (measurementRatio === '2') {
+                } else if (width > height) {
                     return new THREE.BoxGeometry(13, 8, 0.3);
-                } else if (measurementRatio === '3') {
+                } else if (width == height) {
                     return new THREE.BoxGeometry(10, 10, 0.3);
                 }
             }
             else {
-                console.log("enters else");
-                if (measurementRatio === '1') {
+
+                if (height > width){
                     return new THREE.BoxGeometry(0.3, 13, 8);
-                } else if (measurementRatio === '2') {
+                } else if (width > height) {
                     return new THREE.BoxGeometry(0.3, 8, 13);
-                } else if (measurementRatio === '3') {
+                } else if (width == height) {
                     return new THREE.BoxGeometry(0.3, 10, 10);
                 }
             }

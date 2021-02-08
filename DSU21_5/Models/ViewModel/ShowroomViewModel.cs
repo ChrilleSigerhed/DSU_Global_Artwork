@@ -22,13 +22,21 @@ namespace DSU21_5.Models.ViewModel
         public string ImageRatio { get; set; } = "1";
         public ShowroomViewModel(List<Artwork> list, Member member)
         {
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].Width = "10";
+                list[i].Height = "11";
+            }
             Member = member;
             GetListOfArtworkInformation(member, list);
             for (int i = list.Count; i < 17; i++)
             {
                 list.Add(new Artwork
                 {
-                    ImageName = "EmptySpaceInShowroom.jpg"
+                    ImageName = "EmptySpaceInShowroom.jpg",
+                    Height = "1",
+                    Width="1"
                 });
             }
             Images = list;
