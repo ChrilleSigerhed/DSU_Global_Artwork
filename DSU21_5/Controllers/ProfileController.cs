@@ -106,7 +106,7 @@ namespace DSU21_5.Controllers
         {
             try
             {
-                Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
+                Artwork artwork = ArtRepository.GetArtworkForUser(Id);
                 await ArtRepository.DeleteArtworkFromArtworkTable(_hostEnvironment, artwork);
             }
             catch (Exception ex)

@@ -63,7 +63,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        public Artwork GetArtworkForUser(int id)
         {
             throw new NotImplementedException();
         }
