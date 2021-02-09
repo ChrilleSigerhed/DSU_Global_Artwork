@@ -167,7 +167,7 @@
 
                             <div id="upload-profile-pic-button" class="form-group">
                                 @*<a data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>*@
-                                <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="btn btn-primary"></a>
+                                <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="editprofilepicture"></a>
                             </div>
                             <div class="name">
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBioModal">Edit Bio</button>
+                    <button type="button" class="editprofilebuttons" data-toggle="modal" data-target="#editBioModal">Edit Bio</button>
                 </div>
 
 
@@ -220,7 +220,7 @@
 
                 <div class="form-group">
                     @*<a data-toggle="modal" data-target="#uploadArtworkModal"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>*@
-                    <a asp-action="CreateArt" asp-route-id="@user.Id"><input type="submit" value="Upload Artwork" class="btn btn-primary"></a>
+                    <a asp-action="CreateArt" asp-route-id="@user.Id"><input type="submit" value="Upload Artwork" class="editprofilebuttons"></a>
 
                 </div>
 
@@ -232,7 +232,7 @@
                                     <div class="col-md-3 ml-auto">
                                         @for (int i = 0; i < Model.AllArtwork.Count; i++)
                                         {
-                                            if (i % 2 == 1)
+                                            if (i % 2 == 0)
                                             {
                                         <div id="removeMe-@Model.AllArtwork[i].ArtworkId">
                                             <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded" />
@@ -246,7 +246,7 @@
                                     <div class="col-md-3 mr-auto">
                                         @for (int i = 0; i < Model.AllArtwork.Count; i++)
                                         {
-                                            if (i % 2 == 0)
+                                            if (i % 2 == 1)
                                             {
                                                 <div id="removeMe-@Model.AllArtwork[i].ArtworkId">
                                                     <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded">

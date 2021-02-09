@@ -38,20 +38,14 @@
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
-
-
-                            <div class="avatar">
-                                <a asp-action="Edit" asp-route-id="@user.Id">
-                                    @*TODO: Fixa klart hover på profilbild*@
-                                    <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
-                                    <div class="item">
-                                        <div class="edit-profile">
-                                            <div class="text">Edit</div>
-                                        </div>
-                                    </div>
-                                </a>
+                            <div class="avatar" style="height: 100px">
+                                <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
                             </div>
+                                <a asp-action="Edit" asp-route-id="@user.Id" class="editprofilepicture">Edit profile</a>                                
+
                             <div class="name">
+                                <br/>
+                                <br />
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
                                 <h6>Artist</h6>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>

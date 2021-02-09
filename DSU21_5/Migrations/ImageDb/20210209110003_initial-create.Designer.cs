@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210208130808_initial-create")]
+    [Migration("20210209110003_initial-create")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,9 @@ namespace DSU21_5.Migrations.ImageDb
                 {
                     b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Email")
                         .IsRequired()
