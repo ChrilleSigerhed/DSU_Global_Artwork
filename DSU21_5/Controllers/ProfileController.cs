@@ -95,32 +95,12 @@ namespace DSU21_5.Controllers
         {
             Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
-            bool exist = ArtRepository.CheckIfIdExists(Id);
-            string selected = Request.Form["exhibit-checkbox"];
-            var files = Request.Form["files[]"];
-
-
             Exhibit exhibit = null;
             try
             {
                 if (ModelState.IsValid)
-                { //TODO: CHECK IF WORKING
-                    if (selected == "a" && exist == true)
-                    {
-                        var exhibitId = ArtRepository.GetExhibitId(Id);
-                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, imageModel, member, exhibitId);
-
-                    }
-                    else if (selected == "a" && exist == false)
-                    {
-                        exhibit = await ArtRepository.CreateExhibit(_context, member);
+                { 
                         var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
-
-                    }
-                    else
-                    {
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
-                    }
                 }
             }
             catch (Exception ex)
@@ -148,6 +128,66 @@ namespace DSU21_5.Controllers
                 return View(ex);
             }
             return Json(Id);
+        }
+
+        public async Task<IActionResult> CreateExhibition(string Id)
+        {
+            //TODO: måste vi ropa på allt de här? Kolla om det går att lösa de här snyggare
+            var art = await ArtRepository.GetArtFromExhibit(Id);
+            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
+            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+            return View(ProfileViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
+        {
+            Artwork imageModel = profileView.Artwork;
+            Member member = await MemberRepository.GetMember(Id);
+            bool exist = ArtRepository.CheckIfIdExists(Id);
+            string selected = Request.Form["exhibit-checkbox"];
+            //string test = Request.Form.Files["files[]"].ToString();
+
+            //List<Artwork> lista = new List<Artwork>();
+            //foreach (var item in Request.Form.Files)
+            //{
+            //    lista.Add(item.FileName);
+
+            //}
+
+            Exhibit exhibit = null;
+            try
+            {
+                if (ModelState.IsValid)
+                { //TODO: CHECK IF WORKING
+                    if (exist == true)
+                    {
+                        var exhibitId = ArtRepository.GetExhibitId(Id);
+                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, imageModel, member, exhibitId);
+                    }
+                    else if (exist == false)
+                    {
+                        exhibit = await ArtRepository.CreateExhibit(_context, member);
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                    }
+                    else
+                    {
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Fixa en errorsida
+
+                return View("Error", ex);
+
+            }
+            return RedirectToAction($"Index", new { Id });
         }
     }
 }

@@ -25,29 +25,12 @@
         <input asp-for="@Model.Artwork.ImageName" type="text" class="form-control1" placeholder="Image name">
         <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name">
         <input asp-for="@Model.Artwork.Description" type="text" class="form-control1" placeholder="Add description">
-        <input type="checkbox" name="exhibit-checkbox" value="a" class="form-control1" runat="server" /> <label>Exhibit</label>
-        <input asp-for="@Model.Artwork.ImageFile" name="files[]" runat="server" multiple type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
+        <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
         <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
 </form>
-<div class="gtco-section border-bottom">
-    <div class="artwork-container">
-        <h4>Exhibit art</h4>
 
-        @foreach (var item in Model.ListOfArtwork)
-        {
-            <div id="removeMe-@item.ArtworkId">
-                <picture>
-                    <img src="~/imagesArt/@item.ImageName">
-                </picture>
-                <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </div>
-        }
-    </div>
-</div>
 <script src="~/js/site.js"></script>
 
 <h1>Drag and drop files</h1>
