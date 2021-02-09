@@ -674,7 +674,6 @@
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(15).ImageName');
             var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
-            material.color = { r: 255, g: 255, b: 255 };
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = 16;
 
@@ -747,7 +746,6 @@
             raycaster.near = 0;
 
             var intersects = raycaster.intersectObjects(scene.children);
-            console.log(intersects[0].object)
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
                 controls.lock();

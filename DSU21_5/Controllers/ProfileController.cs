@@ -80,7 +80,7 @@ namespace DSU21_5.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName")] Artwork imageModel, string Id)
+        public async Task<IActionResult> CreateArt([Bind("ImageId,ImageFile,UserId, Description, ArtName, Type")] Artwork imageModel, string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
             try
@@ -106,7 +106,7 @@ namespace DSU21_5.Controllers
         {
             try
             {
-                Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
+                Artwork artwork = ArtRepository.GetArtworkForUser(Id);
                 await ArtRepository.DeleteArtworkFromArtworkTable(_hostEnvironment, artwork);
             }
             catch (Exception ex)

@@ -34,15 +34,15 @@
                     @for (int i = 0; i < Model.CommunityMembers.Count(); i++)
                     {
                         <li>
-                            <a asp-action="Index" asp-controller="Profile" asp-route-id="@Model.CommunityMembers.ElementAt(i).MemberId">
+                            <a asp-action="Profile" asp-controller="Community" asp-route-id="@Model.CommunityMembers.ElementAt(i).MemberId">
                                 <img class="search-Icon" src="image/@Model.CommunityMembers.ElementAt(i).ProfilePicture">
                                 <p id="firstname">@Model.CommunityMembers.ElementAt(i).Firstname</p>
                                 <p id="lastname">@Model.CommunityMembers.ElementAt(i).Lastname</p>
-                                <div class="member-info">
+                                @*<div class="member-info">
                                     <h2>@Model.CommunityMembers.ElementAt(i).Firstname @Model.CommunityMembers.ElementAt(i).Lastname</h2>
                                     <p>@Model.CommunityMembers.ElementAt(i).Email</p>
                                     <a href="Community/Profile/@Model.CommunityMembers.ElementAt(i).MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
-                                </div>
+                                </div>*@
                             </a>
                         </li>
                     }
@@ -56,16 +56,16 @@
             <form action="#">
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label class="sr-only" for="messageBox">Message</label>
+                        @*<label class="sr-only" for="messageBox">Message</label>*@
                         @*<textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>*@
-                        <ul class="form-control" id="messageList"></ul>
+                        <ul class="form-control" id="messageList" style="overflow: auto"></ul>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <input type="text" id="name" class="form-control" placeholder="Write your name">
-                        <input type="text" id="message" class="form-control" placeholder="Write your message">
+                        <input type="text" id="name" placeholder="Write your name">
+                        <input type="text" id="message"  placeholder="Write your message">
                     </div>
 
                 </div>
