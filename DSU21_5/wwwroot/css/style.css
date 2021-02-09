@@ -75,6 +75,17 @@ h1, h2, h3, h4, h5, h6, figure {
   margin: 0 0 20px 0;
 }
 
+#user-icon {
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#community-header-text {
+    margin-right: 5%;
+}
+
 ::-webkit-selection {
   color: #fff;
   background: #f54c53;
@@ -251,6 +262,10 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .login-register{
     float:right;
+}
+
+#navbar-login {
+    display: inline;
 }
 
 @media screen and (max-width: 768px) {
