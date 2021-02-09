@@ -59,6 +59,17 @@
         <div class="artwork-container">
             <h4>Exhibit art</h4>
 
+        @foreach (var item in Model.ListOfArtwork)
+        {
+            <div class="exhibit-art">
+                <picture>
+                    <img src="~/imagesArt/@item.ImageName">
+                </picture>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/js/site.js"></script>
             @foreach (var item in Model.ListOfArtwork)
             {
                 <div id="removeMe-@item.ArtworkId">
