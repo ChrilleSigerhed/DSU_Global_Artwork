@@ -1,8 +1,29 @@
-﻿
+﻿jQueryAjaxUpdate = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $(`#bio`).text(data);
+                $("#editBioModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
 
 
 jQueryAjaxDelete = form => {
-    if (confirm('Are you sure to delete this artwork?')) {
+    if (confirm('Do you want to delete this artwork?')) {
         try {
             $.ajax({
                 type: 'POST',

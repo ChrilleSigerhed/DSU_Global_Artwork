@@ -13,7 +13,8 @@ namespace DSU21_5.Migrations
                     MemberId = table.Column<string>(nullable: false),
                     Firstname = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(500)", nullable: true)
                 },
                 constraints: table =>
                 {

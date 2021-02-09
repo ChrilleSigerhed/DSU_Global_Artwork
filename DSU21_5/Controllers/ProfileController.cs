@@ -71,7 +71,7 @@ namespace DSU21_5.Controllers
                 //TODO: Fixa en errorsida
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new { Id });
+            return RedirectToAction($"Edit", new { Id });
 
         }
         public IActionResult CreateArt(string Id)
@@ -97,7 +97,7 @@ namespace DSU21_5.Controllers
                 return View("Error", ex);
 
             }
-            return RedirectToAction($"Index", new { Id });
+            return RedirectToAction($"Edit", new { Id });
         }
 
         [HttpPost, ActionName("DeleteArt")]
@@ -116,6 +116,24 @@ namespace DSU21_5.Controllers
             }
             return Json(Id);
         }
+
+        public async Task<IActionResult> Edit(string Id)
+        {
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            return View(ProfileViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Bio")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateBio(Id, member.Bio);
+            return Json(member.Bio);
+        }
+
     }
 }
 

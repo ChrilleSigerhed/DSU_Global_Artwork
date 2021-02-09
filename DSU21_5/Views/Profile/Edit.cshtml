@@ -1,0 +1,392 @@
+﻿@model ProfileViewModel
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;"></header>
+
+
+@*BOOTSTRAP*@
+
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+    <link rel="stylesheet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+    <link rel="stylesheet" href="~/css/profile.css">
+
+    <link rel="stylesheet" href="~/css/modal.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <script>
+        $('#editBioModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+
+    </script>
+    @*$('#uploadProfilePhotoModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })*@
+
+</head>
+
+<!-- editBioModal -->
+<div class="modal" id="editBioModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">My Bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Bio" class="form-control-art" placeholder="@Model.Member.Bio"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Bio" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- uploadProfilePhotoModal -->
+<!--<div class="modal" id="uploadProfilePhotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Profile Photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form asp-action="UploadProfilePhoto" asp-controller="Profile" enctype="multipart/form-data" method="post">
+                <div id="profile-modal" class="modal-body">
+
+                    <div id="profile-photo-form-group" class="form-group">
+                        <input asp-for="@Model.ProfilePicture.ImageName" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+
+
+<!-- uploadArtworkModal -->
+<!--<div class="modal" id="uploadArtworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Artwork</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form asp-action="UploadArtwork" asp-controller="Profile" enctype="multipart/form-data" method="post">
+                <div id="artwork-modal" class="modal-body">
+
+                    <div id="artwork-form-group" class="form-group">
+                        <input asp-for="@Model.AllArtwork" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+
+<!--------------- THE PAGE ---------------->
+
+<div class="profile-page">
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"></div>
+
+
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+
+                            <div class="avatar">
+
+                                <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+
+                            </div>
+
+
+                            <div id="upload-profile-pic-button" class="form-group">
+                                @*<a data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>*@
+                                <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="btn btn-primary"></a>
+                            </div>
+                            <div class="name">
+                                <h3 class="title">@user.Firstname @user.Lastname</h3>
+                                <h6>Artist</h6>
+                            </div>
+
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editBioModal">Edit Bio</button>
+                </div>
+
+
+                <div class="description text-center">
+                    @*<form asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+                            <div class="form-group">
+                                <input asp-for="Member.Bio" type="text" class="form-control-art" placeholder="@Model.Member.Bio" id="myBio">
+                                <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+                            </div>
+                        </form>*@
+
+                    <p id="bio">@Model.Member.Bio</p>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile-tabs">
+                            <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
+                                        <i class="material-icons">camera</i>
+                                        My art
+                                    </a>
+                                </li>
+
+                                @*<li class="nav-item">
+                                        <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                            <i class="material-icons">favorite</i>
+                                            Favorites
+                                        </a>
+                                    </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*<a data-toggle="modal" data-target="#uploadArtworkModal"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="@user.Id"></a>*@
+                    <a asp-action="CreateArt" asp-route-id="@user.Id"><input type="submit" value="Upload Artwork" class="btn btn-primary"></a>
+
+                </div>
+
+                <div class="tab-content tab-space">
+                    <div class="tab-pane active text-center gallery" id="studio">
+                        <div class="row">
+                            <div class="tab-pane active text-center gallery" id="studio">
+                                <div class="row">
+                                    <div class="col-md-3 ml-auto">
+                                        @for (int i = 0; i < Model.AllArtwork.Count; i++)
+                                        {
+                                            if (i % 2 == 1)
+                                            {
+                                        <div id="removeMe-@Model.AllArtwork[i].ArtworkId">
+                                            <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded" />
+                                            <form asp-action="DeleteArt" asp-route-id="@Model.AllArtwork[i].ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                            </form>
+                                        </div>
+                                                    }
+                                                    }
+                                                </div>
+                                    <div class="col-md-3 mr-auto">
+                                        @for (int i = 0; i < Model.AllArtwork.Count; i++)
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                <div id="removeMe-@Model.AllArtwork[i].ArtworkId">
+                                                    <img src="~/imagesArt/@Model.AllArtwork[i].ImageName" class="rounded">
+                                                    <form asp-action="DeleteArt" asp-route-id="@Model.AllArtwork[i].ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                                    </form>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*@foreach (var item in Model.AllArtwork)
+                    {
+                        <div id="removeMe-@item.ArtworkId">
+                            <picture>
+                                <img src="~/imagesArt/@item.ImageName">
+                            </picture>
+                            <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </div>
+                    }*@
+
+
+                    @*<div class="tab-pane text-center gallery" id="works">
+            <div class="row">
+                <div class="col-md-3 ml-auto">
+                    <img src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec2bdc92a9687b6af5089b335691830e&auto=format&fit=crop&w=750&q=80" class="rounded">
+                </div>
+                <div class="col-md-3 mr-auto">
+                    <img src="https://images.unsplash.com/photo-1504346466600-714572c4b726?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6754ded479383b7e3144de310fa88277&auto=format&fit=crop&w=750&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80" class="rounded">
+                </div>
+            </div>
+        </div>*@
+                    @*<div class="tab-pane text-center gallery" id="favorite">
+            <div class="row">
+                <div class="col-md-3 ml-auto">
+                    <img src="https://images.unsplash.com/photo-1504346466600-714572c4b726?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6754ded479383b7e3144de310fa88277&auto=format&fit=crop&w=750&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1494028698538-2cd52a400b17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83bf0e71786922a80c420c17b664a1f5&auto=format&fit=crop&w=334&q=80" class="rounded">
+                </div>
+                <div class="col-md-3 mr-auto">
+                    <img src="https://images.unsplash.com/photo-1505784045224-1247b2b29cf3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ec2bdc92a9687b6af5089b335691830e&auto=format&fit=crop&w=750&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1524498250077-390f9e378fc0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83079913579babb9d2c94a5941b2e69d&auto=format&fit=crop&w=751&q=80" class="rounded">
+                    <img src="https://images.unsplash.com/photo-1506667527953-22eca67dd919?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6326214b7ce18d74dde5e88db4a12dd5&auto=format&fit=crop&w=750&q=80" class="rounded">
+                </div>
+            </div>
+        </div>*@
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script src="~/js/jquery.countTo.js"></script>
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.stellar.min.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+
+
+</div>
+
+
+
+
+@*GAMMALT*@
+
+
+
+<!--<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 animate-box">
+                    <img src="~/image/Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                    <h3>user.Firstname user.Lastname</h3>
+                    <div class="form-group">
+                        <a asp-action="Create"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="user.Id"></a>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-push-1 animate-box">
+                    <div class="gtco-contact-info">
+                        <h3>Contact Information</h3>
+                        <ul>
+                            <li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
+                            <li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
+                            <li class="email"><a href="user.Email">user.Email</a></li>
+                            <li class="icon-instagram"><a href="#">artinsta</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 animate-box">
+                    <h3>Showcase Your Artwork</h3>
+                    <div class="form-group">
+                        <a asp-action="CreateArt"><input type="submit" value="Upload Artwork" class="btn btn-primary" asp-for="user.Id"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="artwork-container">
+            <h4>My Artworks</h4>-->
+@*TODO: Skapa en foreach för*@
+<!--foreach (var item in Model.AllArtwork)
+            {
+                <picture>
+                    <img src="~/imagesArt/item.ImageName">
+
+                </picture>
+
+            }
+        </div>
+    </div>
+</div>-->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
