@@ -14,11 +14,11 @@ namespace DSU21_5.Models
         
         //[Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string UserId1 { get; set; }
+        public string Requester { get; set; }
         
         //[Required]
         [Column(TypeName = "nvarchar(100)")]
-        public string UserId2 { get; set; }
+        public string Requestee { get; set; }
         
         //[Required]
         [Column(TypeName = "nvarchar(100)")]

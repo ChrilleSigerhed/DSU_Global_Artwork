@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DSU21_5.Controllers
 {
+    
     public class SearchController : Controller
     {
         public IMemberRepository MemberRepository { get; set; }
@@ -25,17 +26,25 @@ namespace DSU21_5.Controllers
             _userManager = userManager;
         }
 
+        public string GetCurrentUserId()
+        {
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            return currentUserId;
+        }
+
         public async Task<IActionResult> Index()
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
+            var userId = GetCurrentUserId();
             var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(userId);
             var acceptedFriendsRelationships = await RelationshipRepository.GetRelationshipsByUserId(userId);
+            List<Member> members = await MemberRepository.GetAllMembers();
+
 
             var pendingFriends = new List<Member>();
 
             foreach (var pending in pendingFriendsRelationships)
             {
-                var member = await MemberRepository.GetMember(pending.UserId2);
+                var member = await MemberRepository.GetMember(pending.Requester);
                 pendingFriends.Add(member);
             }
 
@@ -44,32 +53,56 @@ namespace DSU21_5.Controllers
             foreach (var friend in acceptedFriendsRelationships)
             {
                 Member member;
-                if (friend.UserId1 == userId)
-                    member = await MemberRepository.GetMember(friend.UserId2);
+                if (friend.Requester == userId)
+                    member = await MemberRepository.GetMember(friend.Requestee);
                 else
-                    member = await MemberRepository.GetMember(friend.UserId1);
+                    member = await MemberRepository.GetMember(friend.Requester);
 
                 acceptedFriends.Add(member);
             }
-
-            var viewModel = new RelationshipViewModel
+            var viewModel = new RelationshipViewModel()
             {
-                UserId = userId,
+                AcceptedFriends = acceptedFriends,
                 PendingFriends = pendingFriends,
-                AcceptedFriends = acceptedFriends
+                Members = members
             };
 
             return View(viewModel);
 
-            //List<Member> listOfMembers = await MemberRepository.GetAllMembers();
-            //return View(listOfMembers);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> SendFriendRequest(/*Relationship relationship*/ )
-        //{
-        //    //await RelationshipRepository.Create(relationship);
-        //    return View();
-        //}
+        [HttpPost]
+        public async Task<IActionResult> SendFriendRequest(string requesteeId)
+        {
+            Relationship relationship = new Relationship()
+            {
+                Requester = GetCurrentUserId(),
+                Requestee = requesteeId
+            };
+
+            await RelationshipRepository.Create(relationship);
+
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptFriendRequest(string requesterId)
+        {
+            string requestee = GetCurrentUserId();
+            string requester = requesterId;
+            await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
+
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeclineFriendRequest(string requesterId)
+        {
+            string requestee = GetCurrentUserId();
+            string requester = requesterId;
+            await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
+
+            return null;
+        }
     }
 }

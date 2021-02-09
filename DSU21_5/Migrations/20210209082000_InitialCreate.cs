@@ -26,8 +26,8 @@ namespace DSU21_5.Migrations
                 {
                     RelationshipId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId1 = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    UserId2 = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Requester = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Requestee = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>

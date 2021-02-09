@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210208084902_InitialCreate")]
+    [Migration("20210209082000_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,14 +101,14 @@ namespace DSU21_5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Requestee")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Requester")
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UserId2")
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("RelationshipId");

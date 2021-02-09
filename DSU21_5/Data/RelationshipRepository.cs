@@ -27,14 +27,14 @@ namespace DSU21_5.Data
 
         public async Task<Relationship> GetRelationship(string id)
         {
-            Relationship relationship = db.Relationships.Where(x => x.UserId1 == id).FirstOrDefault();
+            Relationship relationship = db.Relationships.Where(x => x.Requester == id).FirstOrDefault();
             await db.SaveChangesAsync();
             return relationship;
         }
 
         public async Task<IEnumerable<Relationship>> GetPendingRelationship(string id)
         {
-            List<Relationship> pendingRelationships = db.Relationships.Where(x => x.UserId1 == id && x.Status == 0).ToList();
+            List<Relationship> pendingRelationships = db.Relationships.Where(x => x.Requestee == id && x.Status == 0).ToList();
             await db.SaveChangesAsync();
 
             return pendingRelationships;
@@ -42,7 +42,7 @@ namespace DSU21_5.Data
 
         public async Task<IEnumerable<Relationship>> GetRelationshipsByUserId(string id)
         {
-            List<Relationship> friendsList = db.Relationships.Where(x => (x.UserId1 == id || x.UserId2 == id) && x.Status == 1).ToList();
+            List<Relationship> friendsList = db.Relationships.Where(x => (x.Requester == id || x.Requestee == id) && x.Status == 1).ToList();
             await db.SaveChangesAsync();
 
             return friendsList;
@@ -50,12 +50,9 @@ namespace DSU21_5.Data
 
         public async Task<Relationship> AcceptRelationshipRequest(string id1, string id2)
         {
-            Relationship relationship = db.Relationships.Where(x => x.UserId1 == id1 && x.UserId2 == id2 && x.Status == 0).FirstOrDefault();
+            Relationship relationship = db.Relationships.Where(x => x.Requester == id1 && x.Requestee == id2 && x.Status == 0).FirstOrDefault();
 
-            relationship = new Relationship()
-            {
-                Status = 1
-            };
+            relationship.Status = 1;
 
             await db.SaveChangesAsync();
 
@@ -64,12 +61,9 @@ namespace DSU21_5.Data
 
         public async Task<Relationship> DenyRelationshipRequest(string id1, string id2)
         {
-            Relationship relationship = db.Relationships.Where(x => x.UserId1 == id1 && x.UserId2 == id2 && x.Status == 0).FirstOrDefault();
+            Relationship relationship = db.Relationships.Where(x => x.Requester == id1 && x.Requestee == id2 && x.Status == 0).FirstOrDefault();
 
-            relationship = new Relationship()
-            {
-                Status = 2
-            };
+            relationship.Status = 2;
 
             await db.SaveChangesAsync();
 

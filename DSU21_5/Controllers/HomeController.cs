@@ -13,18 +13,15 @@ namespace DSU21_5.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(/*ILogger<HomeController> logger*/ UserManager<ApplicationUser> userManager)
+        public HomeController(ILogger<HomeController> logger)
         {
-            //_logger = logger;
-            _userManager = userManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            ViewBag.userid = _userManager.GetUserId(HttpContext.User);
             return View();
         }
 
