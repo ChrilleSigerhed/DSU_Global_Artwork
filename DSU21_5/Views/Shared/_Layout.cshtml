@@ -50,12 +50,19 @@
                 <div class="col-xs-8 text-right menu-1">
                     <ul>
                         <li class="has-dropdown">
+
+                            <a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a>
+
                             <a>Artworks</a>
+
                             <ul class="dropdown">
                                 <li><a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a></li>
-                                <li><a href="#">Sculpture</a></li>
-                                <li><a href="#">Modern Art</a></li>
-                                <li><a href="#">Portraits</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="DigitalArt">Digital Art</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="Drawing">Drawings</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="Painting">Paintings</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="Photography">Photography</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="ReadyMade">Ready Made</a></li>
+                                <li><a asp-area="" asp-controller="Artwork" asp-action="Sculpture">Sculpture</a></li>
                             </ul>
                         </li>
                         <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibition</a></li>

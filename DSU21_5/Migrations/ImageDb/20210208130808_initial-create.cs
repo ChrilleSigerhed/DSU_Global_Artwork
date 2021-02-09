@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations
+namespace DSU21_5.Migrations.ImageDb
 {
     public partial class initialcreate : Migration
     {
