@@ -147,23 +147,17 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
             Artwork imageModel = profileView.Artwork;
+            var selected = Request.Form.Files[0];
+            imageModel.ImageFile = selected;
+            imageModel.ImageName = selected.FileName;
             Member member = await MemberRepository.GetMember(Id);
             bool exist = ArtRepository.CheckIfIdExists(Id);
-            string selected = Request.Form["exhibit-checkbox"];
-            //string test = Request.Form.Files["files[]"].ToString();
-
-            //List<Artwork> lista = new List<Artwork>();
-            //foreach (var item in Request.Form.Files)
-            //{
-            //    lista.Add(item.FileName);
-
-            //}
 
             Exhibit exhibit = null;
             try
             {
                 if (ModelState.IsValid)
-                { //TODO: CHECK IF WORKING
+                { 
                     if (exist == true)
                     {
                         var exhibitId = ArtRepository.GetExhibitId(Id);
@@ -174,18 +168,11 @@ namespace DSU21_5.Controllers
                         exhibit = await ArtRepository.CreateExhibit(_context, member);
                         var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
                     }
-                    else
-                    {
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
-                    }
                 }
             }
             catch (Exception ex)
             {
-                //TODO: Fixa en errorsida
-
                 return View("Error", ex);
-
             }
             return RedirectToAction($"Index", new { Id });
         }

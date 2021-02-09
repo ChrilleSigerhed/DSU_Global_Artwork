@@ -11,15 +11,18 @@
 
 <h2>Showcase Your Artwork</h2>
 
-<form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
+<form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="@Model.Artwork.ImageName" type="text" class="form-control1" placeholder="Image name">
         <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name">
         <br />
         <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Add description"></textarea>
-        <input type="checkbox" name="exhibit-checkbox" value="a" class="form-control1" runat="server" /> <label>Exhibit</label>
-        <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
-        <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
+        <h1>Drag and drop files</h1>
+        <div class="drop-zone">
+            <span class="drop-zone__prompt">Drop file here or click to upload</span>
+            <input asp-for="@Model.Artwork.ImageFile" type="file" name="myFile" class="drop-zone__input">
+            <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
+        </div>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
     </div>
 </form>

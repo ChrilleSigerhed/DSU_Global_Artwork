@@ -73,6 +73,7 @@ function updateThumbnail(dropZoneElement, file) {
         thumbnailElement = document.createElement("div");
         thumbnailElement.classList.add("drop-zone__thumb");
         dropZoneElement.appendChild(thumbnailElement);
+        thumbnailElement.setAttribute("asp-for", "@Model.Artwork.ImageFile");
     }
 
     thumbnailElement.dataset.label = file.name;
