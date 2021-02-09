@@ -11,7 +11,7 @@
 
 <h2>Showcase Your Artwork</h2>
 
-<form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
+<form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
     <div class="form-group">
         <input asp-for="@Model.Artwork.ImageName" type="text" class="form-control1" placeholder="Image name">
         <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name">
@@ -32,13 +32,10 @@
 
         @foreach (var item in Model.ListOfArtwork)
         {
-            <div id="removeMe-@item.ArtworkId">
+            <div class="exhibit-art">
                 <picture>
                     <img src="~/imagesArt/@item.ImageName">
                 </picture>
-                <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
             </div>
         }
     </div>

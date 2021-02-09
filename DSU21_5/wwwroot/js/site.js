@@ -22,6 +22,30 @@
     //prevent default form submit event
     return false;
 }
+jQueryAjaxUpdate = form => {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('.artwork-container').append('<div class="exhibit-art"><picture>' + `<img src=/imagesArt/${data}>`); 
+                    //`<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline"` +
+                    //`<input type="submit" value="Delete" class="btn btn-danger">`+
+                    //`</form>`);
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+        } catch (ex) {
+            console.log(ex)
+    }
+    //prevent default form submit event
+    return false;
+}
 
 
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {

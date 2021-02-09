@@ -174,7 +174,7 @@ namespace DSU21_5.Controllers
             {
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new { Id });
+            return Json(imageModel.ImageName);
         }
     }
 }
