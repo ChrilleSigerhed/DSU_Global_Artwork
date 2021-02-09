@@ -1,90 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Artwork Detail";
+﻿@model ArtworkDetailViewModel
+
+@{
+    ViewData["Title"] = "ArtworkDetail";
     Layout = "_Layout";
 }
-
 
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 
-
 <div class="art-details">
     <div class="art-image">
-        <img src="images/exhibit1.jpeg" />
+        <img src="~/imagesArt/@Model.DetailArtwork.ImageName" />
     </div>
     <div class="image-info">
-        <h1>Artwork name</h1>
-        <p>Year</p>
-        <p>Artist name</p>
-        <p>70x100cm</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas ipsa unde dignissimos, non tempore nobis modi quae inventore! Fugiat accusamus ducimus commodi quae doloribus sed rerum, explicabo dolor illum!</p>
+        <h1>Name: @Model.DetailArtwork.ArtName</h1>
+        <p>Artist name: @Model.Member.Firstname @Model.Member.Lastname </p>
+        <p>Made: @Model.DetailArtwork.Year</p>
+        @if (@Model.DetailArtwork.Height == "Not")
+        {
+            <p>Size: @Model.DetailArtwork.Height @Model.DetailArtwork.Width</p>
+        }
+        else
+        {
+            <p>Size: @Model.DetailArtwork.Height x @Model.DetailArtwork.Width</p>
+        }
+        <p>Description: @Model.DetailArtwork.Description</p>
     </div>
-
 </div>
 
 <div class="art-container">
     <h2>Other works by this Artist</h2>
-    <div class="view-art">
-        <div class="artist-artwork">
-            <div class="artwork-img">
-                <img src="images/exhibit2.jpeg" />
+        @for (int i = 0; i < Model.ListOfArt.Count; i++)
+        {
+            <div class="view-art">
+                <div class="artist-artwork">
+                    <a class="fh5co-project-item" asp-action="Index" asp-controller="ArtworkDetail" asp-route-id="@Model.ListOfArt[i].ArtworkId">
+                        <div class="artwork-img">
+                            <img src="~/imagesArt/@Model.ListOfArt[i].ImageName" />
+                        </div>
+                    </a>
+                    <div class="artwork-info">
+                        <h3>@Model.ListOfArt[i].ArtName</h3>
+                        @if (@Model.ListOfArt[i].Height == "Not")
+                        {
+                            <p>Size: @Model.ListOfArt[i].Height @Model.ListOfArt[i].Width</p>
+                        }
+                        else
+                        {
+                            <p>Size: @Model.ListOfArt[i].Height x @Model.ListOfArt[i].Width</p>
+                        }
+                    </div>
+                </div>
             </div>
-            <div class="artwork-info">
-                <h3>Artist name</h3>
-                <p>Art name</p>
-                <p>Size</p>
-                <p>Type</p>
-            </div>
-        </div>
-
-        <div class="artist-artwork">
-            <div class="artwork-img">
-                <img src="images/exhibit2.jpeg" />
-            </div>
-            <div class="artwork-info">
-                <h3>Artist name</h3>
-                <p>Art name</p>
-                <p>Size</p>
-                <p>Type</p>
-            </div>
-        </div>
-
-        <div class="artist-artwork">
-            <div class="artwork-img">
-                <img src="images/exhibit2.jpeg" />
-            </div>
-            <div class="artwork-info">
-                <h3>Artist name</h3>
-                <p>Art name</p>
-                <p>Size</p>
-                <p>Type</p>
-            </div>
-        </div>
-
-        <div class="artist-artwork">
-            <div class="artwork-img">
-                <img src="images/exhibit2.jpeg" />
-            </div>
-            <div class="artwork-info">
-                <h3>Artist name</h3>
-                <p>Art name</p>
-                <p>Size</p>
-                <p>Type</p>
-            </div>
-        </div>
-
-        <div class="artist-artwork">
-            <div class="artwork-img">
-                <img src="images/exhibit2.jpeg" />
-            </div>
-            <div class="artwork-info">
-                <h3>Artist name</h3>
-                <p>Art name</p>
-                <p>Size</p>
-                <p>Type</p>
-            </div>
-        </div>
-
-
-    </div>
+         }
 </div>

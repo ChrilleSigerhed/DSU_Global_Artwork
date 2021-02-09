@@ -20,8 +20,7 @@
             {
                 <div class="col-lg-4 col-md-4 col-sm-6">
 
-                    <a href="~/imagesArt/@Model.ArtworkInformation[i].Source" class="fh5co-project-item image-popup">
-
+                    <a class="fh5co-project-item" asp-action="Index" asp-controller="ArtworkDetail" asp-route-id="@Model.ArtworkInformation[i].ArtId">
                         <figure>
                             <div class="overlay"><i class="ti-plus"></i></div>
                             <img src="~/imagesArt/@Model.ArtworkInformation[i].Source" alt="Image" class="art-thumbnail">
