@@ -92,5 +92,9 @@ namespace DSU21_5.Data
             return artwork;
         }
 
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

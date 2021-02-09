@@ -30,9 +30,17 @@
 <div class="gtco-section border-bottom">
     <div class="artwork-container">
         <h4>Current Profile Picture</h4>
+        @if (Model != null)
+        {
+
         <picture>
             <img src="~/image/@Model.ImageName">
         </picture>
+        }
+        else
+        {
+            <p>Upload a profile picture<br />and show yourself!</p>
+        }
     </div>
 </div>
 

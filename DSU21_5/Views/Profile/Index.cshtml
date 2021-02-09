@@ -12,14 +12,8 @@
     var user = await UserManager.GetUserAsync(User);
 }
 
-
-
-
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
-
-@*BOOTSTRAP*@
-
 
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
@@ -53,7 +47,6 @@
                             </div>
                             <div class="name">
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
-                                <h6>Artist</h6>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
@@ -135,73 +128,6 @@
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
 </div>
-
-
-
-
-
-
-@*GAMMALT*@
-
-@*<div class="gtco-section border-bottom">
-    <div class="gtco-container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6 animate-box">
-                    <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
-                    <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
-                    <div class="form-group">
-
-                        <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="btn btn-primary"></a>
-
-
-                    </div>
-                </div>
-                <div class="col-md-5 col-md-push-1 animate-box">
-                    <div class="gtco-contact-info">
-                        <h3>Contact Information</h3>
-                        <ul>
-                            <li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-                            <li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-                            <li class="email"><a href="@user.Email">@user.Email</a></li>
-                            <li class="icon-instagram"><a href="#">artinsta</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="gtco-section border-bottom">
-    <div class="gtco-container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6 animate-box">
-                    <h3>Showcase Your Artwork</h3>
-                    <div class="form-group">
-                        <a asp-action="CreateArt" asp-route-id="@user.Id"><input type="submit" value="Upload Artwork" class="btn btn-primary"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="artwork-container">
-            <h4>My Artworks</h4>
-
-            @foreach (var item in Model.AllArtwork)
-            {
-                <div id="removeMe-@item.ArtworkId">
-                    <picture>
-                        <img src="~/imagesArt/@item.ImageName">
-                    </picture>
-                    <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                    </form>
-                </div>
-            }
-        </div>
-    </div>
-</div>*@
 
 <script src="~/js/jquery.countTo.js"></script>
 <script src="~/js/jquery.easing.1.3.js"></script>

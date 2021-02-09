@@ -83,3 +83,10 @@ connection.on("ReceiveMessage", (name, message) => {
     document.getElementById("messageList").appendChild(li);
 })
 
+$('#editBioModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
+
+//$('#uploadProfilePhotoModal').on('shown.bs.modal', function () {
+//    $('#myInput').trigger('focus')
+//})
