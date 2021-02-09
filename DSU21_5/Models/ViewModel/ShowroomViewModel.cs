@@ -20,9 +20,10 @@ namespace DSU21_5.Models.ViewModel
         public int NextInList { get; set; }
         public int RandomIndex { get; set; }
         public string ImageRatio { get; set; } = "1";
+        public string ShowroomFloor { get; set; }
         public ShowroomViewModel(List<Artwork> list, Member member)
         {
-
+            GetShowRoomFloor();
             for (int i = 0; i < list.Count; i++)
             {
                 list[i].Width = "10";
@@ -107,6 +108,12 @@ namespace DSU21_5.Models.ViewModel
         public void GetShowroomListFromMock()
         {
             ShowroomList = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("Mock/ExhibitionsMock.json"));
+        }
+        public void GetShowRoomFloor()
+        {
+            List<string> floors = new List<string>();
+            floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
+            ShowroomFloor = floors[random.Next(0, 5)];
         }
     }
 }
