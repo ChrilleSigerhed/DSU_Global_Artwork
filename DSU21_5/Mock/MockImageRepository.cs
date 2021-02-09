@@ -139,5 +139,10 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

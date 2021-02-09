@@ -12,6 +12,8 @@ namespace DSU21_5.Models.ViewModel
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
         public Artwork Artwork { get; set; }
+        public Exhibit Exhibit { get; set; }
+
 
         public Image ProfilePicture { get; set; }
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }

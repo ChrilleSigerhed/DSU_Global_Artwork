@@ -128,6 +128,16 @@ namespace DSU21_5.Data
             
         }
     
+        public async Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
+        {
+            var exhibition = db.Exhibit.Where(x => x.MemberId == id).FirstOrDefault();
+            exhibition.Name = exhibit.Name;
+            exhibition.StartDate = exhibit.StartDate;
+            exhibition.StopDate = exhibit.StopDate;
+            await db.SaveChangesAsync();
+            return exhibition;
+          
+        }
         /// <summary>
         /// Method that returns the artwork-viewmodel with all art uploaded in the database
         /// </summary>
@@ -156,7 +166,8 @@ namespace DSU21_5.Data
             Exhibit exhibit = new Exhibit()
             {
 
-                Date = "2020-10-12",
+                StartDate = "2020-10-12",
+                StopDate = "2020-11-22",
                 Name = "test",
                 MemberId = member.MemberId
             };

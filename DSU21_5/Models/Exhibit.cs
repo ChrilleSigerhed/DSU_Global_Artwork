@@ -14,8 +14,9 @@ namespace DSU21_5.Models
         [Column(TypeName ="nvarchar(100)")]
         public string Name { get; set; }
         [Column(TypeName = "nvarchar(100)")]
-        public string Date { get; set; }
-
+        public string StartDate { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string StopDate { get; set; }
         [ForeignKey("Member")]
         public string MemberId { get; set; }
         public Member Member { get; set; }

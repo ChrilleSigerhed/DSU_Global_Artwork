@@ -27,7 +27,7 @@ namespace DSU21_5.Data
         int? GetExhibitId(string id);
         Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit);
         Task<IEnumerable<Artwork>> GetAllArtToExhibitions();
-
+        Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit);
 
     }
 }

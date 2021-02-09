@@ -146,8 +146,14 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
+
             Artwork imageModel = profileView.Artwork;
+      
             var selected = Request.Form.Files[0];
+            var category = Request.Form["category"];
+
+           
+            imageModel.Type = category;
             imageModel.ImageFile = selected;
             imageModel.ImageName = selected.FileName;
             Member member = await MemberRepository.GetMember(Id);
@@ -167,6 +173,36 @@ namespace DSU21_5.Controllers
                     {
                         exhibit = await ArtRepository.CreateExhibit(_context, member);
                         var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex);
+            }
+            return RedirectToAction($"Index", new { Id });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //TODO: VARFÖR GÅR DEN INTE IN I DEN HÄR ?! !?!?
+        public async Task<IActionResult> UploadExhibition([Bind("Exhibit")] ProfileViewModel profileView, string Id)
+        {
+        
+            Exhibit exhibit = profileView.Exhibit;
+            var startDate = Request.Form["trip-start"];
+            var stopDate = Request.Form["trip-stop"];
+            exhibit.StartDate = startDate;
+            exhibit.StopDate = stopDate;
+            Member member = await MemberRepository.GetMember(Id);
+            bool exist = ArtRepository.CheckIfIdExists(Id);
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (exist == true)
+                    {
+                        await ArtRepository.UpdateExhibition(Id, exhibit);
                     }
                 }
             }

@@ -2,7 +2,7 @@
 
 namespace DSU21_5.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,8 @@ namespace DSU21_5.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Date = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    StartDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    StopDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     MemberId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -68,11 +69,11 @@ namespace DSU21_5.Migrations
                     ArtworkId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    ArtName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Year = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Height = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    Width = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    ArtName = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Year = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Height = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Width = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     ExhibitId = table.Column<int>(nullable: true)

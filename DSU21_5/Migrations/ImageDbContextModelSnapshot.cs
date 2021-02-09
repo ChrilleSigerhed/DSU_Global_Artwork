@@ -27,15 +27,18 @@ namespace DSU21_5.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ArtName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("ExhibitId")
                         .HasColumnType("int");
 
                     b.Property<string>("Height")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ImageName")
@@ -48,9 +51,11 @@ namespace DSU21_5.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Width")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Year")
+                        .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("ArtworkId");
@@ -69,13 +74,16 @@ namespace DSU21_5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Date")
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("StartDate")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("StopDate")
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
