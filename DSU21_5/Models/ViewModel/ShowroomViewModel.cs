@@ -41,12 +41,12 @@ namespace DSU21_5.Models.ViewModel
             SetShowroomPositions(member, members);
             GetListOfArtworkInformation(member, list);
             
-            Images = FillOutListWithArtworks(GiveMeasurementsToArtworks(list));
+            Images = FillOutListWithArtworks(list);
             //GetShowroomListFromMock();
         }
         public void SetRandomIndex()
         {
-            RandomIndex = random.Next(0, ShowroomList.Count);
+            RandomIndex = random.Next(0, Members.Count);
         }
         public List<ArtworkInformation> GetListOfArtworkInformation(Member member, List<Artwork> postedArt)
         {
@@ -146,6 +146,11 @@ namespace DSU21_5.Models.ViewModel
                         NextInList = PositionInList + 1;
                     }
                 }
+            }
+            if(members.Count <= 1)
+            {
+                NextInList = 0;
+                PreviousInList = 0;
             }
         }
 
