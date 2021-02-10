@@ -1455,12 +1455,6 @@ form label {
     will-change: box-shadow,transform;
 }
 
-.editprofilepicture a :hover
-{
-    text-decoration: none;
-    color: #fff;
-}
-
 .editprofilebuttons {
     width: 20%;
     color: #fff;
