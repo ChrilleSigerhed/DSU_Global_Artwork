@@ -31,7 +31,7 @@ jQueryAjaxDelete = form => {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $(`#removeMe-${data}`).remove();
+                    $(`#${data}`).remove();
                 },
                 error: function (err) {
                     console.log(err)
@@ -54,8 +54,10 @@ jQueryAjaxUpdate = form => {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('.artwork-container').append('<div class="exhibit-art"><picture>' + `<img src=/imagesArt/${data}>`); 
-                   
+                    $('.artwork-container').append(`<div class="exhibit-art" id="${data}"><picture>` + `<img src=/imagesArt/${data}>` +
+                        `  <form asp-action="DeleteArt" asp-route-id="${data}" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">` +
+                        `   <input type="submit" value="Delete" class="btn btn-danger" />` +
+                        ` </form>`);
                 },
                 error: function (err) {
                     console.log(err)

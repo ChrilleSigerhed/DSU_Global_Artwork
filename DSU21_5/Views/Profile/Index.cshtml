@@ -35,7 +35,8 @@
                             <div class="avatar" style="height: 100px">
                                 <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
                             </div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId" class="editprofilepicture">Edit profile</a>
+                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId" class="editprofilepicture">Edit Profile</a>
+                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="editprofilepicture"></a>
 
 
                             <div class="name">
@@ -131,7 +132,7 @@
             </div>
         </div>
     </div>
-    <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn btn-primary"></a>
+   
 </div>
  
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
