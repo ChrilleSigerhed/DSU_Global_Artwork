@@ -23,8 +23,6 @@ namespace DSU21_5.Controllers
         public IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
 
-        //TODO: create try-catch
-
         public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
         {
             _context = context;
@@ -72,7 +70,6 @@ namespace DSU21_5.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: Fixa en errorsida
                 return View("Error", ex);
             }
             return RedirectToAction($"Index", new { Id });
@@ -132,7 +129,6 @@ namespace DSU21_5.Controllers
 
         public async Task<IActionResult> CreateExhibition(string Id)
         {
-            //TODO: måste vi ropa på allt de här? Kolla om det går att lösa de här snyggare
             var art = await ArtRepository.GetArtFromExhibit(Id);
             var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
             var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
@@ -142,16 +138,14 @@ namespace DSU21_5.Controllers
             ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
             return View(ProfileViewModel);
         }
-        [HttpPost]
+        [HttpPost("/Profile/CreateExhibition/{Id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
-
             Artwork imageModel = profileView.Artwork;
       
             var selected = Request.Form.Files[0];
             var category = Request.Form["category"];
-
            
             imageModel.Type = category;
             imageModel.ImageFile = selected;
@@ -182,11 +176,9 @@ namespace DSU21_5.Controllers
             }
             return Json(imageModel.ImageName);
         }
-        [HttpPost]
+        [HttpPost("/Profile/UploadExhibition")]
         [ValidateAntiForgeryToken]
-        //[Route("/Profile/CreateExhibition/{Id}")]
-        //TODO: VARFÖR GÅR DEN INTE IN I DEN HÄR ?! !?!?
-        public async Task<IActionResult> CreateExhibition([Bind("Exhibit, Member")] ProfileViewModel profileView)
+        public async Task<IActionResult> UploadExhibition([Bind("Exhibit, Member")] ProfileViewModel profileView)
         {
         
             Exhibit exhibit = profileView.Exhibit;
@@ -211,7 +203,8 @@ namespace DSU21_5.Controllers
             {
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new { profileView.Member.MemberId });
+            string Id = profileView.Member.MemberId;
+            return RedirectToAction($"Index", new { Id });
         }
     }
 }

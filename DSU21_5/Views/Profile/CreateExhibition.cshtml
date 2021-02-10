@@ -1,5 +1,4 @@
-﻿@*@model DSU21_5.Models.Artwork*@
-@model ProfileViewModel
+﻿@model ProfileViewModel
 
 @{
     ViewData["Title"] = "CreateArt";
@@ -30,14 +29,14 @@
         <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Description"></textarea>
         <h1>Drag and drop files</h1>
         <div class="drop-zone">
-            <span class="drop-zone__prompt">Drop file here or click to upload</span>
+            <span class="drop-zone__prompt">Drop file here to upload</span>
             <input asp-for="@Model.Artwork.ImageFile" type="file" name="myFile" class="drop-zone__input">
             <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         </div>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
     </div>
 </form>
-<form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
+<form asp-action="UploadExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
 
     <div class="form-group" style="float: left;">
         <p><input asp-for="@Model.Exhibit.Name" type="text" class="form-control1" placeholder="Exhibition name"></p>
@@ -52,8 +51,10 @@
                value="2021-02-09"
                min="2021-01-01" max="2021-12-31" />
         <input type="hidden" value="@Model.Member.MemberId" class="btn btn-primary" asp-for="@Model.Member.MemberId" />
+        <input type="hidden" value="@Model.Member.Firstname" class="btn btn-primary" asp-for="@Model.Member.Firstname" />
+        <input type="hidden" value="@Model.Member.Lastname" class="btn btn-primary" asp-for="@Model.Member.Lastname" />
+        <input type="hidden" value="@Model.Member.Email" class="btn btn-primary" asp-for="@Model.Member.Email" />
         <input type="submit" value="Create" class="btn btn-primary" />
-
     </div>
 </form>
     <div class="gtco-section border-bottom">
@@ -70,23 +71,6 @@
         }
     </div>
 </div>
-@*<script src="~/js/site.js"></script>
-            @foreach (var item in Model.ListOfArtwork)
-            {
-                <div id="removeMe-@item.ArtworkId">
-                    <picture>
-                        <img src="~/imagesArt/@item.ImageName">
-                    </picture>
-                    <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                    </form>
-                </div>
-            }
-        </div>
-    </div>
-    <script src="~/js/site.js"></script>*@
-
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
