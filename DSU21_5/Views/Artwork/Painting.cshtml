@@ -1,0 +1,38 @@
+﻿@model ArtworkViewModel
+
+@{
+    ViewData["Title"] = "Artwork";
+    Layout = "_Layout";
+}
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
+</header>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                <h2>Collective Artwork</h2>
+                <button onClick="window.location.href=window.location.href" class="btn btn-danger">Show me some new art!</button>
+            </div>
+        </div>
+        <div class="row">
+            @for (int i = 0; i < Model.CollectiveArt.Count; i++)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6">
+
+                    <a href="~/imagesArt/@Model.ArtworkInformation[i].Source" class="fh5co-project-item image-popup">
+
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="~/imagesArt/@Model.ArtworkInformation[i].Source" alt="Image" class="art-thumbnail">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>@Model.ArtworkInformation[i].Title</h2>
+                            <p>Uploaded by @Model.ArtworkInformation[i].Firstname @Model.ArtworkInformation[i].Lastname </p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

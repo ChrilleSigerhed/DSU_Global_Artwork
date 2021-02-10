@@ -75,6 +75,17 @@ h1, h2, h3, h4, h5, h6, figure {
   margin: 0 0 20px 0;
 }
 
+#user-icon {
+    height: 25px;
+    width: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#community-header-text {
+    margin-right: 5%;
+}
+
 ::-webkit-selection {
   color: #fff;
   background: #f54c53;
@@ -121,7 +132,13 @@ h1, h2, h3, h4, h5, h6, figure {
         margin-bottom: 5px;
     }
 
-
+.art-thumbnail {
+    position: absolute;
+    left: -50%;
+    top: -30%;
+    height: 150%;
+    width: auto;
+}
 
 .community-container {
     width: 100%;
@@ -173,8 +190,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .art-image img {
-    width: 500px;
-    height: 700px;
+    width: 350px;
+    height: 500px;
     margin-top: 70px;
     margin-left: 70px;
 }
@@ -187,12 +204,11 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
     .image-info h1 {
-        text-decoration: underline;
     }
 
 .view-art {
-    display: flex;
-    padding: 20px;
+    display: inline-block;
+    margin-left: 20px;
 }
 
 .artist-artwork {
@@ -200,10 +216,22 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .artwork-img img {
-    width: 150px;
+     width: 168px;
+     height: 200px;
+}
+.exhibit-art {
+    width: 149px;
     height: 200px;
+    display: inline-block;
+    padding: 4px;
+    margin: 40px;
 }
 
+
+.artwork-img {
+    min-height: 200px;
+    min-width: 168px;
+}
 .art-container {
     border-top: 1px solid #f2f2f2;
     margin-top: 40px;
@@ -242,6 +270,10 @@ h1, h2, h3, h4, h5, h6, figure {
 
 .login-register{
     float:right;
+}
+
+#navbar-login {
+    display: inline;
 }
 
 @media screen and (max-width: 768px) {
@@ -1399,6 +1431,59 @@ form label {
   transition: 0.5s;
   padding: 8px 30px;
 }
+
+.editprofilepicture {
+    width: 40%;
+    color: #fff;
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+    margin-top: 38px;
+    margin-left: 30%;
+    margin-right: 30%;
+    box-shadow: 0 2px 2px 0 #990099, 0 3px 1px -2px #990099, 0 1px 5px 0 #990099;
+    padding: 12px 30px;
+    font-size: .75rem;
+    font-weight: 400;
+    line-height: 1.428571;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border: 0;
+    border-radius: .2rem;
+    outline: 0;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1);
+    will-change: box-shadow,transform;
+}
+
+.editprofilepicture a :hover
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+.editprofilebuttons {
+    width: 20%;
+    color: #fff;
+    background-color: #9c27b0;
+    border-color: #9c27b0;
+    margin-top: 20px;
+    margin-left: 40%;
+    margin-right: 40%;
+    box-shadow: 0 2px 2px 0 #990099, 0 3px 1px -2px #990099, 0 1px 5px 0 #990099;
+    padding: 12px 30px;
+    font-size: .75rem;
+    font-weight: 400;
+    line-height: 1.428571;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    border: 0;
+    border-radius: .2rem;
+    outline: 0;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1);
+    will-change: box-shadow,transform;
+}
+
 .btn.btn-md {
   padding: 8px 20px !important;
 }
@@ -2065,3 +2150,47 @@ form label {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.drop-zone {
+    max-width: 250px;
+    height: 250px;
+    padding: 40px;
+    display: block;
+    align-items: center;
+    cursor: pointer;
+    color: #cccccc;
+    border: 4px dashed #009578;
+    border-radius: 10px;
+}
+
+.drop-zone--over {
+    border-style: solid;
+}
+
+.drop-zone__input {
+    display: none !IMPORTANT;
+}
+
+.drop-zone__thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #cccccc;
+    background-size: cover;
+    position: relative;
+}
+
+    .drop-zone__thumb::after {
+        content: attr(data-label);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 5px 0;
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.75);
+        font-size: 14px;
+        text-align: center;
+    }

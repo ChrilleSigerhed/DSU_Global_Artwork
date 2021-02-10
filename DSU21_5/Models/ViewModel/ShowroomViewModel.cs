@@ -12,8 +12,15 @@ namespace DSU21_5.Models.ViewModel
     {
         Random random = new Random();
         public List<Artwork> Images { get; set; }
+
         public Member Member { get; set; }
+        public List<Member> Members { get; set; }
+        //public List<Artwork> ListOfArtToExhibit { get; set; } = new List<Artwork>();
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
+
+        public List<ArtworkInformation> ArtToExhibit { get; set; } = new List<ArtworkInformation>();
+        public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
+
         public List<string> ShowroomList { get; set; }
         public int PositionInList { get; set; }
         public int PreviousInList { get; set; }
@@ -21,7 +28,8 @@ namespace DSU21_5.Models.ViewModel
         public int RandomIndex { get; set; }
         public string ImageRatio { get; set; } = "1";
         public string ShowroomFloor { get; set; }
-        public ShowroomViewModel(List<Artwork> list, Member member)
+ 
+
         {
             GetShowRoomFloor();
             for (int i = 0; i < list.Count; i++)
@@ -30,6 +38,7 @@ namespace DSU21_5.Models.ViewModel
                 list[i].Height = "11";
             }
             Member = member;
+            Members = members;
             GetListOfArtworkInformation(member, list);
             for (int i = list.Count; i < 17; i++)
             {
@@ -90,7 +99,6 @@ namespace DSU21_5.Models.ViewModel
                         Description = postedArt[i].Description,
                         Title = postedArt[i].ArtName,
                         UserId = member.MemberId
-
                     }) ;
                 }
                 else
@@ -105,6 +113,38 @@ namespace DSU21_5.Models.ViewModel
             return ArtworkInformation;
         }
 
+        //public List<ArtworkInformation> GetExhibitionArt()
+        //{
+
+        //    foreach (var item in Members)
+        //    {
+        //        for (int i = 0; i < ListOfArtToExhibit.Count; i++)
+        //        {
+        //            if (CollectiveArt[i].UserId == item.MemberId)
+        //            {
+        //                ArtToExhibit.Add(new ArtworkInformation
+        //                {
+        //                    Firstname = item.Firstname,
+        //                    Source = CollectiveArt[i].ImageName,
+        //                    Lastname = item.Lastname,
+        //                    Height = CollectiveArt[i].Height,
+        //                    Width = CollectiveArt[i].Width,
+        //                    Type = CollectiveArt[i].Type,
+        //                    Year = CollectiveArt[i].Year,
+        //                    Description = CollectiveArt[i].Description,
+        //                    Title = CollectiveArt[i].ArtName,
+        //                    UserId = item.MemberId
+
+        //                });
+        //            }
+
+        //        }
+        //    }
+
+        //    return ArtToExhibit;
+        //}
+
+
         public void GetShowroomListFromMock()
         {
             ShowroomList = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("Mock/ExhibitionsMock.json"));
@@ -115,5 +155,6 @@ namespace DSU21_5.Models.ViewModel
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
             ShowroomFloor = floors[random.Next(0, 5)];
         }
+
     }
 }

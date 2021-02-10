@@ -7,6 +7,7 @@ namespace DSU21_5.Models
 {
     public class ArtworkInformation
     {
+        public int ArtId { get; set; }
         public string Title { get; set; }
         public string UserId { get; set; }
         public string Firstname { get; set; }
