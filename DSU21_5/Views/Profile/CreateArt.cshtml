@@ -1,4 +1,5 @@
-﻿@model DSU21_5.Models.Artwork
+
+@model ProfileViewModel
 @using Microsoft.AspNetCore.Identity
 @using DSU21_5.Areas.Identity.Data
 
@@ -21,12 +22,17 @@
 
 <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="ArtName" type="text" class="form-control1" placeholder="Art Name" required oninvalid="this.setCustomValidity('Please submit your artworks name!')" oninput="this.setCustomValidity('')"/>
-        <input asp-for="Description" type="text" class="form-control1" placeholder="Add description">
+
+      
+        <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name" required oninvalid="this.setCustomValidity('Please submit your artworks name!')" oninput="this.setCustomValidity('')"/>
+        <p><input asp-for="@Model.Artwork.Height" type="text" class="form-control1" placeholder="Height">cm</p>
+        <p><input asp-for="@Model.Artwork.Width" type="text" class="form-control1" placeholder="Width">cm</p>
+        <p><input asp-for="@Model.Artwork.Year" type="text" class="form-control1" placeholder="Year"></p>
+        <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Description"></textarea>
+
         
-        <label for="Type">Type of artwork:</label>
-        <select id="Type" name="Type" required oninvalid="this.setCustomValidity('Select a category')"  oninput="this.setCustomValidity('')">
+        <label asp-for="@Model.Artwork.Type">Category: </label>
+        <select runat="server" id="Type" name="category" required oninvalid="this.setCustomValidity('Select a category')"  oninput="this.setCustomValidity('')">
             <option value="" selected disabled hidden>Type of artwork</option>
             <option value="DigitalArt">Digital art</option>
             <option value="Drawing">Drawing</option>
@@ -36,8 +42,8 @@
             <option value="Sculpture">Sculpture</option>
         </select>
 
-        <input asp-for="ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your artwork!')" oninput="this.setCustomValidity('')">
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your artwork!')" oninput="this.setCustomValidity('')">
+        <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         
         
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
@@ -52,35 +58,10 @@
     </div>
 </div>
 
-@*<h1>Create</h1>
+<script src="~/js/site.js"></script>
 
-    <h4>ImageModel</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create" enctype="multipart/form-data">
 
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="ImageName" class="control-label"></label>
-                    <input asp-for="ImageName" class="form-control" />
-                    <span asp-validation-for="ImageName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImageFile" class="control-label"></label>
-                    <input asp-for="ImageFile" accept="image/*" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@user.Id" />
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>*@
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

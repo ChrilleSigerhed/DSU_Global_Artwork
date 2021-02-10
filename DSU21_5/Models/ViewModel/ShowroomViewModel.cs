@@ -9,11 +9,16 @@ namespace DSU21_5.Models.ViewModel
     public class ShowroomViewModel
     {
         public List<Artwork> Images { get; set; }
+
         public Member Member { get; set; }
+        public List<Member> Members { get; set; }
+        //public List<Artwork> ListOfArtToExhibit { get; set; } = new List<Artwork>();
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
-        public ShowroomViewModel(List<Artwork> list, Member member)
+        public List<ArtworkInformation> ArtToExhibit { get; set; } = new List<ArtworkInformation>();
+        public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
         {
             Member = member;
+            Members = members;
             GetListOfArtworkInformation(member, list);
             for (int i = list.Count; i < 17; i++)
             {
@@ -42,7 +47,6 @@ namespace DSU21_5.Models.ViewModel
                         Description = postedArt[i].Description,
                         Title = postedArt[i].ArtName,
                         UserId = member.MemberId
-
                     }) ;
                 }
                 else
@@ -56,5 +60,35 @@ namespace DSU21_5.Models.ViewModel
             }
             return ArtworkInformation;
         }
+        //public List<ArtworkInformation> GetExhibitionArt()
+        //{
+
+        //    foreach (var item in Members)
+        //    {
+        //        for (int i = 0; i < ListOfArtToExhibit.Count; i++)
+        //        {
+        //            if (CollectiveArt[i].UserId == item.MemberId)
+        //            {
+        //                ArtToExhibit.Add(new ArtworkInformation
+        //                {
+        //                    Firstname = item.Firstname,
+        //                    Source = CollectiveArt[i].ImageName,
+        //                    Lastname = item.Lastname,
+        //                    Height = CollectiveArt[i].Height,
+        //                    Width = CollectiveArt[i].Width,
+        //                    Type = CollectiveArt[i].Type,
+        //                    Year = CollectiveArt[i].Year,
+        //                    Description = CollectiveArt[i].Description,
+        //                    Title = CollectiveArt[i].ArtName,
+        //                    UserId = item.MemberId
+
+        //                });
+        //            }
+
+        //        }
+        //    }
+
+        //    return ArtToExhibit;
+        //}
     }
 }
