@@ -128,6 +128,20 @@ namespace DSU21_5.Controllers
             return Json(Id);
         }
 
+        [HttpPost("Profile/DeleteArtConfirmExhibit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteArtConfirmExhibit(string Id)
+        {
+            try
+            {
+                Artwork artwork = await ArtRepository.DeleteArtworkFromExhibit(_hostEnvironment, Id);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            return Json(Id);
+        }
 
         public async Task<IActionResult> CreateExhibition(string Id)
         {
@@ -226,6 +240,29 @@ namespace DSU21_5.Controllers
             return Json(member.Bio);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFacebook([Bind("Facebook")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateFacebook(Id, member.Facebook);
+            return Json(member.Facebook);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTwitter([Bind("Twitter")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateTwitter(Id, member.Twitter);
+            return Json(member.Twitter);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditInstagram([Bind("Instagram")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateInstagram(Id, member.Instagram);
+            return Json(member.Instagram);
+        }
     }
 }
 

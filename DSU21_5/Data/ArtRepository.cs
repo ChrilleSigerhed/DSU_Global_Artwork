@@ -286,6 +286,21 @@ namespace DSU21_5.Data
            
             return artwork;
         }
+        public async Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork)
+        {
+            Artwork art = db.Artworks.Where(x => x.ImageName == artwork).FirstOrDefault();
+            db.Artworks.Remove(art);
+            await db.SaveChangesAsync();
+            string wwwRootPath = hostEnvironment.WebRootPath;
+            string path = Path.Combine(wwwRootPath + "/imagesArt/", artwork);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                File.Delete(path);
+            }
+
+            return art;
+        }
 
         public Artwork GetArtworkThatsGonnaBeDeleted(int id)
         {

@@ -35,16 +35,37 @@
                             <div class="avatar" style="height: 100px">
                                 <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
                             </div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId" class="editprofilepicture">Edit profile</a>
+                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId" class="editprofilepicture">Edit Profile</a>
+                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="editprofilepicture"></a>
 
-
+                            <a asp-action="Edit" asp-route-id="@user.Id" class="editprofilepicture">Edit profile</a>
+                            
                             <div class="name">
+                             
                                 <br />
                                 <br />
-                                <h3 class="title">@Model.Member.Firstname @Model.Member.Lastname</h3>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+                                <h3 class="title">@user.Firstname @user.Lastname</h3>
+
+                                @if (Model.Member.Facebook != null)
+                                {
+                                    <a href="@Model.Member.Facebook" target="_blank">
+                                        <img src="~/images/Facebook.png" id="social-icon" />
+                                    </a>
+                                }
+                                @if (Model.Member.Twitter != null)
+                                {
+                                    <a href="@Model.Member.Twitter" target="_blank">
+                                        <img src="~/images/Twitter.png" id="social-icon" />
+                                    </a>
+                                }
+                                @if (Model.Member.Instagram != null)
+                                {
+                                    <a href="@Model.Member.Instagram" target="_blank">
+                                        <img src="~/images/Instagram.png" id="social-icon" />
+                                    </a>
+                                }
+
+
                             </div>
                         </div>
                     </div>

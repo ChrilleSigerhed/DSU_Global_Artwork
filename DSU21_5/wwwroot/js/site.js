@@ -1,4 +1,3 @@
-
 jQueryAjaxUpdateBio = form => {
     try {
         $.ajax({
@@ -21,6 +20,72 @@ jQueryAjaxUpdateBio = form => {
     return false;
 }
 
+jQueryAjaxUpdateFacebook = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+               
+                $("#editFacebookModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
+jQueryAjaxUpdateTwitter = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                $("#editTwitterModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
+jQueryAjaxUpdateInstagram = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                $("#editInstagramModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
 jQueryAjaxDelete = form => {
     if (confirm('Do you want to delete this artwork?')) {
         try {
@@ -31,7 +96,7 @@ jQueryAjaxDelete = form => {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $(`#removeMe-${data}`).remove();
+                    $(`#${data}`).remove();
                 },
                 error: function (err) {
                     console.log(err)
@@ -54,8 +119,10 @@ jQueryAjaxUpdate = form => {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('.artwork-container').append('<div class="exhibit-art"><picture>' + `<img src=/imagesArt/${data}>`); 
-                   
+                    $('.artwork-container').append(`<div class="exhibit-art" id="${data}"><picture>` + `<img src=/imagesArt/${data}>` +
+                        `  <form asp-action="DeleteArt" asp-route-id="${data}" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">` +
+                        `   <input type="submit" value="Delete" class="btn btn-danger" />` +
+                        ` </form>`);
                 },
                 error: function (err) {
                     console.log(err)
