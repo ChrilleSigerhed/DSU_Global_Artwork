@@ -29,7 +29,9 @@ namespace DSU21_5.Controllers
 
             Id = "638aa03d-c00c-4c9f-8e3e-2206b57f404d";
             var postedArt = await artRepository.GetAllArtToExhibitions();
+            //var postedArt = await artRepository.GetArtFromExhibit(Id);
             var members = await memberRepository.GetAllMembers();
+            var member = await memberRepository.GetMember(Id);
          
             
             return View(new ShowroomViewModel(postedArt.ToList(), member, members));

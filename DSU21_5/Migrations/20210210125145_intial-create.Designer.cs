@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.AuthDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210208111505_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210210125145_intial-create")]
+    partial class intialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

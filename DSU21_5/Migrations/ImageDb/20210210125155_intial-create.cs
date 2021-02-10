@@ -2,7 +2,7 @@
 
 namespace DSU21_5.Migrations.ImageDb
 {
-    public partial class intialCreate : Migration
+    public partial class intialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
