@@ -39,6 +39,7 @@ namespace DSU21_5
             //services.AddScoped<IImageRepository, MockImageRepository>();
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddScoped<IMemberRepository, MemberRepository>();
+            services.AddScoped<IRelationshipRepository, RelationshipRepository>();
 
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddSignalR();
