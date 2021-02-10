@@ -128,6 +128,20 @@ namespace DSU21_5.Controllers
             return Json(Id);
         }
 
+        [HttpPost("Profile/DeleteArtConfirmExhibit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteArtConfirmExhibit(string Id)
+        {
+            try
+            {
+                Artwork artwork = await ArtRepository.DeleteArtworkFromExhibit(_hostEnvironment, Id);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            return Json(Id);
+        }
 
         public async Task<IActionResult> CreateExhibition(string Id)
         {

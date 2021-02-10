@@ -28,9 +28,8 @@ namespace DSU21_5.Data
         Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit);
         Task<IEnumerable<Artwork>> GetAllArtToExhibitions();
         Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit);
-
-
         Artwork GetArtworkForUser(int id);
+        Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork);
 
     }
 }

@@ -150,5 +150,10 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -19,7 +19,6 @@ namespace DSU21_5.Models.ViewModel
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
 
         public List<ArtworkInformation> ArtToExhibit { get; set; } = new List<ArtworkInformation>();
-        public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
 
         public List<string> ShowroomList { get; set; }
         public int PositionInList { get; set; }
@@ -30,6 +29,7 @@ namespace DSU21_5.Models.ViewModel
         public string ShowroomFloor { get; set; }
  
 
+        public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
         {
             GetShowRoomFloor();
             for (int i = 0; i < list.Count; i++)
