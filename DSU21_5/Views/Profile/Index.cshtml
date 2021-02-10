@@ -33,7 +33,7 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
                             <div class="avatar" style="height: 100px">
-                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo" />
                             </div>
                             <a asp-action="Edit" asp-route-id="@Model.Member.MemberId" class="editprofilepicture">Edit Profile</a>
                             <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="editprofilepicture"></a>
