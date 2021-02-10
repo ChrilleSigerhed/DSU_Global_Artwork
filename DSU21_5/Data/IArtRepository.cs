@@ -29,5 +29,8 @@ namespace DSU21_5.Data
         Task<IEnumerable<Artwork>> GetAllArtToExhibitions();
         Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit);
 
+
+        Artwork GetArtworkForUser(int id);
+
     }
 }

@@ -72,7 +72,7 @@ namespace DSU21_5.Controllers
             {
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new { Id });
+            return RedirectToAction($"Edit", new { Id });
 
         }
         public async Task<IActionResult> CreateArt(string Id)
@@ -89,6 +89,7 @@ namespace DSU21_5.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateArt([Bind("Artwork")] ProfileViewModel profileView, string Id)
+
         {
             Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
@@ -107,7 +108,7 @@ namespace DSU21_5.Controllers
                 return View("Error", ex);
 
             }
-            return RedirectToAction($"Index", new { Id });
+            return RedirectToAction($"Edit", new { Id });
         }
 
         [HttpPost, ActionName("DeleteArt")]
@@ -116,7 +117,7 @@ namespace DSU21_5.Controllers
         {
             try
             {
-                Artwork artwork = ArtRepository.GetArtworkThatsGonnaBeDeleted(Id);
+                Artwork artwork = ArtRepository.GetArtworkForUser(Id);
                 await ArtRepository.DeleteArtworkFromArtworkTable(_hostEnvironment, artwork);
             }
             catch (Exception ex)
@@ -126,6 +127,7 @@ namespace DSU21_5.Controllers
             }
             return Json(Id);
         }
+
 
         public async Task<IActionResult> CreateExhibition(string Id)
         {
@@ -206,6 +208,24 @@ namespace DSU21_5.Controllers
             string Id = profileView.Member.MemberId;
             return RedirectToAction($"Index", new { Id });
         }
+
+        public async Task<IActionResult> Edit(string Id)
+        {
+            Image image = ImageRepository.GetImageFromDb(Id);
+            Member member = await MemberRepository.GetMember(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
+            return View(ProfileViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Bio")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateBio(Id, member.Bio);
+            return Json(member.Bio);
+        }
+
     }
 }
 

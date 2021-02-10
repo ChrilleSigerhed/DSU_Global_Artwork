@@ -28,7 +28,8 @@ namespace DSU21_5.Models
         [NotMapped]
         public string ProfilePicture { get; set; }
 
-
+        [Column(TypeName = "nvarchar(500)")]
+        public string Bio { get; set; }
 
     }
 }

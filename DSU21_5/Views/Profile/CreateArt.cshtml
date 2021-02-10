@@ -1,4 +1,4 @@
-﻿@*@model DSU21_5.Models.Artwork*@
+
 @model ProfileViewModel
 @using Microsoft.AspNetCore.Identity
 @using DSU21_5.Areas.Identity.Data
@@ -23,25 +23,40 @@
 <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
 
-        <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
-        <p><input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art name"></p>
+      
+        <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name" required oninvalid="this.setCustomValidity('Please submit your artworks name!')" oninput="this.setCustomValidity('')"/>
         <p><input asp-for="@Model.Artwork.Height" type="text" class="form-control1" placeholder="Height">cm</p>
         <p><input asp-for="@Model.Artwork.Width" type="text" class="form-control1" placeholder="Width">cm</p>
         <p><input asp-for="@Model.Artwork.Year" type="text" class="form-control1" placeholder="Year"></p>
-
-        <label asp-for="@Model.Artwork.Type">Category: </label>
-        <select runat="server" name="category" id="category">
-            <option value="foto">Foto</option>
-            <option value="målning">Målning</option>
-            <option value="teckning">Teckning</option>
-            <option value="digital-konst">Digital konst</option>
-        </select>
-        <br />
         <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Description"></textarea>
+
+        
+        <label asp-for="@Model.Artwork.Type">Category: </label>
+        <select runat="server" id="Type" name="category" required oninvalid="this.setCustomValidity('Select a category')"  oninput="this.setCustomValidity('')">
+            <option value="" selected disabled hidden>Type of artwork</option>
+            <option value="DigitalArt">Digital art</option>
+            <option value="Drawing">Drawing</option>
+            <option value="Painting">Painting</option>
+            <option value="Photography">Photography</option>
+            <option value="ReadyMade">Ready Made</option>
+            <option value="Sculpture">Sculpture</option>
+        </select>
+
+        <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your artwork!')" oninput="this.setCustomValidity('')">
         <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
+        
+        
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
 </form>
+<div class="gtco-section border-bottom">
+    <div class="artwork-container">
+        <h4>Uploaded Artworks</h4>
+        <picture>
+            <img src="/images/art.jpg">
+        </picture>
+    </div>
+</div>
 
 <script src="~/js/site.js"></script>
 

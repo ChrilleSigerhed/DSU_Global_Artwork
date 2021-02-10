@@ -44,5 +44,15 @@ namespace DSU21_5.Data
 
             return members;
         }
+
+        public async Task<Member> UpdateBio(string Id, string bio)
+        {
+            var update = db.Members.Where(x => x.MemberId == Id).FirstOrDefault();
+            update.Bio = bio;
+            db.Update(update);
+
+            await db.SaveChangesAsync();
+            return update;
+        }
     }
 }

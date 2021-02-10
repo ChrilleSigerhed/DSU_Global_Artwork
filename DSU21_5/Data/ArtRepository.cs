@@ -267,7 +267,7 @@ namespace DSU21_5.Data
             
             return ArtworkInformation.ToList();
         }
-        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        public Artwork GetArtworkForUser(int id)
         {
             Artwork artwork = db.Artworks.Where(x => x.ArtworkId == id).FirstOrDefault();
             return artwork;
@@ -287,5 +287,9 @@ namespace DSU21_5.Data
             return artwork;
         }
 
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

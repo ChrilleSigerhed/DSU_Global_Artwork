@@ -1,5 +1,28 @@
-﻿jQueryAjaxDelete = form => {
-    if (confirm('Are you sure to delete this artwork?')) {
+
+jQueryAjaxUpdateBio = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $(`#bio`).text(data);
+                $("#editBioModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
+jQueryAjaxDelete = form => {
+    if (confirm('Do you want to delete this artwork?')) {
         try {
             $.ajax({
                 type: 'POST',
@@ -32,9 +55,7 @@ jQueryAjaxUpdate = form => {
                 processData: false,
                 success: function (data) {
                     $('.artwork-container').append('<div class="exhibit-art"><picture>' + `<img src=/imagesArt/${data}>`); 
-                    //`<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline"` +
-                    //`<input type="submit" value="Delete" class="btn btn-danger">`+
-                    //`</form>`);
+                   
                 },
                 error: function (err) {
                     console.log(err)
@@ -116,49 +137,44 @@ function updateThumbnail(dropZoneElement, file) {
 }
 
 
-//function dragOverHandler(ev) {
-//    console.log('File(s) in drop zone');
 
-//    // Prevent default behavior (Prevent file from being opened)
-//    ev.preventDefault();
-//}
+const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-//let listOfObjects = [];
-//function dropHandler(ev) {
-//    console.log('File(s) dropped');
-//    // Prevent default behavior (Prevent file from being opened)
-//    ev.preventDefault();
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 
-//    if (ev.dataTransfer.items) {
-//        // Use DataTransferItemList interface to access the file(s)
-//        for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-//            // If dropped items aren't files, reject them
-//            if (ev.dataTransfer.items[i].kind === 'file' && ev.dataTransfer.items[i].type == 'image/jpeg' || ev.dataTransfer.items[i].type == 'image/png') {
-//                var file = ev.dataTransfer.items[i].getAsFile();
-//                console.log('... file[' + i + '].name = ' + file.name);
-//                listOfObjects.push(file);
-//                console.log(listOfObjects)
-//            }
-//        }
-//    } else {
-//        // Use DataTransfer interface to access the file(s)
-//        for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-//            console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
-//        }
-//    }
+connection.onclose(start);
 
-//    // Pass event to removeDragData for cleanup
-//    removeDragData(ev)
-//}
+start();
 
-//function removeDragData(ev) {
-//    console.log('Removing drag data')
 
-//    if (ev.dataTransfer.items) {
-//        // Use DataTransferItemList interface to remove the drag data
-//        ev.dataTransfer.items.clear();
-//    } else {
-//        // Use DataTransfer interface to remove the drag data
-//        ev.dataTransfer.clearData();
-//    }
-//}
+
+
+document.getElementById("sendMessageBtn").addEventListener('click', async function () {
+    const message = document.getElementById("message").value;
+    const name = document.getElementById("name").value;
+    try {
+        await connection.invoke("SendMessage", name, message);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+connection.on("ReceiveMessage", (name, message) => {
+    const rec_msg = name + ": " + message;
+    const li = document.createElement("li");
+    li.textContent = rec_msg;
+    document.getElementById("messageList").appendChild(li);
+})
+
+$('#editBioModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
+

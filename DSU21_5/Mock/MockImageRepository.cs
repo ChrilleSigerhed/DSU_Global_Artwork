@@ -64,7 +64,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        public Artwork GetArtworkForUser(int id)
         {
             throw new NotImplementedException();
         }
@@ -84,6 +84,7 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
 
         public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
         {
@@ -141,6 +142,9 @@ namespace DSU21_5.Mock
         }
 
         public Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
+
+        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+
         {
             throw new NotImplementedException();
         }
