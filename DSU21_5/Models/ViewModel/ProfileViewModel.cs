@@ -9,6 +9,9 @@ namespace DSU21_5.Models.ViewModel
 {
     public class ProfileViewModel 
     {
+        private IEnumerable<Artwork> artwork;
+        private Image image;
+
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
         public Artwork Artwork { get; set; }
@@ -42,6 +45,21 @@ namespace DSU21_5.Models.ViewModel
              ProfilePicture = image;
            
             AllArtwork = artwork.ToList();
+        }
+
+        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image)
+        {
+            AllArtwork = artwork.ToList();
+            Member = member;
+            if (image == null)
+            {
+                image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+
+                };
+            }
+            Member.ProfilePicture = image.ImageName;
         }
     }
 }

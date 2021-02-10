@@ -45,7 +45,7 @@
                 </button>
             </div>
 
-            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateBio(this);">
                 <div id="edit-modal-body" class="modal-body">
 
                     <div id="bio-text-form-group" class="form-group">
@@ -78,10 +78,10 @@
                 <div id="profile-modal" class="modal-body">
 
                     <div id="profile-photo-form-group" class="form-group">
-                        <input asp-for="@Model.ProfilePicture.ImageName" type="text" class="form-control1" placeholder="Image name">
-                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
-                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
-                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+                        <input asp-for="Model.ProfilePicture.ImageName" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="user.Id" style="margin-top: 1%;" />
                     </div>
 
                 </div>
@@ -114,10 +114,10 @@
                 <div id="artwork-modal" class="modal-body">
 
                     <div id="artwork-form-group" class="form-group">
-                        <input asp-for="@Model.AllArtwork" type="text" class="form-control1" placeholder="Image name">
-                        <input asp-for="@Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
-                        <span asp-validation-for="@Model.ProfilePicture.ImageFile" class="text-danger"></span>
-                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" style="margin-top: 1%;" />
+                        <input asp-for="Model.AllArtwork" type="text" class="form-control1" placeholder="Image name">
+                        <input asp-for="Model.ProfilePicture.ImageFile" type="file" class="form-control-file" style="margin-top: 1%;">
+                        <span asp-validation-for="Model.ProfilePicture.ImageFile" class="text-danger"></span>
+                        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="user.Id" style="margin-top: 1%;" />
                     </div>
 
                 </div>
@@ -148,17 +148,17 @@
 
                             <div class="avatar">
 
-                                <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
 
                             </div>
 
 
                             <div id="upload-profile-pic-button" class="form-group">
                                 @*<a data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>*@
-                                <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="editprofilepicture"></a>
+                                <a asp-action="Create" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Profile Photo" class="editprofilepicture"></a>
                             </div>
                             <div class="name">
-                                <h3 class="title">@user.Firstname @user.Lastname</h3>
+                                <h3 class="title">@Model.Member.Firstname @Model.Member.Lastname</h3>
                             </div>
 
                             <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>

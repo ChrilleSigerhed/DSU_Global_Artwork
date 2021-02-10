@@ -89,11 +89,13 @@ namespace DSU21_5.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateArt([Bind("Artwork")] ProfileViewModel profileView, string Id)
-
         {
             Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
             Exhibit exhibit = null;
+
+            var category = Request.Form["category"];
+            imageModel.Type = category;
             try
             {
                 if (ModelState.IsValid)
@@ -103,7 +105,6 @@ namespace DSU21_5.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: Fixa en errorsida
 
                 return View("Error", ex);
 
@@ -122,7 +123,6 @@ namespace DSU21_5.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: Fixa en errorsida
                 return View(ex);
             }
             return Json(Id);
@@ -133,11 +133,11 @@ namespace DSU21_5.Controllers
         {
             var art = await ArtRepository.GetArtFromExhibit(Id);
             var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
+            var listOfArtFromExhibit = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, listOfArtFromExhibit, art);
             return View(ProfileViewModel);
         }
         [HttpPost("/Profile/CreateExhibition/{Id}")]

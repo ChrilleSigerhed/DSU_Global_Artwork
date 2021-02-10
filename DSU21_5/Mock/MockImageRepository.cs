@@ -142,7 +142,9 @@ namespace DSU21_5.Mock
         }
 
         public Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
-
+        {
+            throw new NotImplementedException();
+        }
         public Artwork GetArtworkThatsGonnaBeDeleted(int id)
 
         {
