@@ -37,7 +37,7 @@
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
     </div>
 </form>
-<form  asp-action="UpdateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
+<form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
 
     <div class="form-group" style="float: left;">
         <p><input asp-for="@Model.Exhibit.Name" type="text" class="form-control1" placeholder="Exhibition name"></p>
@@ -51,7 +51,8 @@
         <input asp-for="@Model.Exhibit.StopDate" type="date" id="stop" name="trip-stop"
                value="2021-02-09"
                min="2021-01-01" max="2021-12-31" />
-        <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
+        <input type="hidden" value="@Model.Member.MemberId" class="btn btn-primary" asp-for="@Model.Member.MemberId" />
+        <input type="submit" value="Create" class="btn btn-primary" />
 
     </div>
 </form>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations
+namespace DSU21_5.Migrations.ImageDb
 {
     public partial class initialCreate : Migration
     {
@@ -29,7 +29,8 @@ namespace DSU21_5.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     StartDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
                     StopDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    MemberId = table.Column<string>(nullable: true)
+                    MemberId = table.Column<string>(nullable: true),
+                    Publish = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

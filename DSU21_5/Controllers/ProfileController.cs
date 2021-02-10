@@ -184,8 +184,9 @@ namespace DSU21_5.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Route("/Profile/CreateExhibition/{Id}")]
         //TODO: VARFÖR GÅR DEN INTE IN I DEN HÄR ?! !?!?
-        public async Task<IActionResult> UploadExhibition([Bind("Exhibit")] ProfileViewModel profileView, string Id)
+        public async Task<IActionResult> CreateExhibition([Bind("Exhibit, Member")] ProfileViewModel profileView)
         {
         
             Exhibit exhibit = profileView.Exhibit;
@@ -193,8 +194,8 @@ namespace DSU21_5.Controllers
             var stopDate = Request.Form["trip-stop"];
             exhibit.StartDate = startDate;
             exhibit.StopDate = stopDate;
-            Member member = await MemberRepository.GetMember(Id);
-            bool exist = ArtRepository.CheckIfIdExists(Id);
+            exhibit.MemberId = profileView.Member.MemberId;
+            bool exist = ArtRepository.CheckIfIdExists(profileView.Member.MemberId);
 
             try
             {
@@ -202,7 +203,7 @@ namespace DSU21_5.Controllers
                 {
                     if (exist == true)
                     {
-                        await ArtRepository.UpdateExhibition(Id, exhibit);
+                        await ArtRepository.UpdateExhibition(profileView.Member.MemberId, exhibit);
                     }
                 }
             }
@@ -210,7 +211,7 @@ namespace DSU21_5.Controllers
             {
                 return View("Error", ex);
             }
-            return RedirectToAction($"Index", new { Id });
+            return RedirectToAction($"Index", new { profileView.Member.MemberId });
         }
     }
 }

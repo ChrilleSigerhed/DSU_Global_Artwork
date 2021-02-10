@@ -134,6 +134,7 @@ namespace DSU21_5.Data
             exhibition.Name = exhibit.Name;
             exhibition.StartDate = exhibit.StartDate;
             exhibition.StopDate = exhibit.StopDate;
+            exhibition.Publish = true;
             await db.SaveChangesAsync();
             return exhibition;
           
@@ -166,10 +167,12 @@ namespace DSU21_5.Data
             Exhibit exhibit = new Exhibit()
             {
 
-                StartDate = "2020-10-12",
-                StopDate = "2020-11-22",
-                Name = "test",
-                MemberId = member.MemberId
+                StartDate = "not available",
+                StopDate = "not available",
+                Name = "not available",
+                MemberId = member.MemberId,
+                
+
             };
             context.Add(exhibit);
             await db.SaveChangesAsync();

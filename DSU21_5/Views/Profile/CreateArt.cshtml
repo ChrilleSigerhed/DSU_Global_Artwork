@@ -22,10 +22,22 @@
 
 <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <input asp-for="@Model.Artwork.ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name">
-        <input asp-for="@Model.Artwork.Description" type="text" class="form-control1" placeholder="Add description">
+
         <input asp-for="@Model.Artwork.ImageFile" type="file" accept="image/png,image/jpeg,image/jpg" class="form-control1">
+        <p><input asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art name"></p>
+        <p><input asp-for="@Model.Artwork.Height" type="text" class="form-control1" placeholder="Height">cm</p>
+        <p><input asp-for="@Model.Artwork.Width" type="text" class="form-control1" placeholder="Width">cm</p>
+        <p><input asp-for="@Model.Artwork.Year" type="text" class="form-control1" placeholder="Year"></p>
+
+        <label asp-for="@Model.Artwork.Type">Category: </label>
+        <select runat="server" name="category" id="category">
+            <option value="foto">Foto</option>
+            <option value="målning">Målning</option>
+            <option value="teckning">Teckning</option>
+            <option value="digital-konst">Digital konst</option>
+        </select>
+        <br />
+        <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Description"></textarea>
         <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
     </div>
