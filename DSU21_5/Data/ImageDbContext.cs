@@ -16,6 +16,7 @@ namespace DSU21_5.Data
         public DbSet<Artwork> Artworks { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Exhibit> Exhibit { get; set; }
+        public DbSet<Relationship> Relationships { get; set; }
 
     }
 }

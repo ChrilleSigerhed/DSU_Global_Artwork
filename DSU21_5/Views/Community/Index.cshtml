@@ -12,21 +12,21 @@
 <div class="community-container">
     <div class="members-container">
         @*<h1>Members</h1>
-        @foreach (var member in Model.CommunityMembers)
-        {
+            @foreach (var member in Model.CommunityMembers)
+            {
 
-            <div class="member">
-                <div class="member-img">
-                    <img src="image/@member.ProfilePicture" />
-                </div>
+                <div class="member">
+                    <div class="member-img">
+                        <img src="image/@member.ProfilePicture" />
+                    </div>
 
-                <div class="member-info">
-                    <h2>@member.Firstname @member.Lastname</h2>
-                    <p>@member.Email</p>
-                    <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
+                    <div class="member-info">
+                        <h2>@member.Firstname @member.Lastname</h2>
+                        <p>@member.Email</p>
+                        <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
+                    </div>
                 </div>
-            </div>
-        }*@
+            }*@
         <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search">
         <div class="col-12 col-md-7 align-self-center fh5co_mediya_right" id="noPaddingID">
             <div class="clearfix" id="fixed">
@@ -39,10 +39,10 @@
                                 <p id="firstname">@Model.CommunityMembers.ElementAt(i).Firstname</p>
                                 <p id="lastname">@Model.CommunityMembers.ElementAt(i).Lastname</p>
                                 @*<div class="member-info">
-                                    <h2>@Model.CommunityMembers.ElementAt(i).Firstname @Model.CommunityMembers.ElementAt(i).Lastname</h2>
-                                    <p>@Model.CommunityMembers.ElementAt(i).Email</p>
-                                    <a href="Community/Profile/@Model.CommunityMembers.ElementAt(i).MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
-                                </div>*@
+                                        <h2>@Model.CommunityMembers.ElementAt(i).Firstname @Model.CommunityMembers.ElementAt(i).Lastname</h2>
+                                        <p>@Model.CommunityMembers.ElementAt(i).Email</p>
+                                        <a href="Community/Profile/@Model.CommunityMembers.ElementAt(i).MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
+                                    </div>*@
                             </a>
                         </li>
                     }
@@ -65,7 +65,7 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <input type="text" id="name" placeholder="Write your name">
-                        <input type="text" id="message"  placeholder="Write your message">
+                        <input type="text" id="message" placeholder="Write your message">
                     </div>
 
                 </div>
@@ -80,7 +80,61 @@
 
 
     </div>
+</div>
+
+
+<div class="friends-container">
+    <div class="friends-list">
+        <h1>Friends</h1>
+
+        @foreach (var friend in Model.AcceptedFriends)
+        {
+            <div class="searched-person">
+                <form method="get" asp-action="Index" asp-controller="Search">
+                    <div class="person-info">
+                        <div class="search-img">
+                            <img src="images/person_1.jpg" />
+                        </div>
+                        <div class="name-connection">
+                            <h2>@friend.Firstname @friend.Lastname</h2>
+                            <p>friend/mutual friend</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+
     </div>
+    <div class="friend-requests">
+        <h1>Friend Requests</h1>
+
+        @foreach (var pendingFriend in Model.PendingFriends)
+        {
+            <div class="searched-person">
+                <form method="get" asp-action="Index" asp-controller="Search">
+                    <div class="person-info">
+                        <div class="search-img">
+                            <img src="images/person_1.jpg" />
+                        </div>
+                        <div class="name-connection">
+                            <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                            <p>friend/mutual friend</p>
+                        </div>
+                    </div>
+                </form>
+                <form asp-controller="Search" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                    <input type="submit" value="Accept" class="btn btn-primary" />
+                </form>
+                <form asp-controller="Search" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                    <input type="submit" value="Decline" class="btn btn-primary" />
+                </form>
+
+
+            </div>
+        }
+    </div>
+
+</div>
 <script src="~/js/searchHandler.js"></script>
 <script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/site.js"></script>
