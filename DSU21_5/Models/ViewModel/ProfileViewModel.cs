@@ -42,7 +42,7 @@ namespace DSU21_5.Models.ViewModel
             }
      
 
-             ProfilePicture = image;
+            Member.ProfilePicture = image.ImageName;
            
             AllArtwork = artwork.ToList();
         }

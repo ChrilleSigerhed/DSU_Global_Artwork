@@ -128,13 +128,22 @@ namespace DSU21_5.Migrations.ImageDb
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("MemberId");
 
