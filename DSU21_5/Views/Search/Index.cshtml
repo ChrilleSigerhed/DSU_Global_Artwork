@@ -26,13 +26,8 @@
                         </div>
                     </div>
                 </form>
-                <form method="post" asp-action="SendFriendRequest" asp-controller="Search">
-                    @*<div aria-label="addfriend" class="add-friend" role="button" tabindex="0">*@
-                        <input class="send-request" name="requesteeId" type="submit" value="@member.MemberId" />
-                        <i class="fas fa-user-plus" id="addIcon"></i>
-
-
-                    @*</div>*@
+                <form asp-controller="Search" asp-action="SendFriendRequest" asp-route-id="@member.MemberId">
+                    <input type="submit" value="Add Friend" class="btn btn-primary" />
                 </form>
             </div>
         }
@@ -53,58 +48,36 @@
                         </div>
                     </div>
                 </form>
-                @*<form method="post" asp-action="SendFriendRequest" asp-controller="Search">
-                        <div aria-label="addfriend" class="add-friend" role="button" tabindex="0">
-                            <i class="fas fa-user-plus" id="addIcon"></i>
-                            <input type="submit" />
-
-                        </div>
-                    </form>*@
             </div>
         }
 
+        <h1>Friend Requests</h1>
+
+        @foreach (var pendingFriend in Model.PendingFriends)
+        {
+            <div class="searched-person">
+                <form method="get" asp-action="Index" asp-controller="Search">
+                    <div class="person-info">
+                        <div class="search-img">
+                            <img src="images/person_1.jpg" />
+                        </div>
+                        <div class="name-connection">
+                            <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                            <p>friend/mutual friend</p>
+                        </div>
+                    </div>
+                </form>
+                <form asp-controller="Search" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                    <input type="submit" value="Accept" class="btn btn-primary" />
+                </form>
+                <form asp-controller="Search" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                    <input type="submit" value="Decline" class="btn btn-primary" />
+                </form>
 
 
 
 
+            </div>
+        }
     </div>
-</div>
-
-<div>
-    <h1>Friend Requests</h1>
-
-    @foreach (var pendingFriend in Model.PendingFriends)
-    {
-        <div class="searched-person">
-            <form method="get" asp-action="Index" asp-controller="Search">
-                <div class="person-info">
-                    <div class="search-img">
-                        <img src="images/person_1.jpg" />
-                    </div>
-                    <div class="name-connection">
-                        <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
-                        <p>friend/mutual friend</p>
-                    </div>
-                </div>
-            </form>
-            <form method="post" asp-action="AcceptFriendRequest" asp-controller="Search">
-                <div aria-label="addfriend" class="add-friend" role="button" tabindex="0">
-                    @*<i class="fas fa-user-plus" id="addIcon"></i>*@
-                    <input name="requesterId" type="submit" value="@pendingFriend.MemberId" />
-                    @*<input name="answer" type="button" value="@pendingFriend.MemberId" />*@
-
-
-                </div>
-            </form>
-            <form method="post" asp-action="DeclineFriendRequest" asp-controller="Search">
-                <div aria-label="addfriend" class="add-friend" role="button" tabindex="0">
-                    @*<i class="fas fa-user-plus" id="addIcon"></i>*@
-                    <input name="requesterId" type="submit" value="@pendingFriend.MemberId" />
-                    @*<input name="answer" type="button" value="@pendingFriend.MemberId" />*@
-
-
-                </div>
-            </form>
-        </div>
-    }
 </div>
