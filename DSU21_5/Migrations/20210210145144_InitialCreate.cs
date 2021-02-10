@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
-    public partial class intialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,21 @@ namespace DSU21_5.Migrations.ImageDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.MemberId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Relationships",
+                columns: table => new
+                {
+                    RelationshipId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Requester = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Requestee = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Relationships", x => x.RelationshipId);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,6 +143,9 @@ namespace DSU21_5.Migrations.ImageDb
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Relationships");
 
             migrationBuilder.DropTable(
                 name: "Exhibit");

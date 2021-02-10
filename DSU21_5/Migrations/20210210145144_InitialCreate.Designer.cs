@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210210134000_InitialCreate")]
+    [Migration("20210210145144_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,13 +130,22 @@ namespace DSU21_5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("MemberId");
 
