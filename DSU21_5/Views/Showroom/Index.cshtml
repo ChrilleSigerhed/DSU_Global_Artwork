@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-    
+    <div id="mobile-menu-btn"><p>Menu</p></div>
     <div id="plus-sign">+</div>
     <div id="arrow-keys">
         <div id="arrow-move-forward">▲</div>
@@ -56,7 +56,11 @@
             <span style="font-size:36px">Counter-Art! Click to start</span>
             <br /><br />
             Move: WASD<br />
-            Look: MOUSE
+            Look: MOUSE<br />
+
+            <a asp-action="Index" asp-controller="Exhibit">
+                <input id="exit-btn" type="button" value="Exit">
+            </a>
         </div>
         <div id="artInfo">
             <ul id="myUL">
@@ -97,10 +101,29 @@
         <div id="exit" style="display: none">
             <h1>Do you want to exit the exhibition?</h1>
             <form>
-                <input type="button" value="Yes" onclick="history.back()">
+                <a asp-action="Index" asp-controller="Exhibit">
+                    <input type="button" value="Yes">
+                </a>
                 <input type="button" id="exit-no" value="No">
             </form>
         </div>
+
+        <div id="elevator">
+
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.PreviousInList]" class="fh5co-project-item">
+                <input type="button" value="Previous Exhibition" />
+            </a>
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.NextInList]" class="fh5co-project-item">
+                <input type="button" value="Next Exhibition" />
+            </a>
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.RandomIndex]" class="fh5co-project-item">
+                <input type="button" value="I'm Feeling Lucky!" />
+            </a>
+
+                
+                
+
+</div>
 
     </div>
 
@@ -128,6 +151,8 @@
         let artIsClicked = false;
         let exitIsClicked = false;
         let onMobileDevice = false;
+        let mobileMenuBtnIsClick = false;
+        let elevatorIsClicked = false;
         let artInfoPicture;
         let artInfoName;
 
@@ -193,9 +218,17 @@
 
             const exitScreen = document.getElementById('exit');
             const exitScreenNo = document.getElementById('exit-no');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const elevatorMenu = document.getElementById('elevator');
 
             artInfo.style.display = 'none';
             exitScreen.style.display = 'none';
+
+            mobileMenuBtn.addEventListener('click', function () {
+                mobileMenuBtnIsClick = true;
+                controls.lock();
+                controls.unlock();
+            });
 
             exitDetailsCross.addEventListener('touchstart', function () {
                 controls.lock();
@@ -219,6 +252,7 @@
                 exitIsClicked = false;
                 artInfo.style.display = 'none'
                 exitScreen.style.display = 'none';
+                elevatorMenu.style.display = 'none';
                 hideAllArtInfo();
 
                 if (onMobileDevice === true) {
@@ -231,14 +265,14 @@
                 if (artIsClicked === true) {
                     blocker.style.display = 'block';
                     artInfo.style.display = 'block';
-
-
                 }
                 else if (exitIsClicked === true) {
                     blocker.style.display = 'block';
                     exitScreen.style.display = 'block';
-
-                } else if (onMobileDevice === true && exitIsClicked != true && artIsClicked != true) {
+                } else if (elevatorIsClicked === true) {
+                    blocker.style.display = 'block';
+                    elevatorMenu.style.display = 'block';
+                } else if (onMobileDevice === true && exitIsClicked != true && artIsClicked != true && mobileMenuBtnIsClick != true) {
                     blocker.style.display = 'none';
                 } else {
 
@@ -338,41 +372,82 @@
             raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
 
 
-            const texture = new THREE.TextureLoader().load('/ShowroomImages/floortile.jpg');
+            let floorImage = "@Model.ShowroomFloor";//GetRandomFloor();
+            const floorTexture = new THREE.TextureLoader().load(floorImage, function (texture) {
+
+                texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                texture.offset.set(0, 0);
+                texture.repeat.set(5, 5);
+
+            });
+            const floorMaterial = new THREE.MeshLambertMaterial({ map: floorTexture });
+            //const wallTexture = new THREE.TextureLoader().load();
+            const wallMaterial = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
+            const roofMaterial = new THREE.MeshLambertMaterial({ color: 0xC5C5C2 });
+
 
             // floor
             //StartGolv
-            var geometry = new THREE.BoxGeometry(50, 1, 200);
-            var material = new THREE.MeshLambertMaterial({ map: texture });
-            var mesh = new THREE.Mesh(geometry, material);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
             mesh.name = "floor";
 
             scene.add(mesh);
-            mesh.position.set(0, 0, -90);
+            mesh.position.set(0, 0, -15);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+
+            scene.add(mesh);
+            mesh.position.set(0, 0, -65);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+
+            scene.add(mesh);
+            mesh.position.set(0, 0, -115);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+
+            scene.add(mesh);
+            mesh.position.set(0, 0, -165);
 
 
             //HögerGolv
             var geometry = new THREE.BoxGeometry(50, 1, 50);
-            var material = new THREE.MeshLambertMaterial({ map: texture });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
             mesh.name = "floor";
             scene.add(mesh);
             mesh.position.set(50, 0, -15);
 
 
             //HögerLångGolv
-            var geometry = new THREE.BoxGeometry(50, 1, 200);
-            var material = new THREE.MeshLambertMaterial({ map: texture });
-            var mesh = new THREE.Mesh(geometry, material);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
             mesh.name = "floor";
             scene.add(mesh);
-            mesh.position.set(100, 0, -90);
+            mesh.position.set(100, 0, -15);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+            scene.add(mesh);
+            mesh.position.set(100, 0, -65);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+            scene.add(mesh);
+            mesh.position.set(100, 0, -115);
+            var geometry = new THREE.BoxGeometry(50, 1, 50);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
+            mesh.name = "floor";
+            scene.add(mesh);
+            mesh.position.set(100, 0, -165);
 
 
             //UppeGolv
             var geometry = new THREE.BoxGeometry(50, 1, 50);
-            var material = new THREE.MeshLambertMaterial({ map: texture });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, floorMaterial);
             mesh.name = "floor";
             scene.add(mesh);
             mesh.position.set(50, 0, -165);
@@ -384,32 +459,28 @@
             //Ytterväggar
             //vägg vänsterYtter
             var geometry = new THREE.BoxGeometry(1, 35, 205);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(-27, 17.5, -90);
 
             //Vägg bakomYtter
             var geometry = new THREE.BoxGeometry(155, 35, 1);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(50, 17.5, 12);
 
             //Vägg HögerYtter
             var geometry = new THREE.BoxGeometry(1, 35, 205);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(127, 17.5, -90);
 
             //väggFramYtter
             var geometry = new THREE.BoxGeometry(155, 35, 1);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(50, 17.5, -192);
@@ -419,24 +490,21 @@
 
             //VäggVänsterInner
             var geometry = new THREE.BoxGeometry(1, 35, 97);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(27, 17.5, -90);
 
             //VäggBakInner
             var geometry = new THREE.BoxGeometry(45, 35, 1);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(50, 17.5, -42);
 
             //VäggHögerInner
             var geometry = new THREE.BoxGeometry(1, 35, 97);
-            var material = new THREE.MeshLambertMaterial({ color: 0xE1E1E1 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, wallMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(73, 17.5, -90);
@@ -455,8 +523,7 @@
             //Tak
             //StartTak
             var geometry = new THREE.BoxGeometry(50, 1, 200);
-            var material = new THREE.MeshLambertMaterial({ color: 0xC5C5C2 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, roofMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(0, 35, -90);
@@ -464,8 +531,7 @@
 
             //HögerTak
             var geometry = new THREE.BoxGeometry(50, 1, 50);
-            var material = new THREE.MeshLambertMaterial({ color: 0xC5C5C2 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, roofMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(50, 35, -15);
@@ -473,8 +539,7 @@
 
             //HögerLångTak
             var geometry = new THREE.BoxGeometry(50, 1, 200);
-            var material = new THREE.MeshLambertMaterial({ color: 0xC5C5C2 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, roofMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(100, 35, -90);
@@ -482,8 +547,7 @@
 
             //UppeTak
             var geometry = new THREE.BoxGeometry(50, 1, 50);
-            var material = new THREE.MeshLambertMaterial({ color: 0xC5C5C2 });
-            var mesh = new THREE.Mesh(geometry, material);
+            var mesh = new THREE.Mesh(geometry, roofMaterial);
             mesh.name = "wall";
             scene.add(mesh);
             mesh.position.set(50, 35, -165);
@@ -522,41 +586,53 @@
 
             //Tavlor Vänsteryttervägg
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(0).ImageName');
+            var number = 1;
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(0).Height, @Model.Images.ElementAt(0).Width, number);
 
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            //new THREE.BoxGeometry(0.3, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 1;
+            mesh.Number = number;
+
+
+
             //mesh.background = 0xFFFFFF;
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -27);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(1).ImageName');
-            console.log(art);
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 2;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(1).Height, @Model.Images.ElementAt(1).Width, number);
+
+            //var geometry = new THREE.BoxGeometry(0.1, 10, 8);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 2;
+            mesh.Number = number;
             //mesh.background = 0xFFFFFF;
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -70);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(2).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 3;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(2).Height, @Model.Images.ElementAt(2).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 3;
+            mesh.Number = number;
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -113);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(3).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 4;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(3).Height, @Model.Images.ElementAt(3).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 4;
+            mesh.Number = number;
 
             mesh.position.set(-26.5, 12, -156);
             scene.add(mesh);
@@ -564,29 +640,35 @@
             //Tavlor YtterFramVägg
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(4).ImageName');
-            var geometry = new THREE.BoxGeometry(8, 10, 0.1);
+            var number = 5;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(4).Height, @Model.Images.ElementAt(4).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 5;
+            mesh.Number = number;
 
 
             mesh.position.set(7, 12, -191.5);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(5).ImageName');
-            var geometry = new THREE.BoxGeometry(8, 10, 0.1);
+            var number = 6;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(5).Height, @Model.Images.ElementAt(5).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 6;
+            mesh.Number = number;
 
             mesh.position.set(50, 12, -191.5);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(6).ImageName');
-            var geometry = new THREE.BoxGeometry(8, 10, 0.1);
+            var number = 7;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(6).Height, @Model.Images.ElementAt(6).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 7;
+            mesh.Number = number;
 
             mesh.position.set(93, 12, -191.5);
             scene.add(mesh);
@@ -594,37 +676,45 @@
             //Tavlor YtterHögerVägg
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(7).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 8;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(7).Height, @Model.Images.ElementAt(7).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 8;
+            mesh.Number = number;
 
             mesh.position.set(126.5, 12, -27);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(8).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 9;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(8).Height, @Model.Images.ElementAt(8).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 9;
+            mesh.Number = number;
 
             scene.add(mesh);
             mesh.position.set(126.5, 12, -70);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(9).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 10;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(9).Height, @Model.Images.ElementAt(9).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 10;
+            mesh.Number = number;
 
             scene.add(mesh);
             mesh.position.set(126.5, 12, -113);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(10).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 11;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(10).Height, @Model.Images.ElementAt(10).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 11;
+            mesh.Number = number;
 
             mesh.position.set(126.5, 12, -156);
             scene.add(mesh);
@@ -633,19 +723,23 @@
 
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(11).ImageName');
-            var geometry = new THREE.BoxGeometry(8, 10, 0.1);
+            var number = 12;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(11).Height, @Model.Images.ElementAt(11).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 12;
+            mesh.Number = number;
 
             mesh.position.set(50, 12, 11.5);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(12).ImageName');
-            var geometry = new THREE.BoxGeometry(8, 10, 0.1);
+            var number = 13;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(12).Height, @Model.Images.ElementAt(12).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 13;
+            mesh.Number = number;
 
             mesh.position.set(93, 12, 11.5);
             scene.add(mesh);
@@ -653,38 +747,46 @@
 
             //Tavla InnerväggVänster
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(13).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 8, 13);
+            var number = 14;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(13).Height, @Model.Images.ElementAt(13).Width, number);
             var material = new THREE.MeshLambertMaterial({map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 14;
+            mesh.Number = number;
 
             mesh.position.set(26.5, 12, -70);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(14).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 8, 13);
+            var number = 15;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(14).Height, @Model.Images.ElementAt(14).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 15;
+            mesh.Number = number;
 
             mesh.position.set(26.5, 12, -113);
             scene.add(mesh);
 
             //TavlorInnerväggHöger
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(15).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 16;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(15).Height, @Model.Images.ElementAt(15).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 16;
+            mesh.Number = number;
 
             mesh.position.set(73.5, 12, -70);
             scene.add(mesh);
 
             var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(16).ImageName');
-            var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            var number = 17;
+
+            var geometry = GetPaintingRatio(@Model.Images.ElementAt(16).Height, @Model.Images.ElementAt(16).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
-            mesh.Number = 17;
+            mesh.Number = number;
 
             mesh.position.set(73.5, 12, -113);
             scene.add(mesh);
@@ -697,6 +799,16 @@
             mesh.name = "exit";
 
             mesh.position.set(0, 10, 11.5);
+            scene.add(mesh);
+
+            //Hiss BakreInnerVägg
+            var art = new THREE.TextureLoader().load('/ShowroomImages/elevator.png');
+            var geometry = new THREE.BoxGeometry(16, 20, 0.1);
+            var material = new THREE.MeshLambertMaterial({ map: art });
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.name = "elevator";
+
+            mesh.position.set(50, 10, -41.5);
             scene.add(mesh);
 
 
@@ -750,13 +862,17 @@
                 exitIsClicked = true;
                 controls.lock();
                 controls.unlock();
+            } else if(intersects.length > 0 && intersects[0].object.name === 'elevator'){
+                elevatorIsClicked = true;
+                controls.lock();
+                controls.unlock();
             } else if (intersects.length > 0 && intersects[0].object.name != 'floor' && intersects[0].object.name != 'wall' && intersects[0].object.material.map.image.outerHTML != '<img crossorigin="anonymous" src="/imagesArt/EmptySpaceInShowroom.jpg">') {
 
                 let image = intersects[0].object;
                 artIsClicked = true;
                 controls.lock();
                 controls.unlock();
-                
+
                 showArtInfo(image);
 
 
@@ -765,7 +881,7 @@
 
 
             }
-           
+
         }
 
 
@@ -858,6 +974,45 @@
             renderer.render(scene, camera);
 
         }
+
+        function GetPaintingRatio(height, width, meshNumber) {
+            let specialPaintings = [5, 6, 7, 12, 13];
+            if (specialPaintings.includes(meshNumber)) {
+                if (height > width) {
+                    return new THREE.BoxGeometry(8, 13, 0.3);
+                } else if (width > height) {
+                    return new THREE.BoxGeometry(13, 8, 0.3);
+                } else if (width == height) {
+                    return new THREE.BoxGeometry(10, 10, 0.3);
+                }
+            }
+            else {
+
+                if (height > width){
+                    return new THREE.BoxGeometry(0.3, 13, 8);
+                } else if (width > height) {
+                    return new THREE.BoxGeometry(0.3, 8, 13);
+                } else if (width == height) {
+                    return new THREE.BoxGeometry(0.3, 10, 10);
+                }
+            }
+        }
+        
+        //function GetRandomFloor() {
+        //    let floorNumber = Math.floor(Math.random() * 3);
+        //    console.log(floorNumber);
+        //    if (floorNumber === 0) {
+        //        return "/floorimages/floortile.jpg";
+        //    }
+        //    else if (floorNumber === 1) {
+        //        return "/floorimages/kakelgolv.jpg";
+        //    }
+        //    else {
+        //        return "/floorimages/stonefloor.jpg";
+        //    }
+        //}
+
+
 
     </script>
 </body>
