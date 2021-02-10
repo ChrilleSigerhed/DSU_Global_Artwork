@@ -13,7 +13,7 @@ namespace DSU21_5.Models.ViewModel
         public ArtworkDetailViewModel(IEnumerable<Artwork> artworks, Artwork artwork, Member member)
         {
             Member = member;
-            DetailArtwork = FixArtworkFormat(artwork);
+            DetailArtwork = artwork;
             ListOfArt = RelatedArtToArtist(artworks);
         }
         private List<Artwork> RelatedArtToArtist(IEnumerable<Artwork> artworks)
@@ -40,27 +40,6 @@ namespace DSU21_5.Models.ViewModel
                 }
             }
             return artworkForPresentation;
-        }
-        private Artwork FixArtworkFormat(Artwork artwork)
-        {
-            if (artwork.ArtName == null)
-            {
-                artwork.ArtName = "Name is missing";
-            }
-            if (artwork.Description == null)
-            {
-                artwork.Description = "Description of this artwork is not provided";
-            }
-            if (artwork.Height == null || DetailArtwork.Width == null)
-            {
-                artwork.Height = "Not";
-                artwork.Width = "Available";
-            }
-            if (artwork.Year == null)
-            {
-                artwork.Year = "Year when made is not provided";
-            }
-            return artwork;
         }
     }
 }
