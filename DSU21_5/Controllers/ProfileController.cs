@@ -226,6 +226,29 @@ namespace DSU21_5.Controllers
             return Json(member.Bio);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFacebook([Bind("Facebook")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateFacebook(Id, member.Facebook);
+            return Json(member.Facebook);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditTwitter([Bind("Twitter")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateTwitter(Id, member.Twitter);
+            return Json(member.Twitter);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditInstagram([Bind("Instagram")] Member member, string Id)
+        {
+            var task = await MemberRepository.UpdateInstagram(Id, member.Instagram);
+            return Json(member.Instagram);
+        }
     }
 }
 
