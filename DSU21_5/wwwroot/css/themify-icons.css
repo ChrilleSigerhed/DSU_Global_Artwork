@@ -1079,3 +1079,8 @@
 .ti-rss-alt:before {
 	content: "\e75f";
 }
+
+#social-icon {
+	height: 30px;
+	width: 30px;
+}

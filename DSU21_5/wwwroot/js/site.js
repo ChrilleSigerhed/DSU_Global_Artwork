@@ -1,4 +1,4 @@
-﻿jQueryAjaxUpdate = form => {
+﻿jQueryAjaxUpdateBio = form => {
     try {
         $.ajax({
             type: 'POST',
@@ -20,7 +20,71 @@
     return false;
 }
 
+jQueryAjaxUpdateFacebook = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+               
+                $("#editFacebookModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
 
+jQueryAjaxUpdateTwitter = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                $("#editTwitterModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
+
+jQueryAjaxUpdateInstagram = form => {
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                $("#editInstagramModal .close").click()
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    } catch (ex) {
+        console.log(ex)
+    }
+    return false;
+}
 
 jQueryAjaxDelete = form => {
     if (confirm('Do you want to delete this artwork?')) {

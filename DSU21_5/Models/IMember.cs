@@ -25,5 +25,14 @@ namespace DSU21_5.Models
 
         [Column(TypeName = "nvarchar(500)")]
         public string Bio { get; set; }
+
+        [Column(TypeName = "nvarchar(500)")]
+        public string Facebook { get; set; }
+
+        [Column(TypeName = "nvarchar(500)")]
+        public string Twitter { get; set; }
+
+        [Column(TypeName = "nvarchar(500)")]
+        public string Instagram { get; set; }
     }
 }

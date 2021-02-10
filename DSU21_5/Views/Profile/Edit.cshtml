@@ -27,11 +27,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    
+
 </head>
 
 <!-------------- MODALS -------------->
-
 <!-- editBioModal -->
 <div class="modal" id="editBioModal" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
@@ -45,7 +44,7 @@
                 </button>
             </div>
 
-            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateBio(this);">
                 <div id="edit-modal-body" class="modal-body">
 
                     <div id="bio-text-form-group" class="form-group">
@@ -56,6 +55,96 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                     <input id="bio-form-submit" asp-for="Member.Bio" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editFacebookModal -->
+<div class="modal" id="editFacebookModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Facebook</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditFacebook" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateFacebook(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Facebook" class="form-control-art" placeholder="Enter the link to your profile here! Example, https://www.facebook.com/profile.php?id=100006668791569"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Facebook" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editTwitterModal -->
+<div class="modal" id="editTwitterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Twitter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditTwitter" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateTwitter(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Twitter" class="form-control-art" placeholder="Enter the link to your twitter profile here! Example, https://twitter.com/YourUserNameHere"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Twitter" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editInstagramModal -->
+<div class="modal" id="editInstagramModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Twitter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditInstagram" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateInstagram(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Instagram" class="form-control-art" placeholder="Enter the link to your twitter profile here! Example, https://www.instagram.com/YourUserNameHere"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Instagram" type="submit" value="Save Changes" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -95,9 +184,6 @@
         </div>
     </div>
 </div>-->
-
-
-
 <!-- uploadArtworkModal -->
 <!--<div class="modal" id="uploadArtworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -131,8 +217,6 @@
         </div>
     </div>
 </div>-->
-
-
 <!--------------- THE PAGE ---------------->
 
 <div class="profile-page">
@@ -147,12 +231,8 @@
                         <div class="profile">
 
                             <div class="avatar">
-
                                 <img id="profile-pic" src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
-
                             </div>
-
-
                             <div id="upload-profile-pic-button" class="form-group">
                                 @*<a data-toggle="modal" data-target="#uploadProfilePhotoModal"><input type="submit" value="Upload Profile Photo" class="btn btn-primary" asp-for="@user.Id"></a>*@
                                 <a asp-action="Create" asp-route-id="@user.Id"><input type="submit" value="Upload Profile Photo" class="editprofilepicture"></a>
@@ -160,10 +240,17 @@
                             <div class="name">
                                 <h3 class="title">@user.Firstname @user.Lastname</h3>
                             </div>
+                            <a data-toggle="modal" data-target="#editFacebookModal">
+                                <img src="~/images/FacebookDark.png" id="social-icon" />
+                            </a>
 
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+                            <a data-toggle="modal" data-target="#editTwitterModal">
+                                <img src="~/images/TwitterDark.png" id="social-icon" />
+                            </a>
+
+                            <a data-toggle="modal" data-target="#editInstagramModal">
+                                <img src="~/images/InstagramDark.png" id="social-icon" />
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -288,6 +375,6 @@
     <script src="~/js/jquery.waypoints.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="~/js/site.js"></script>
-    
+
 
 </div>
