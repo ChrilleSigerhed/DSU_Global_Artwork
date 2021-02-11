@@ -59,7 +59,7 @@
             Look: MOUSE<br />
 
             <a asp-action="Index" asp-controller="Exhibit">
-                <input id="exit-btn" type="button" value="Exit">
+                <button id="exit-btn" class="btn-extreme-danger">Exit</button>
             </a>
         </div>
         <div id="artInfo">
@@ -102,22 +102,22 @@
             <h1>Do you want to exit the exhibition?</h1>
             <form>
                 <a asp-action="Index" asp-controller="Exhibit">
-                    <input type="button" value="Yes">
+                    <button class="btn-extreme-danger">Yes</button>
                 </a>
-                <input type="button" id="exit-no" value="No">
+                <button id="exit-no" class="btn-extreme-danger">No</button>
             </form>
         </div>
 
-        <div id="elevator">
+        <div id="elevator" style="display: none">
 
             <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.PreviousInList].MemberId" class="fh5co-project-item">
-                <input type="button" value="Previous Exhibition" />
+                <button value="Previous Exhibition" class="btn-extreme-danger">Previous Exhibition</button>
             </a>
             <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.NextInList].MemberId" class="fh5co-project-item">
-                <input type="button" value="Next Exhibition" />
+                <button value="Next Exhibition" class="btn-extreme-danger">Next Exhibition</button>
             </a>
             <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.RandomIndex].MemberId" class="fh5co-project-item">
-                <input type="button" value="I'm Feeling Lucky!" />
+                <button value="I'm Feeling Lucky!" class="btn-extreme-danger">I'm Feeling Lucky!</button>
             </a>
 
                 
@@ -183,7 +183,6 @@
                     li[i].style.display = "block"
                 }
             }
-
         }
         function init() {
 
@@ -201,6 +200,7 @@
             scene.add(light);
 
             controls = new PointerLockControls(camera, document.body);
+            
 
             const blocker = document.getElementById('blocker');
             const instructions = document.getElementById('instructions');
@@ -230,26 +230,19 @@
                 controls.unlock();
             });
 
-            exitDetailsCross.addEventListener('touchstart', function () {
-                controls.lock();
+
+            blocker.addEventListener('click', function () {
+                controls.lock()
             });
+            
 
-            instructions.addEventListener('click', function () {
-
-                controls.lock();
-
-            }, false);
-
-            artInfoSource.addEventListener('click', function () {
-
-                controls.lock();
-            })
             controls.addEventListener('lock', function () {
 
                 instructions.style.display = 'none';
                 blocker.style.display = 'none';
                 artIsClicked = false;
                 exitIsClicked = false;
+                elevatorIsClicked = false;
                 artInfo.style.display = 'none'
                 exitScreen.style.display = 'none';
                 elevatorMenu.style.display = 'none';
@@ -820,7 +813,7 @@
             //
 
             window.addEventListener('resize', onWindowResize, false);
-
+            onWindowResize();
         }
 
         function onWindowResize() {
@@ -844,8 +837,10 @@
         function onDocumentMouseDown(event) {
 
             if (onMobileDevice === true) {
+                
                 mouse.x = (event.clientX / renderer.domElement.width ) * 2 - 1;
-                mouse.y = -(event.clientY / renderer.domElement.height ) * 2 + 1;
+                mouse.y = -(event.clientY / renderer.domElement.height) * 2 + 1;
+                console.log(mouse.x, mouse.y)
             }
             else {
 
