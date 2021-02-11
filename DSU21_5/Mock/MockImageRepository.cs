@@ -41,7 +41,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member)
+        public Task<Artwork> AddArt(IImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member)
         {
             throw new NotImplementedException();
         }
@@ -86,12 +86,12 @@ namespace DSU21_5.Mock
         }
 
 
-        public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
+        public Task<Artwork> AddArt(IImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Exhibit> CreateExhibit(ImageDbContext context, Member member)
+        public Task<Exhibit> CreateExhibit(IImageDbContext context, Member member)
         {
             throw new NotImplementedException();
         }
@@ -116,7 +116,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
+        public Task<Artwork> AddArtWithExistingExhibitId(IImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
         {
             throw new NotImplementedException();
         }

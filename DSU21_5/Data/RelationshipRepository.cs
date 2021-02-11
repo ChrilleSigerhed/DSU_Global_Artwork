@@ -8,11 +8,25 @@ namespace DSU21_5.Data
 {
     public class RelationshipRepository : IRelationshipRepository
     {
-        ImageDbContext db;
+        IImageDbContext db;
 
-        public RelationshipRepository(ImageDbContext context)
+        public RelationshipRepository(IImageDbContext context)
         {
             db = context;
+        }
+        public async Task<bool> CheckIfRelationshipAlreadyExists(Relationship relationship)
+        {
+            if (relationship == null)
+                return false;
+
+            var entity = await GetRelationship(relationship.Requestee, relationship.Requester);
+
+            if (entity != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<Relationship> Create(Relationship relationship)
@@ -22,9 +36,9 @@ namespace DSU21_5.Data
             return relationship;
         }
 
-        public async Task<Relationship> GetRelationship(string id)
+        public async Task<Relationship> GetRelationship(string id, string id2)
         {
-            Relationship relationship = db.Relationships.Where(x => x.Requester == id).FirstOrDefault();
+            Relationship relationship = db.Relationships.Where(x => (x.Requestee == id && x.Requester == id2 || x.Requestee == id2 && x.Requester == id) && (x.Status == 0 || x.Status == 1)).FirstOrDefault();
             await db.SaveChangesAsync();
             return relationship;
         }

@@ -12,9 +12,9 @@ namespace DSU21_5.Data
 {
     public class ImageRepository : IImageRepository
     {
-        private string basePath;
-        ImageDbContext db;
-        public ImageRepository(ImageDbContext context)
+        private readonly string basePath;
+        IImageDbContext db;
+        public ImageRepository(IImageDbContext context)
         {
             
             db = context;
@@ -70,7 +70,7 @@ namespace DSU21_5.Data
         /// <param name="imageModel"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<Image> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, Image imageModel, string Id)
+        public async Task<Image> CreateNewProfilePicture(IImageDbContext context, IWebHostEnvironment hostEnvironment, Image imageModel, string Id)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(imageModel.ImageFile.FileName);

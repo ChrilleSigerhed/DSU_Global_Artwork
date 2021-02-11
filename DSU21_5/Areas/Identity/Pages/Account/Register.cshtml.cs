@@ -24,7 +24,7 @@ namespace DSU21_5.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ImageDbContext db;
+        private readonly IImageDbContext db;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
@@ -33,7 +33,7 @@ namespace DSU21_5.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ImageDbContext context)
+            IImageDbContext context)
         {
             db = context;
             _userManager = userManager;

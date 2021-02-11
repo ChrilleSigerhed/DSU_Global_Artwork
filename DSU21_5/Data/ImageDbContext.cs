@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Data
 {
-    public class ImageDbContext : DbContext
+    public class ImageDbContext : DbContext, IImageDbContext
     {
         public ImageDbContext(DbContextOptions<ImageDbContext> options) : base(options)
         {
         }
+        
         public DbSet<Image> Images { get; set; }
         public DbSet<Artwork> Artworks { get; set; }
         public DbSet<Member> Members { get; set; }

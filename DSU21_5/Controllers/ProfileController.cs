@@ -17,7 +17,7 @@ namespace DSU21_5.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly ImageDbContext _context;
+        private readonly IImageDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
         public IImageRepository ImageRepository { get; set; }
         public IMemberRepository MemberRepository { get; set; }
@@ -26,7 +26,7 @@ namespace DSU21_5.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         public ProfileViewModel ProfileViewModel { get; set; }
 
-        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository, IRelationshipRepository relationshipRepository, UserManager<ApplicationUser> userManager)
+        public ProfileController(IImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository, IRelationshipRepository relationshipRepository, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
@@ -315,10 +315,14 @@ namespace DSU21_5.Controllers
                 Requester = GetCurrentUserId(),
                 Requestee = id
             };
+            var relationshipExists = await RelationshipRepository.CheckIfRelationshipAlreadyExists(relationship);
 
-            await RelationshipRepository.Create(relationship);
+            if (!relationshipExists)
+            {
+                await RelationshipRepository.Create(relationship);
+            }
 
-            return Ok("You sent a friend request");
+            return RedirectToAction("Profile", new { id });
         }
 
 
@@ -328,7 +332,7 @@ namespace DSU21_5.Controllers
             string requester = id;
             await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
 
-            return Ok("You accepted a friend request");
+            return RedirectToAction("Profile", new { id });
         }
 
 
@@ -338,7 +342,7 @@ namespace DSU21_5.Controllers
             string requester = id;
             await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
 
-            return Ok("You declined a friend request");
+            return RedirectToAction("Profile", new { id });
 
         }
     }

@@ -13,14 +13,14 @@ namespace DSU21_5.Data
 {
     public class ArtRepository : IArtRepository
     {
-        ImageDbContext db;
+        IImageDbContext db;
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
         public IEnumerable<Artwork> ArtToExhibits { get; set; }
         public List<string> ListOfIds { get; set; } = new List<string>();
         public ObservableCollection<ArtworkInformation> ListOfArtToExhibit { get; set; }
 
 
-        public ArtRepository(ImageDbContext context)
+        public ArtRepository(IImageDbContext context)
         {
             db = context;
         }
@@ -162,7 +162,7 @@ namespace DSU21_5.Data
         /// <param name="context"></param>
         /// <param name="member"></param>
         /// <returns>an exhibition</returns>
-        public async Task<Exhibit> CreateExhibit(ImageDbContext context, Member member)
+        public async Task<Exhibit> CreateExhibit(IImageDbContext context, Member member)
         {
             Exhibit exhibit = new Exhibit()
             {
@@ -178,7 +178,7 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return exhibit;
         }
-        public async Task<Artwork> AddArt(ImageDbContext context,IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
+        public async Task<Artwork> AddArt(IImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageName);
@@ -208,7 +208,7 @@ namespace DSU21_5.Data
         /// <param name="member"></param>
         /// <param name="exhibit"></param>
         /// <returns>artwork</returns>
-        public async Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
+        public async Task<Artwork> AddArtWithExistingExhibitId(IImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(artworkModel.ImageName);

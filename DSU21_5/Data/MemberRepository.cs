@@ -8,8 +8,8 @@ namespace DSU21_5.Data
 {
     public class MemberRepository : IMemberRepository
     {
-        public ImageDbContext db { get; set; }
-        public MemberRepository(ImageDbContext context)
+        public IImageDbContext db { get; set; }
+        public MemberRepository(IImageDbContext context)
         {
             db = context;
         }
