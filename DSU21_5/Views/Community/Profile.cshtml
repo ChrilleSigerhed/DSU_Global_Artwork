@@ -12,9 +12,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6 animate-box">
-                    <img src="~/image/@Model.ProfilePicture.ImageName" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                    <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
                     <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
                     <div class="form-group">
+                        <form asp-controller="Profile" asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
+                            <input type="submit" value="Add Friend" class="btn btn-primary" />
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-5 col-md-push-1 animate-box">
@@ -29,6 +32,7 @@
                     </div>
                 </div>
             </div>
+           
         </div>
     </div>
 </div>
@@ -37,18 +41,18 @@
     <div class="gtco-container">
         <div class="row">
             <div class="col-md-12">
-        </div>
-        <div class="artwork-container">
-            <h4>@Model.Member.Firstname Artworks</h4>
-          
-            @foreach (var item in Model.AllArtwork)
-            {
-                <picture>
-                    <img src="~/imagesArt/@item.ImageName">
-                </picture>
-            }
-       
+            </div>
+            <div class="artwork-container">
+                <h4>@Model.Member.Firstname Artworks</h4>
+
+                @foreach (var item in Model.AllArtwork)
+                {
+                    <picture>
+                        <img src="~/imagesArt/@item.ImageName">
+                    </picture>
+                }
+
+            </div>
         </div>
     </div>
-        </div>
 </div>

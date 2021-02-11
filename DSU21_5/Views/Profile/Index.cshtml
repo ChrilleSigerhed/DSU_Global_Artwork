@@ -117,7 +117,59 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="friends-container">
+
+                        <div class="friend-requests">
+                            <h1>Friend Requests</h1>
+
+                            @foreach (var pendingFriend in Model.PendingFriends)
+                            {
+                                <div class="searched-person">
+                                    <form method="get" asp-action="Index" asp-controller="Profile">
+                                        <div class="person-info">
+                                            <div class="search-img">
+                                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                            </div>
+                                            <div class="name-connection">
+                                                <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                                                <p>friend/mutual friend</p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form asp-controller="Profile" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                                        <input type="submit" value="Accept" class="btn btn-primary" />
+                                    </form>
+                                    <form asp-controller="Profile" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                                        <input type="submit" value="Decline" class="btn btn-primary" />
+                                    </form>
+
+
+                                </div>
+                            }
+                        </div>
+                        <div class="friends-list">
+                            <h1>Friends</h1>
+
+                            @foreach (var friend in Model.AcceptedFriends)
+                            {
+                                <div class="searched-person">
+                                    <form method="get" asp-action="Index" asp-controller="Profile">
+                                        <div class="person-info">
+                                            <div class="search-img">
+                                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                            </div>
+                                            <div class="name-connection">
+                                                <h2>@friend.Firstname @friend.Lastname</h2>
+                                                <p>friend/mutual friend</p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
                     <div class="tab-pane text-center gallery" id="favorite">
                         <div class="row">
                             <div class="col-md-3 ml-auto">
