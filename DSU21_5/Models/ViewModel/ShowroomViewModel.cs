@@ -159,7 +159,7 @@ namespace DSU21_5.Models.ViewModel
             //Gets a list of image paths from a text file, and then randomize which of the path floors that should be used(ShowroomFloor).
             List<string> floors = new List<string>();
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
-            ShowroomFloor = floors[random.Next(0, 5)];
+            ShowroomFloor = floors[random.Next(0, 5)];  
         }
         public List<Artwork> GiveMeasurementsToArtworks(List<Artwork> list)
         {
