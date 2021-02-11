@@ -54,7 +54,7 @@
                                     <img class="social-media" src="~/images/Instagram.png" />
                                 </a>
                             }
-                            else
+                            @*else
                             {
 
                                     <a style="padding: 1%;">
@@ -66,7 +66,7 @@
                                     <a style="padding: 1%;">
                                         <img class="social-media" src="~/images/Instagram.png" />
                                     </a>
-                            }
+                            }*@
 
 
                         </div>
@@ -74,8 +74,8 @@
                             <p id="bio">@Model.Member.Bio</p>
                         </div>
                         <div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" style=" height:47px; width: 144px;" class="btn-danger" /></a>
-                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" style=" height:47px; width: 144px;" class="btn-danger"></a>
+                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" class="btn-danger" /></a>
+                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn-danger"></a>
                             <a asp-action="CreateArt" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Artwork" class="btn-danger"></a>
 
                         </div>
