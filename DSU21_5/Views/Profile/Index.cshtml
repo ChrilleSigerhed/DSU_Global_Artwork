@@ -74,23 +74,35 @@
                             <p id="bio">@Model.Member.Bio</p>
                         </div>
                         <div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" style=" height:47px; width: 144px;" class="btn-primary"/></a>
-                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" style=" height:47px; width: 144px;" class="btn-primary"></a>
+                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" style=" height:47px; width: 144px;" class="btn-danger"/></a>
+                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" style=" height:47px; width: 144px;" class="btn-danger"></a>
 
                         </div>
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">
                         <div class="gtco-contact-info">
                             <h3>Friends</h3>
-                            <ul>
-                 
-                                <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
-                                <li>
+                            @foreach (var item in Model.AllArtwork)
+                            {
 
-                                </li>
-                                <li>
-                                </li>
-                            </ul>
+                                <picture>
+                                    <img class="friends" src="~/imagesArt/@item.ImageName" >
+                                </picture>
+
+                                @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                <input type="submit" value="Delete" class="btn-danger" />
+            </form>*@
+
+                            }
+                            @*<ul>
+
+            <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
+            <li>
+
+            </li>
+            <li>
+            </li>
+        </ul>*@
                         </div>
                     </div>
 
@@ -99,25 +111,31 @@
         </div>
     </div>
 
-    @*<div class="gtco-section border-bottom">
+    <div class="gtco-section border-bottom">
         <div class="gtco-container">
-            <div class="row">*@
-                @*<div class="col-md-12">
-                </div>*@
+            <div class="row">
+                <div class="col-md-12">
+                </div>
                 <div class="artwork-container">
                     <h3>My Artwork</h3>
 
-                    @foreach (var item in Model.AllArtwork)
-                    {
-                        <picture>
-                            <img src="~/imagesArt/@item.ImageName">
-                        </picture>
-                    }
+                                @foreach (var item in Model.AllArtwork)
+                                {
+                                        
+                                            <picture>
+                                                <img src="~/imagesArt/@item.ImageName">
+                                            </picture>
+
+                                            @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                                <input type="submit" value="Delete" class="btn-danger" />
+                                            </form>*@
+                                        
+                                }
 
                 </div>
-            @*</div>
+            </div>
         </div>
-    </div>*@
+    </div>
    
 </div>
  
