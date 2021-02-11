@@ -106,13 +106,13 @@
         </div>
         <div id="elevator">
 
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.PreviousInList]" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.PreviousInList].MemberId" class="fh5co-project-item">
                 <input type="button" value="Previous Exhibition" />
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.NextInList]" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.NextInList].MemberId" class="fh5co-project-item">
                 <input type="button" value="Next Exhibition" />
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.RandomIndex]" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.RandomIndex].MemberId" class="fh5co-project-item">
                 <input type="button" value="I'm Feeling Lucky!" />
             </a>
         </div>

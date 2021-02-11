@@ -13,7 +13,7 @@ namespace DSU21_5.Data
         {
             db = context;
         }
-        
+
         public async Task<Member> AddMember(Member member)
         {
             db.Add(member);
@@ -29,7 +29,7 @@ namespace DSU21_5.Data
 
         public async Task<List<Member>> GetAllMembers()
         {
-            List <Member> members = new List<Member>();
+            List<Member> members = new List<Member>();
 
             List<String> Ids = db
             .Members
@@ -43,6 +43,46 @@ namespace DSU21_5.Data
             }
 
             return members;
+        }
+
+        public async Task<Member> UpdateBio(string Id, string bio)
+        {
+            var update = db.Members.Where(x => x.MemberId == Id).FirstOrDefault();
+            update.Bio = bio;
+            db.Update(update);
+
+            await db.SaveChangesAsync();
+            return update;
+        }
+
+        public async Task<Member> UpdateFacebook(string Id, string facebook)
+        {
+            var update = db.Members.Where(x => x.MemberId == Id).FirstOrDefault();
+            update.Facebook = facebook;
+            db.Update(update);
+
+            await db.SaveChangesAsync();
+            return update;
+        }
+
+        public async Task<Member> UpdateTwitter(string Id, string twitter)
+        {
+            var update = db.Members.Where(x => x.MemberId == Id).FirstOrDefault();
+            update.Twitter = twitter;
+            db.Update(update);
+
+            await db.SaveChangesAsync();
+            return update;
+        }
+
+        public async Task<Member> UpdateInstagram(string Id, string instagram)
+        {
+            var update = db.Members.Where(x => x.MemberId == Id).FirstOrDefault();
+            update.Instagram = instagram;
+            db.Update(update);
+
+            await db.SaveChangesAsync();
+            return update;
         }
     }
 }

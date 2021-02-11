@@ -22,11 +22,19 @@ namespace DSU21_5.Controllers
         [Route("Showroom")]
         public async Task<IActionResult> Index(string Id)
         {
-            //Id = "da83057b-424a-419c-994c-ab8c12208c9f";
-            var postedArt = await artRepository.GetPostedArtFromUniqueUser(Id);
+
+
+            List<ArtworkInformation> artToExhibits = new List<ArtworkInformation>();
+            List<Member> exhibitMembers = new List<Member>();
+
+            Id = "770613df-f24e-4aff-b9f8-c56d2be98ca1";
+            var postedArt = await artRepository.GetAllArtToExhibitions();
+            //var postedArt = await artRepository.GetArtFromExhibit(Id);
+            var members = await memberRepository.GetAllMembers();
             var member = await memberRepository.GetMember(Id);
+         
             
-            return View(new ShowroomViewModel(postedArt.ToList(), member));
+            return View(new ShowroomViewModel(postedArt.ToList(), member, members));
         }
     }
 }
