@@ -90,7 +90,6 @@ namespace DSU21_5.Models.ViewModel
                         Description = postedArt[i].Description,
                         Title = postedArt[i].ArtName,
                         UserId = member.MemberId
-
                     }) ;
                 }
                 else
@@ -113,7 +112,7 @@ namespace DSU21_5.Models.ViewModel
         {
             List<string> floors = new List<string>();
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
-            ShowroomFloor = floors[random.Next(0, 5)];
+            ShowroomFloor = floors[random.Next(0, 5)];  
         }
     }
 }
