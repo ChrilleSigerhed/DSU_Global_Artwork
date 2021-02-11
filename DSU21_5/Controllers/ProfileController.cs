@@ -93,8 +93,9 @@ namespace DSU21_5.Controllers
             Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
             Exhibit exhibit = null;
-
+            var selected = Request.Form.Files[0];
             var category = Request.Form["category"];
+            imageModel.ImageFile = selected;
             imageModel.Type = category;
             try
             {
@@ -109,7 +110,7 @@ namespace DSU21_5.Controllers
                 return View("Error", ex);
 
             }
-            return RedirectToAction($"Edit", new { Id });
+            return RedirectToAction($"Index", new { Id });
         }
 
         [HttpPost, ActionName("DeleteArt")]
