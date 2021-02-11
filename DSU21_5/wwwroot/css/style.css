@@ -438,7 +438,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #gtco-simple-header{
   height: 80px;
-  width: 106%;
+  width: 106% !important;
   margin-left: -38px;
 
 }
@@ -2191,15 +2191,16 @@ form label {
 
 
 .drop-zone {
-    max-width: 250px;
-    height: 250px;
-    padding: 40px;
+    max-width: 200px;
+    height: 200px;
+    padding: 35px;
     display: block;
     align-items: center;
     cursor: pointer;
     color: #cccccc;
     border: 4px dashed #009578;
     border-radius: 10px;
+    margin-bottom: 20px
 }
 
 .drop-zone--over {
@@ -2232,3 +2233,19 @@ form label {
         font-size: 14px;
         text-align: center;
     }
+.create-art-h2 {
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 70px;
+}
+#type-art {
+    left: 38%;
+    padding-top: 70px;
+}
+#type-art-button{
+    left: 38%;
+    padding-top:5px;
+}
+#input-art{
+    width:200px;
+}
