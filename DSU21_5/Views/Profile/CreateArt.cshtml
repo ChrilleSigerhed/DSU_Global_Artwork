@@ -18,19 +18,20 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
 </header>
 <div class="col-md-12">
-    <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <div class="col-md-5" id="type-art">
+    <div class="form-group">
+        <div class="col-md-5" id="type-art">
+            <form asp-action="CreateArt" asp-controller="Profile" enctype="multipart/form-data" method="post">
                 <h2>Upload your Artwork</h2>
                 <div class="drop-zone">
+
                     <span class="drop-zone__prompt">Drop Image Here</span>
                     <input asp-for="@Model.Artwork.ImageFile" type="file" name="myFile" class="drop-zone__input">
                     <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
                 </div>
                 <p><input id="input-art" asp-for="@Model.Artwork.ArtName" type="text" class="form-control1" placeholder="Art Name" required oninvalid="this.setCustomValidity('Please submit your artworks name!')" oninput="this.setCustomValidity('')" /></p>
-                <p><input id="input-art" asp-for="@Model.Artwork.Height" type="text" class="form-control1" placeholder="Height"> cm</p>
-                <p><input id="input-art" asp-for="@Model.Artwork.Width" type="text" class="form-control1" placeholder="Width"> cm</p>
-                <p><input id="input-art" asp-for="@Model.Artwork.Year" type="text" class="form-control1" placeholder="Year"></p>
+                <p><input id="input-art" asp-for="@Model.Artwork.Height" type="text" class="form-control1" placeholder="Height(cm)" required oninvalid="this.setCustomValidity('Please submit the height of your artwork!')" oninput="this.setCustomValidity('')"></p>
+                <p><input id="input-art" asp-for="@Model.Artwork.Width" type="text" class="form-control1" placeholder="Width(cm)" required oninvalid="this.setCustomValidity('Please submit the width of your artwork')" oninput="this.setCustomValidity('')"></p>
+                <p><input id="input-art" asp-for="@Model.Artwork.Year" type="text" class="form-control1" placeholder="Year" required oninvalid="this.setCustomValidity('Please submit the year of your artwork!')" oninput="this.setCustomValidity('')"></p>
                 <textarea asp-for="@Model.Artwork.Description" rows="4" cols="50" type="text" class="form-control1" placeholder="Description"></textarea>
                 <label asp-for="@Model.Artwork.Type">Category: </label>
                 <select runat="server" id="Type" name="category" required oninvalid="this.setCustomValidity('Select a category')" oninput="this.setCustomValidity('')">
@@ -42,13 +43,13 @@
                     <option value="ReadyMade">Ready Made</option>
                     <option value="Sculpture">Sculpture</option>
                 </select>
-            </div>
-            <div class="col-md-12" id="type-art-button">
-                <input type="submit" value="Upload Artwork" class="btn btn-primary" asp-route-id="@user.Id" />
-                <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
-            </div>
+            </form>
         </div>
-    </form>
+        <div class="col-md-12" id="type-art-button">
+            <input type="submit" value="Upload Artwork" class="btn btn-primary" asp-route-id="@user.Id" />
+            <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
+        </div>
+    </div>
 </div>
 
 <script src="~/js/site.js"></script>

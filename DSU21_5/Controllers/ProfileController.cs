@@ -93,10 +93,13 @@ namespace DSU21_5.Controllers
             Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
             Exhibit exhibit = null;
+
             var selected = Request.Form.Files[0];
             var category = Request.Form["category"];
+
             imageModel.ImageFile = selected;
             imageModel.Type = category;
+
             try
             {
                 if (ModelState.IsValid)
