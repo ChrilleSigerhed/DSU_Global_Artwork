@@ -2252,12 +2252,11 @@ form label {
     padding-bottom: 70px;
 }
 #type-art {
-    left: 38%;
     padding-top: 70px;
 }
-#type-art-button{
-    left: 38%;
-    padding-top:5px;
+#type-art-button {
+    padding-top: 10px;
+    padding-bottom: 40px;
 }
 #input-art{
     width:200px;
