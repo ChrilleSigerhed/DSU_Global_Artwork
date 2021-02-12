@@ -54,19 +54,7 @@
                                     <img class="social-media" src="~/images/Instagram.png" />
                                 </a>
                             }
-                            @*else
-                            {
-
-                                    <a style="padding: 1%;">
-                                        <img class="social-media" src="~/images/Facebook.png" />
-                                    </a>
-                                    <a style="padding: 1%;">
-                                        <img class="social-media" src="~/images/Twitter.png" />
-                                    </a>
-                                    <a style="padding: 1%;">
-                                        <img class="social-media" src="~/images/Instagram.png" />
-                                    </a>
-                            }*@
+                            
 
 
                         </div>
@@ -89,21 +77,9 @@
                                     <picture>
                                         <img class="friends" src="~/imagesArt/@item.ImageName">
                                     </picture>
-                                </a>
-                                @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                <input type="submit" value="Delete" class="btn-danger" />
-            </form>*@
-
+                                </a>               
                             }
-                            @*<ul>
-
-            <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
-            <li>
-
-            </li>
-            <li>
-            </li>
-        </ul>*@
+                           
                         </div>
                     </div>
 
@@ -119,25 +95,70 @@
                 </div>
                 <div class="artwork-container">
                     <h3>My Artwork</h3>
-
                                 @foreach (var item in Model.AllArtwork)
                                 {
                                         
                                             <picture>
                                                 <img src="~/imagesArt/@item.ImageName">
                                             </picture>
-
-                                            @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                                                <input type="submit" value="Delete" class="btn-danger" />
-                                            </form>*@
-                                        
+                                                                   
                                 }
-
                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friends-container">
+
+                        <div class="friend-requests">
+                            <h1>Friend Requests</h1>
+
+                            @foreach (var pendingFriend in Model.PendingFriends)
+                            {
+                                <div class="searched-person">
+                                    <form method="get" asp-action="Index" asp-controller="Profile">
+                                        <div class="person-info">
+                                            <div class="search-img">
+                                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                            </div>
+                                            <div class="name-connection">
+                                                <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                                                <p>friend/mutual friend</p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form asp-controller="Profile" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                                        <input type="submit" value="Accept" class="btn btn-primary" />
+                                    </form>
+                                    <form asp-controller="Profile" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                                        <input type="submit" value="Decline" class="btn btn-primary" />
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                        <div class="friends-list">             
+                            <h1>Friends</h1>
+                            @foreach (var friend in Model.AcceptedFriends)
+                            {
+                                <div class="searched-person">
+                                    <form method="get" asp-action="Index" asp-controller="Profile">
+                                        <div class="person-info">
+                                            <div class="search-img">
+                                                <img id="profile-pic" src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="img-raised rounded-circle img-fluid" />
+                                            </div>
+                                            <div class="name-connection">
+                                                <h2>@friend.Firstname @friend.Lastname</h2>
+                                                <p>friend/mutual friend</p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                    </div>          
+                </div
             </div>
         </div>
     </div>
-   
 </div>
  
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

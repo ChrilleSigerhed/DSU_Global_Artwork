@@ -14,16 +14,6 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 
-<!--<head>-->
-@*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-    @*<link rel="stylesheet" href="~/css/profile.css">*@
-<!--</head>-->
-
-
-
 
 <div class="profile-page">
 
@@ -77,6 +67,19 @@
                             <a asp-action="#" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Add friend" class="btn-danger"></a>
 
                         </div>
+
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6 animate-box">
+                    <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                    <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
+                    <div class="form-group">
+                        <form asp-controller="Profile" asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
+                            <input type="submit" value="Add Friend" class="btn btn-primary" />
+                        </form>
+
                     </div>
                     <div class="col-md-5 col-md-push-1 animate-box">
                         <div class="gtco-contact-info">
@@ -107,9 +110,9 @@
 
                 </div>
             </div>
+           
         </div>
     </div>
-
     <div class="gtco-section border-bottom">
         <div class="gtco-container">
             <div class="row">
@@ -135,7 +138,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

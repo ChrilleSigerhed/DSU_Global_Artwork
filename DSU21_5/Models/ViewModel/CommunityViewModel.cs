@@ -9,8 +9,7 @@ namespace DSU21_5.Models.ViewModel
     {
         public string Requester { get; set; }
         public string Requestee { get; set; }
-        public List<Member> PendingFriends { get; set; }
-        public List<Member> AcceptedFriends { get; set; }
+       
         public List<Relationship> Relationships { get; set; }
         public List<Member> Members { get; set; }
         public Relationship Relationship { get; set; }

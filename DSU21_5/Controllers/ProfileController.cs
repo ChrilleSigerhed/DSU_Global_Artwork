@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using DSU21_5.Areas.Identity.Data;
 using DSU21_5.Models.ViewModel;
+using Microsoft.AspNetCore.Identity;
 
 namespace DSU21_5.Controllers
 {
@@ -21,27 +22,67 @@ namespace DSU21_5.Controllers
         public IImageRepository ImageRepository { get; set; }
         public IMemberRepository MemberRepository { get; set; }
         public IArtRepository ArtRepository { get; set; }
+        public IRelationshipRepository RelationshipRepository { get; set; }
+        private readonly UserManager<ApplicationUser> _userManager;
         public ProfileViewModel ProfileViewModel { get; set; }
 
-        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
+        public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository, IRelationshipRepository relationshipRepository, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
             ImageRepository = imageRepository;
             MemberRepository = memberRepository;
             ArtRepository = artRepository;
+            RelationshipRepository = relationshipRepository;
+            _userManager = userManager;
+        }
+
+        public string GetCurrentUserId()
+        {
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            return currentUserId;
         }
 
         [Route("/Profile/Index/{Id}")]
         public async Task<IActionResult> Index(string Id)
         {
-            var art = await ArtRepository.GetArtFromExhibit(Id);
-            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
+            var userId = GetCurrentUserId();
+            var acceptedFriendsRelationships = await RelationshipRepository.GetRelationshipsByUserId(userId);
+            var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(userId);
+            List<Member> members = await MemberRepository.GetAllMembers();
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+
+
+            var pendingFriends = new List<Member>();
+
+            foreach (var pending in pendingFriendsRelationships)
+            {
+                member = await MemberRepository.GetMember(pending.Requester);
+                pendingFriends.Add(member);
+            }
+
+            var acceptedFriends = new List<Member>();
+
+            foreach (var friend in acceptedFriendsRelationships)
+            {
+                //Member member;
+                if (friend.Requester == userId)
+                    member = await MemberRepository.GetMember(friend.Requestee);
+                else
+                    member = await MemberRepository.GetMember(friend.Requester);
+
+                acceptedFriends.Add(member);
+            }
+
+
+
+            ProfileViewModel = new ProfileViewModel(artwork, member, image)
+            {
+                AcceptedFriends = acceptedFriends,
+                PendingFriends = pendingFriends
+            };
             return View(ProfileViewModel);
         }
 
@@ -262,6 +303,40 @@ namespace DSU21_5.Controllers
         {
             var task = await MemberRepository.UpdateInstagram(Id, member.Instagram);
             return Json(member.Instagram);
+        }
+
+        public async Task<IActionResult> SendFriendRequest(string id)
+        {
+            Relationship relationship = new Relationship()
+            {
+                Requester = GetCurrentUserId(),
+                Requestee = id
+            };
+
+            await RelationshipRepository.Create(relationship);
+
+            return Ok("You sent a friend request");
+        }
+
+
+        public async Task<IActionResult> AcceptFriendRequest(string id)
+        {
+            string requestee = GetCurrentUserId();
+            string requester = id;
+            await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
+
+            return Ok("You accepted a friend request");
+        }
+
+
+        public async Task<IActionResult> DeclineFriendRequest(string id)
+        {
+            string requestee = GetCurrentUserId();
+            string requester = id;
+            await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
+
+            return Ok("You declined a friend request");
+
         }
     }
 }

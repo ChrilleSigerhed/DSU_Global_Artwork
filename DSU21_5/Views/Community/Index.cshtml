@@ -83,58 +83,7 @@
 </div>
 
 
-<div class="friends-container">
-    <div class="friends-list">
-        <h1>Friends</h1>
 
-        @foreach (var friend in Model.AcceptedFriends)
-        {
-            <div class="searched-person">
-                <form method="get" asp-action="Index" asp-controller="Search">
-                    <div class="person-info">
-                        <div class="search-img">
-                            <img src="images/person_1.jpg" />
-                        </div>
-                        <div class="name-connection">
-                            <h2>@friend.Firstname @friend.Lastname</h2>
-                            <p>friend/mutual friend</p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        }
-
-    </div>
-    <div class="friend-requests">
-        <h1>Friend Requests</h1>
-
-        @foreach (var pendingFriend in Model.PendingFriends)
-        {
-            <div class="searched-person">
-                <form method="get" asp-action="Index" asp-controller="Search">
-                    <div class="person-info">
-                        <div class="search-img">
-                            <img src="images/person_1.jpg" />
-                        </div>
-                        <div class="name-connection">
-                            <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
-                            <p>friend/mutual friend</p>
-                        </div>
-                    </div>
-                </form>
-                <form asp-controller="Search" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                    <input type="submit" value="Accept" class="btn btn-primary" />
-                </form>
-                <form asp-controller="Search" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                    <input type="submit" value="Decline" class="btn btn-primary" />
-                </form>
-
-
-            </div>
-        }
-    </div>
-
-</div>
 <script src="~/js/searchHandler.js"></script>
 <script src="~/lib/signalr/signalr.js"></script>
 <script src="~/js/site.js"></script>

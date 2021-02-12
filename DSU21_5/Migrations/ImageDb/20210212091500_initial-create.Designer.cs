@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations
+namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210210145144_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210212091500_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations
+namespace DSU21_5.Migrations.ImageDb
 {
     [DbContext(typeof(ImageDbContext))]
     partial class ImageDbContextModelSnapshot : ModelSnapshot

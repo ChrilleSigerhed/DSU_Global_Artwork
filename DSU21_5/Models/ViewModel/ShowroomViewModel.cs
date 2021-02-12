@@ -27,59 +27,24 @@ namespace DSU21_5.Models.ViewModel
         public int RandomIndex { get; set; }
         public string ImageRatio { get; set; } = "1";
         public string ShowroomFloor { get; set; }
- 
+
 
         public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
         {
-            GetShowRoomFloor();
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].Width = "10";
-                list[i].Height = "11";
-            }
             Member = member;
             Members = members;
+
+            SetRandomIndex();
+            SetShowRoomFloor();
+            SetShowroomPositions(member, members);
             GetListOfArtworkInformation(member, list);
-            for (int i = list.Count; i < 17; i++)
-            {
-                list.Add(new Artwork
-                {
-                    ImageName = "EmptySpaceInShowroom.jpg",
-                    Height = "1",
-                    Width="1"
-                });
-            }
-            Images = list;
-            GetShowroomListFromMock();
-            GetRandomIndex();
-            for (int i = 0; i < ShowroomList.Count; i++)
-            {
-                if(member.MemberId == ShowroomList[i])
-                {
-                    if (i == 0)
-                    {
-                        PositionInList = i;
-                        PreviousInList = ShowroomList.Count -1;
-                        NextInList = 1;
-                    }
-                    else if (i == ShowroomList.Count-1)
-                    {
-                        PositionInList = i;
-                        PreviousInList = i - 1;
-                        NextInList = 0;
-                    }
-                    else
-                    {
-                        PositionInList = i;
-                        PreviousInList = PositionInList - 1;
-                        NextInList = PositionInList + 1;
-                    }
-                }
-            }
+            
+            Images = FillOutListWithArtworks(list);
+            //GetShowroomListFromMock();
         }
-        public void GetRandomIndex()
+        public void SetRandomIndex()
         {
-            RandomIndex = random.Next(0, ShowroomList.Count);
+            RandomIndex = random.Next(0, Members.Count);
         }
         public List<ArtworkInformation> GetListOfArtworkInformation(Member member, List<Artwork> postedArt)
         {
@@ -145,15 +110,79 @@ namespace DSU21_5.Models.ViewModel
         //}
 
 
-        public void GetShowroomListFromMock()
+
+
+        //public void GetShowroomListFromMock()
+        //{
+        //    //Gets a list of userId's from a mock file.
+        //    ShowroomList = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("Mock/ExhibitionsMock.json"));
+        //}
+
+        public void SetShowroomPositions(Member member, List<Member> members)
         {
-            ShowroomList = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("Mock/ExhibitionsMock.json"));
+            //Figures out which position in the list the current member is located, and then sets the previous and next Id's.
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (member.MemberId == members[i].MemberId)
+                {
+                    if (i == 0)
+                    {
+                        PositionInList = i;
+                        PreviousInList = members.Count - 1;
+                        NextInList = 1;
+                    }
+                    else if (i == members.Count - 1)
+                    {
+                        PositionInList = i;
+                        PreviousInList = i - 1;
+                        NextInList = 0;
+                    }
+                    else
+                    {
+                        PositionInList = i;
+                        PreviousInList = PositionInList - 1;
+                        NextInList = PositionInList + 1;
+                    }
+                }
+            }
+            if(members.Count <= 1)
+            {
+                NextInList = 0;
+                PreviousInList = 0;
+            }
         }
-        public void GetShowRoomFloor()
+
+        public void SetShowRoomFloor()
         {
+            //Gets a list of image paths from a text file, and then randomize which of the path floors that should be used(ShowroomFloor).
             List<string> floors = new List<string>();
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
-            ShowroomFloor = floors[random.Next(0, 5)];
+            ShowroomFloor = floors[random.Next(0, 5)];  
+        }
+        public List<Artwork> GiveMeasurementsToArtworks(List<Artwork> list)
+        {
+            //Gives measurements to all paintings as there are no measurements that gets registered at the moment. Temp function.
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].Width = "10";
+                list[i].Height = "11";
+            }
+            return list;
+        }
+
+        public List<Artwork> FillOutListWithArtworks(List<Artwork> list)
+        {
+            //Fills out the list of artworks that should be presented incase, there is less than 17 paintings, as Index(Showroom) always try to display 17 items.
+            for (int i = list.Count; i < 17; i++)
+            {
+                list.Add(new Artwork
+                {
+                    ImageName = "EmptySpaceInShowroom.jpg",
+                    Height = "1",
+                    Width = "1"
+                });
+            }
+            return list;
         }
 
     }
