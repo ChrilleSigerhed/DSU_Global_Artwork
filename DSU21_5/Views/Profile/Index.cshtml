@@ -1,9 +1,9 @@
 @model ProfileViewModel
 
-@*@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @using DSU21_5.Areas.Identity.Data
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager*@*@
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -85,11 +85,11 @@
                             <h3>Friends</h3>
                             @foreach (var item in Model.AllArtwork)
                             {
-
-                                <picture>
-                                    <img class="friends" src="~/imagesArt/@item.ImageName" >
-                                </picture>
-
+                                <a href="#">
+                                    <picture>
+                                        <img class="friends" src="~/imagesArt/@item.ImageName">
+                                    </picture>
+                                </a>
                                 @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
                 <input type="submit" value="Delete" class="btn-danger" />
             </form>*@
