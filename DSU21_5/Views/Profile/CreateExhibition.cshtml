@@ -9,9 +9,9 @@
 </header>
 
 <div class="col-md-12">
+  <form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
     <div class="form-group">
         <div class="col-md-5" id="type-art">
-            <form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
                 <h2>Upload your Artwork <br/> for your Exhbition</h2>
                 <div class="drop-zone">
 
@@ -34,13 +34,13 @@
                     <option value="ReadyMade">Ready Made</option>
                     <option value="Sculpture">Sculpture</option>
                 </select>
-            </form>
         </div>
         <div class="col-md-12" id="type-art-button">
             <input type="submit" value="Upload Artwork" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
             <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         </div>
     </div>
+  </form>
 </div>
 <div class="col-md-12">
     <form asp-action="UploadExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
