@@ -54,17 +54,11 @@ namespace DSU21_5.Controllers
     
         public async Task<IActionResult> Profile(string Id)
         {
-            var art = await ArtRepository.GetArtFromExhibit(Id);
-            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
-        
         }
-
-       
     }
 }

@@ -46,10 +46,8 @@ namespace DSU21_5.Controllers
         [Route("/Profile/Index/{Id}")]
         public async Task<IActionResult> Index(string Id)
         {
-            var userId = GetCurrentUserId();
-            var acceptedFriendsRelationships = await RelationshipRepository.GetRelationshipsByUserId(userId);
-            var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(userId);
-            List<Member> members = await MemberRepository.GetAllMembers();
+            var acceptedFriendsRelationships = await RelationshipRepository.GetRelationshipsByUserId(Id);
+            var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(Id);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
@@ -59,30 +57,37 @@ namespace DSU21_5.Controllers
 
             foreach (var pending in pendingFriendsRelationships)
             {
-                member = await MemberRepository.GetMember(pending.Requester);
-                pendingFriends.Add(member);
+                Member friendMember = await MemberRepository.GetMember(pending.Requester);
+                pendingFriends.Add(friendMember);
             }
 
             var acceptedFriends = new List<Member>();
 
             foreach (var friend in acceptedFriendsRelationships)
             {
-                //Member member;
-                if (friend.Requester == userId)
-                    member = await MemberRepository.GetMember(friend.Requestee);
+                if(friend.Requester == Id)
+                {
+                     Member AcceptedFriend = await MemberRepository.GetMember(friend.Requestee);
+                     Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
+                      if (profilePicture != null)
+                        {
+                          AcceptedFriend.ProfilePicture = profilePicture.ImageName;
+                        }
+                    acceptedFriends.Add(AcceptedFriend);
+                }
                 else
-                    member = await MemberRepository.GetMember(friend.Requester);
-
-                acceptedFriends.Add(member);
+                {
+                    Member AcceptedFriend = await MemberRepository.GetMember(friend.Requester);
+                    Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
+                    if(profilePicture != null)
+                    {
+                         AcceptedFriend.ProfilePicture = profilePicture.ImageName;
+                    }
+                    acceptedFriends.Add(AcceptedFriend);
+                }
             }
-
-
-
-            ProfileViewModel = new ProfileViewModel(artwork, member, image)
-            {
-                AcceptedFriends = acceptedFriends,
-                PendingFriends = pendingFriends
-            };
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, acceptedFriends, pendingFriends);
+            
             return View(ProfileViewModel);
         }
 
@@ -123,13 +128,10 @@ namespace DSU21_5.Controllers
         }
         public async Task<IActionResult> CreateArt(string Id)
         {
-            var art = await ArtRepository.GetArtFromExhibit(Id);
-            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
         }
         [HttpPost]
@@ -195,12 +197,8 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> CreateExhibition(string Id)
         {
             var art = await ArtRepository.GetArtFromExhibit(Id);
-            var userId = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var listOfArtFromExhibit = await ArtRepository.GetArtConnectedToExhibit(userId);
-            Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
-            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, listOfArtFromExhibit, art);
+            ProfileViewModel = new ProfileViewModel(member, art);
             return View(ProfileViewModel);
         }
         [HttpPost("/Profile/CreateExhibition/{Id}")]

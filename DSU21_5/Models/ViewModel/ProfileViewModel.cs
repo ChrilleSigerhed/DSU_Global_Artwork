@@ -11,6 +11,7 @@ namespace DSU21_5.Models.ViewModel
     {
         private IEnumerable<Artwork> artwork;
         private Image image;
+        private List<Artwork> art;
 
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
@@ -60,6 +61,56 @@ namespace DSU21_5.Models.ViewModel
                 };
             }
             Member.ProfilePicture = image.ImageName;
+        }
+
+        public ProfileViewModel(Member member, List<Artwork> art)
+        {
+            Member = member;
+            ListOfArtwork = art;
+        }
+
+        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, List<Member> acceptedFriends, List<Member> pendingFriends)
+        {
+            AllArtwork = artwork.ToList();
+            Member = member;
+            ProfilePicture = image;
+            AcceptedFriends = acceptedFriends;
+            PendingFriends = pendingFriends;
+            if(image == null)
+            {
+                Image img = new Image()
+                {
+                    ImageName = "profile.jpeg"
+                };
+                Member.ProfilePicture = img.ImageName;
+            }
+            else
+            {
+                Member.ProfilePicture = image.ImageName;
+            }
+
+            for (int i = 0; i < acceptedFriends.Count; i++)
+            {
+                if(acceptedFriends[i].ProfilePicture == null)
+                {
+                    Image img = new Image()
+                    {
+                        ImageName = "profile.jpeg"
+                    };
+                    acceptedFriends[i].ProfilePicture = img.ImageName;
+                }
+            }
+            for (int i = 0; i < pendingFriends.Count; i++)
+            {
+                if (pendingFriends[i].ProfilePicture == null)
+                {
+                    Image img = new Image()
+                    {
+                        ImageName = "profile.jpeg"
+                    };
+                    pendingFriends[i].ProfilePicture = img.ImageName;
+                }
+            }
         }
     }
 }

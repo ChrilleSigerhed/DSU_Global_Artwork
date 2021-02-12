@@ -136,10 +136,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        Task<List<Artwork>> IArtRepository.GetArtFromExhibit(string id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
         {
@@ -152,6 +149,13 @@ namespace DSU21_5.Mock
         }
 
         public Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork)
+        {
+            throw new NotImplementedException();
+        }
+
+      
+
+        Task<List<Artwork>> IArtRepository.GetArtFromExhibit(string id)
         {
             throw new NotImplementedException();
         }

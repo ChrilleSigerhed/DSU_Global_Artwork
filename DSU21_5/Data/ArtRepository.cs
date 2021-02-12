@@ -35,8 +35,11 @@ namespace DSU21_5.Data
             var allArt = db.Artworks.Where(x => x.UserId == id && x.ExhibitId != null).Select(x => x.ImageName);
             foreach (var item in allArt)
             {
-                var art = db.Artworks.Where(x => x.ImageName == item).FirstOrDefault();
-                AllArt.Add(art);
+                Artwork artwork = new Artwork
+                {
+                    ImageName = item
+                };
+                AllArt.Add(artwork);
             }
             await db.SaveChangesAsync();
             return AllArt;
