@@ -105,7 +105,7 @@ namespace DSU21_5.Data
         /// <returns>true or false</returns>
         public bool CheckIfIdExists(string id)
         {
-            if (db.Artworks.Any(x => x.UserId == id))
+            if (db.Exhibit.Any(x => x.MemberId == id))
             {
                 return true;
             }
@@ -122,8 +122,8 @@ namespace DSU21_5.Data
         /// <returns>ID of existing exhibition </returns>
         public int? GetExhibitId(string id)
         {
-            var getId = db.Artworks.Where(x => x.UserId == id).FirstOrDefault();
-            int? exhibitId = getId.ExhibitId;
+            var getId = db.Exhibit.Where(x => x.MemberId == id).FirstOrDefault();
+            int? exhibitId = getId.Id;
             return exhibitId;
             
         }

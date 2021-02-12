@@ -95,21 +95,20 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateArt([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
-            Artwork imageModel = profileView.Artwork;
             Member member = await MemberRepository.GetMember(Id);
             Exhibit exhibit = null;
 
             var selected = Request.Form.Files[0];
             var category = Request.Form["category"];
 
-            imageModel.ImageFile = selected;
-            imageModel.Type = category;
+            profileView.Artwork.ImageFile = selected;
+            profileView.Artwork.Type = category;
 
             try
             {
                 if (ModelState.IsValid)
                 { 
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
                 }
             }
             catch (Exception ex)
@@ -155,8 +154,8 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> CreateExhibition(string Id)
         {
             var art = await ArtRepository.GetArtFromExhibit(Id);
-            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var listOfArtFromExhibit = await ArtRepository.GetArtConnectedToExhibit(test);
+            var userId = await ArtRepository.GetUniqueIdsConnectedToExhibit();
+            var listOfArtFromExhibit = await ArtRepository.GetArtConnectedToExhibit(userId);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
@@ -167,18 +166,14 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
-            Artwork imageModel = profileView.Artwork;
-      
             var selected = Request.Form.Files[0];
             var category = Request.Form["category"];
-           
-            imageModel.Type = category;
-            imageModel.ImageFile = selected;
-            imageModel.ImageName = selected.FileName;
+
+            profileView.Artwork.Type = category;
+            profileView.Artwork.ImageFile = selected;
+            profileView.Artwork.ImageName = selected.FileName;
             Member member = await MemberRepository.GetMember(Id);
             bool exist = ArtRepository.CheckIfIdExists(Id);
-
-            Exhibit exhibit = null;
             try
             {
                 if (ModelState.IsValid)
@@ -186,12 +181,12 @@ namespace DSU21_5.Controllers
                     if (exist == true)
                     {
                         var exhibitId = ArtRepository.GetExhibitId(Id);
-                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, imageModel, member, exhibitId);
+                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, profileView.Artwork, member, exhibitId);
                     }
                     else if (exist == false)
                     {
-                        exhibit = await ArtRepository.CreateExhibit(_context, member);
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, imageModel, member, exhibit);
+                        Exhibit exhibit = await ArtRepository.CreateExhibit(_context, member);
+                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
                     }
                 }
             }
@@ -199,28 +194,24 @@ namespace DSU21_5.Controllers
             {
                 return View("Error", ex);
             }
-            return Json(imageModel.ImageName);
+            return Json(profileView.Artwork.ImageName);
         }
         [HttpPost("/Profile/UploadExhibition")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadExhibition([Bind("Exhibit, Member")] ProfileViewModel profileView)
         {
-        
-            Exhibit exhibit = profileView.Exhibit;
             var startDate = Request.Form["trip-start"];
             var stopDate = Request.Form["trip-stop"];
-            exhibit.StartDate = startDate;
-            exhibit.StopDate = stopDate;
-            exhibit.MemberId = profileView.Member.MemberId;
+            profileView.Exhibit.StartDate = startDate;
+            profileView.Exhibit.StopDate = stopDate;
             bool exist = ArtRepository.CheckIfIdExists(profileView.Member.MemberId);
-
             try
             {
                 if (ModelState.IsValid)
                 {
                     if (exist == true)
                     {
-                        await ArtRepository.UpdateExhibition(profileView.Member.MemberId, exhibit);
+                        await ArtRepository.UpdateExhibition(profileView.Member.MemberId, profileView.Exhibit);
                     }
                 }
             }

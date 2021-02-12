@@ -9,10 +9,11 @@
 </header>
 
 <div class="col-md-12">
-  <form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
-    <div class="form-group">
-        <div class="col-md-5" id="type-art">
-                <h2>Upload your Artwork <br/> for your Exhbition</h2>
+    <form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
+        <div class="form-group">
+
+            <div class="col-md-5" id="type-art">
+                <h2>Upload Artwork <br />to your Exhbition</h2>
                 <div class="drop-zone">
 
                     <span class="drop-zone__prompt">Drop Image Here</span>
@@ -34,60 +35,59 @@
                     <option value="ReadyMade">Ready Made</option>
                     <option value="Sculpture">Sculpture</option>
                 </select>
-        </div>
-        <div class="col-md-12" id="type-art-button">
-            <input type="submit" value="Upload Artwork" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
-            <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
-        </div>
-    </div>
-  </form>
-</div>
-<div class="col-md-12">
-    <form asp-action="UploadExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
-        <div class="col-md-7">
-            <div class="form-group" style="float: left;">
-                <p><input asp-for="@Model.Exhibit.Name" type="text" class="form-control1" placeholder="Exhibition name"></p>
-                <label for="start">Start date:</label>
-
-                <input asp-for="@Model.Exhibit.StartDate" type="date" class="start" runat="server" id="start" name="trip-start"
-                       value="2021-02-09"
-                       min="2021-01-01" max="2021-12-31" />
-                <label for="start">Stop date:</label>
-
-                <input asp-for="@Model.Exhibit.StopDate" type="date" id="stop" name="trip-stop"
-                       value="2021-02-09"
-                       min="2021-01-01" max="2021-12-31" />
-                <input type="hidden" value="@Model.Member.MemberId" class="btn btn-primary" asp-for="@Model.Member.MemberId" />
-                <input type="hidden" value="@Model.Member.Firstname" class="btn btn-primary" asp-for="@Model.Member.Firstname" />
-                <input type="hidden" value="@Model.Member.Lastname" class="btn btn-primary" asp-for="@Model.Member.Lastname" />
-                <input type="hidden" value="@Model.Member.Email" class="btn btn-primary" asp-for="@Model.Member.Email" />
-
             </div>
-        </div>
-        <div class="col-md-12" id="type-art-button">
-            <input type="submit" value="Create Exhibition" class="btn btn-primary" />
+            <div class="col-md-6" id="type-art-exhibit">
+                <h4 id="center-h4">Uploaded Exhibit art: @Model.ListOfArtwork.Count/17</h4>
+
+                @foreach (var item in Model.ListOfArtwork)
+                {
+            <div class="exhibit-art" id="@item.ImageName">
+                <picture>
+                    <img src="~/imagesArt/@item.ImageName" id="image-exhibition">
+                </picture>
+                
+            </div>
+                }
+            </div>
+            <div class="col-md-12" id="type-art-button">
+                <input type="submit" value="Add Artwork to your exhibition" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
+                <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
+            </div>
         </div>
     </form>
 </div>
+@if (Model.ListOfArtwork.Count == 0)
+{
+    <div class="col-md-12">
+        <form asp-action="UploadExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
+            <div class="col-md-7">
+                <div class="form-group" style="float: left;">
+                    <p><input asp-for="@Model.Exhibit.Name" type="text" class="form-control1" placeholder="Exhibition name"></p>
+                    <label for="start">Start date:</label>
 
-    <div class="gtco-section border-bottom">
-        <div class="artwork-container">
-            <h4>Exhibit art</h4>
+                    <input asp-for="@Model.Exhibit.StartDate" type="date" class="start" runat="server" id="start" name="trip-start"
+                           value="2021-02-09"
+                           min="2021-01-01" max="2021-12-31" />
+                    <label for="start">Stop date:</label>
 
-        @foreach (var item in Model.ListOfArtwork)
-        {
-        <div class="exhibit-art" id="@item.ImageName">
-            <picture>
-                <img src="~/imagesArt/@item.ImageName">
-            </picture>
-            <form asp-action="DeleteArtConfirmExhibit" asp-route-id="@item.ImageName" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                  <input type="submit" value="Delete" class="btn btn-danger" />
-            </form>
-        </div>
-        }
+                    <input asp-for="@Model.Exhibit.StopDate" type="date" id="stop" name="trip-stop"
+                           value="2021-02-09"
+                           min="2021-01-01" max="2021-12-31" />
+                    <input type="hidden" value="@Model.Member.MemberId" class="btn btn-primary" asp-for="@Model.Member.MemberId" />
+                    <input type="hidden" value="@Model.Member.Firstname" class="btn btn-primary" asp-for="@Model.Member.Firstname" />
+                    <input type="hidden" value="@Model.Member.Lastname" class="btn btn-primary" asp-for="@Model.Member.Lastname" />
+                    <input type="hidden" value="@Model.Member.Email" class="btn btn-primary" asp-for="@Model.Member.Email" />
+
+                </div>
+            </div>
+            <div class="col-md-12" id="type-art-button">
+                <input type="submit" value="Publish your exhibition" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</div>
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
