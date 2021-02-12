@@ -1,12 +1,11 @@
 ﻿#artInfo img {
-    max-height: 950px;
-    max-width: 1000px;
-    min-width: 700px;
-    min-height: 700px;
+    max-height: 800px;
+    max-width: 800px;
+    min-width: 400px;
+    min-height: 300px;
     margin-top: 2%; 
     margin-bottom: 5%;
     float: left;
-    
 }
 #cross img{
     display: none;
@@ -167,3 +166,26 @@
             color: black;
         }
     }
+
+@media only screen and (max-width: 1400px) {
+    #artInfo img {
+        max-height: 700px;
+        max-width: 700px;
+    }
+    #art-info-text {
+        margin: 7%;
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    #artInfo img {
+        max-height: 500px;
+        max-width: 500px;
+        min-width: 350px;
+    }
+
+    #art-info-text {
+        margin: 5%;
+    }
+}
