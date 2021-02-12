@@ -11,7 +11,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link type="text/css" rel="stylesheet" href="/css/ShowroomMain.css">
     <link type="text/css" rel="stylesheet" href="/css/ShowroomStyleSheet.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    
     <style>
+        .glass{
+            border-radius: 75px;
+            border: 5px solid #F0F0F0;
+        }
         #blocker {
             position: absolute;
             width: 100%;
@@ -59,9 +65,17 @@
             Look: MOUSE<br />
 
             <a asp-action="Index" asp-controller="Exhibit">
-                <input id="exit-btn" type="button" value="Exit">
+                <button id="exit-btn" class="btn-extreme-danger">Exit</button>
             </a>
         </div>
+        @*<div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src ="/imagesArt/@Model.ArtworkInformation.ElementAt(0).Source" id="myimage" style="width: 570px" />
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>*@
         <div id="artInfo">
             <ul id="myUL">
                 @for (int i = 0; i < Model.Images.Count(); i++)
@@ -69,65 +83,41 @@
                     <li id="@(i+1)" style="display: none">
                         <div id="art-info-text">
                             <h1 id="painting-title">@Model.ArtworkInformation.ElementAt(i).Title</h1>
-                           <p id="art-artist">Artist: @Model.ArtworkInformation.ElementAt(i).Firstname @Model.ArtworkInformation.ElementAt(i).Lastname</p>
+                           <p id="art-artist">Artist:@Model.ArtworkInformation.ElementAt(i).Firstname @Model.ArtworkInformation.ElementAt(i).Lastname</p>
                             <p id="art-year">Year: @Model.ArtworkInformation.ElementAt(i).Year</p>
                             <p id="art-description">Description: @Model.ArtworkInformation.ElementAt(i).Description</p>
                             <p id="art-type">Type: @Model.ArtworkInformation.ElementAt(i).Type</p>
                             <p id="art-height-width">Measurements: @Model.ArtworkInformation.ElementAt(i).Height x @Model.ArtworkInformation.ElementAt(i).Width cm</p>
                         </div>
-                        <div id=art-source><img src="/imagesArt/@Model.ArtworkInformation.ElementAt(i).Source"></div>
+                        <div id=art-source><img src="/imagesArt/@Model.ArtworkInformation.ElementAt(i).Source" id="@($"myimage{i+1}")" class="zoomClass"></div>
                     </li>
                 }
-
-                @*Detta är bara för att det inte finns tillräckligt mycket konstverk att titta på ATM.*@
-                @*@for (int i = 0; i < 16; i++)
-                {
-                    <li id="@(i+1)" style="display: none">
-                        <div id="art-info-text">
-                            <h1 id="painting-title">@Model.Images.ElementAt(0).ArtName</h1>
-                            <p id="art-artist">Artist: @Model.Images.ElementAt(0).Firstname @Model.Images.ElementAt(0).Lastname</p>
-                            <p id="art-year">Year: @Model.Images.ElementAt(0).Year</p>
-                            <p id="art-description">Description: @Model.Images.ElementAt(0).Description</p>
-                            <p id="art-type">Type: @Model.Images.ElementAt(0).Type</p>
-                            <p id="art-height-width">Measurements: @Model.Images.ElementAt(0).Height x @Model.Images.ElementAt(0).Width cm</p>
-                        </div>
-                        <div id=art-source><img src="/imagesArt/@Model.Images.ElementAt(0).ImageName"></div>
-                    </li>
-                }*@
             </ul>
             <div id="cross"><img src="/images/cross.png" /></div>
-           
         </div>
         <div id="exit" style="display: none">
             <h1>Do you want to exit the exhibition?</h1>
             <form>
                 <a asp-action="Index" asp-controller="Exhibit">
-                    <input type="button" value="Yes">
+                    <button class="btn-extreme-danger">Yes</button>
                 </a>
-                <input type="button" id="exit-no" value="No">
+                <button id="exit-no" class="btn-extreme-danger">No</button>
             </form>
         </div>
 
-        <div id="elevator">
+        <div id="elevator" style="display: none">
 
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.PreviousInList]" class="fh5co-project-item">
-                <input type="button" value="Previous Exhibition" />
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.PreviousInList].MemberId" class="fh5co-project-item">
+                <button value="Previous Exhibition" class="btn-extreme-danger">Previous Exhibition</button>
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.NextInList]" class="fh5co-project-item">
-                <input type="button" value="Next Exhibition" />
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.NextInList].MemberId" class="fh5co-project-item">
+                <button value="Next Exhibition" class="btn-extreme-danger">Next Exhibition</button>
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.ShowroomList[Model.RandomIndex]" class="fh5co-project-item">
-                <input type="button" value="I'm Feeling Lucky!" />
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.RandomIndex].MemberId" class="fh5co-project-item">
+                <button value="I'm Feeling Lucky!" class="btn-extreme-danger">I'm Feeling Lucky!</button>
             </a>
-
-                
-                
-
-</div>
-
+        </div>
     </div>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <script type="module">
@@ -137,12 +127,9 @@
         import { PointerLockControls } from '/js/PointerLockControls.js';
 
         let camera, scene, renderer, controls;
-
+        let imageToZoom = '#myimage1';
         const objects = [];
-
-
         let raycaster;
-
         let moveForward = false;
         let moveBackward = false;
         let moveLeft = false;
@@ -172,18 +159,17 @@
 
                 document.getElementById("myUL").children[i].style.display = "none"
             }
-
         }
         function showArtInfo(image) {
+           
             var ul, li
             ul = document.getElementById("myUL")
             li = ul.getElementsByTagName('li')
             for (var i = 0; i < li.length; i++) {
                 if (li[i].id == image.Number) {
-                    li[i].style.display = "block"
+                    li[i].style.display = "block";
                 }
             }
-
         }
         function init() {
 
@@ -201,6 +187,7 @@
             scene.add(light);
 
             controls = new PointerLockControls(camera, document.body);
+            
 
             const blocker = document.getElementById('blocker');
             const instructions = document.getElementById('instructions');
@@ -230,26 +217,20 @@
                 controls.unlock();
             });
 
-            exitDetailsCross.addEventListener('touchstart', function () {
-                controls.lock();
+
+            blocker.addEventListener('click', function () {
+                controls.lock()
             });
+            
 
-            instructions.addEventListener('click', function () {
-
-                controls.lock();
-
-            }, false);
-
-            artInfoSource.addEventListener('click', function () {
-
-                controls.lock();
-            })
             controls.addEventListener('lock', function () {
 
                 instructions.style.display = 'none';
                 blocker.style.display = 'none';
                 artIsClicked = false;
                 exitIsClicked = false;
+                elevatorIsClicked = false;
+                mobileMenuBtnIsClick = false;
                 artInfo.style.display = 'none'
                 exitScreen.style.display = 'none';
                 elevatorMenu.style.display = 'none';
@@ -289,8 +270,6 @@
 
             scene.add(controls.getObject());
 
-
-
             //Movement keys
             document.getElementById('arrow-move-forward').addEventListener('touchstart', function () {
                 moveForward = true;
@@ -299,15 +278,12 @@
                 moveForward = false;
             });
 
-
             document.getElementById('arrow-move-backward').addEventListener('touchstart', function () {
                 moveBackward = true;
             });
             document.getElementById('arrow-move-backward').addEventListener('touchend', function () {
                 moveBackward = false;
             });
-
-
 
             const onKeyDown = function (event) {
                 switch (event.keyCode) {
@@ -332,7 +308,6 @@
                         moveRight = true;
                         break;
                 }
-
             };
 
             const onKeyUp = function (event) {
@@ -358,10 +333,7 @@
                     case 68: // d
                         moveRight = false;
                         break;
-
-
                 }
-
             };
 
             document.addEventListener('keydown', onKeyDown, false);
@@ -370,7 +342,6 @@
             document.addEventListener('touchstart', onDocumentMouseDown);
 
             raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, - 1, 0), 0, 10);
-
 
             let floorImage = "@Model.ShowroomFloor";//GetRandomFloor();
             const floorTexture = new THREE.TextureLoader().load(floorImage, function (texture) {
@@ -807,56 +778,45 @@
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.name = "elevator";
-
             mesh.position.set(50, 10, -41.5);
             scene.add(mesh);
-
 
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
-
-            //
-
             window.addEventListener('resize', onWindowResize, false);
-
+            onWindowResize();
         }
 
         function onWindowResize() {
-
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-
             renderer.setSize(window.innerWidth, window.innerHeight);
-
             if (window.innerWidth < 1000) {
                 onMobileDevice = true;
-                console.log('mobileDeviceTrue');
             } else {
                 onMobileDevice = false;
-                console.log('mobileDeviceFalse');
             }
 
         }
 
-
         function onDocumentMouseDown(event) {
 
             if (onMobileDevice === true) {
+                
                 mouse.x = (event.clientX / renderer.domElement.width ) * 2 - 1;
-                mouse.y = -(event.clientY / renderer.domElement.height ) * 2 + 1;
+                mouse.y = -(event.clientY / renderer.domElement.height) * 2 + 1;
+                console.log(mouse.x, mouse.y)
             }
             else {
 
                 mouse.x = 0; /*( event.clientX / renderer.domElement.width ) * 2 - 1;*/
                 mouse.y = 0;/*- ( event.clientY / renderer.domElement.height ) * 2 + 1;*/ //If you want the raycaster to look at the position of the mouse
             }
-
             raycaster.setFromCamera(mouse, camera);
             raycaster.far = 100;
             raycaster.near = 0;
-
             var intersects = raycaster.intersectObjects(scene.children);
             if (intersects.length > 0 && intersects[0].object.name === 'exit') {
                 exitIsClicked = true;
@@ -872,41 +832,23 @@
                 artIsClicked = true;
                 controls.lock();
                 controls.unlock();
-
                 showArtInfo(image);
-
-
-
                 controls.unlock();
-
-
             }
-
         }
 
-
         function animate() {
-
-
             requestAnimationFrame(animate);
-
             const time = performance.now();
 
             if (controls.isLocked === true || onMobileDevice === true) {
-
-
-
                 const delta = (time - prevTime) / 1500;
-
                 velocity.x -= velocity.x * 10.0 * delta;
                 velocity.z -= velocity.z * 10.0 * delta;
-
                 velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
-
                 direction.z = Number(moveForward) - Number(moveBackward);
                 direction.x = Number(moveRight) - Number(moveLeft);
                 direction.normalize(); // this ensures consistent movements in all directions
-
 
                 if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
                 if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
@@ -943,38 +885,24 @@
                     (controls.getObject().position.z > -142 && controls.getObject().position.z < -138)) {
                     controls.getObject().position.z = -142;
                 }
-
-
                 controls.moveRight(- velocity.x * delta);
                 controls.moveForward(- velocity.z * delta);
-
                 controls.getObject().position.y += (velocity.y * delta); // new behavior
 
                 if (controls.getObject().position.y < 10) {
-
                     velocity.y = 0;
                     controls.getObject().position.y = 10;
-
                     canJump = true;
-
                 }
                 if (controls.getObject().position.x < 10) {
-
                     velocity.y = 0;
                     controls.getObject().position.y = 10;
-
                     canJump = true;
-
                 }
-
             }
-
             prevTime = time;
-
             renderer.render(scene, camera);
-
         }
-
         function GetPaintingRatio(height, width, meshNumber) {
             let specialPaintings = [5, 6, 7, 12, 13];
             if (specialPaintings.includes(meshNumber)) {
@@ -997,23 +925,20 @@
                 }
             }
         }
-        
-        //function GetRandomFloor() {
-        //    let floorNumber = Math.floor(Math.random() * 3);
-        //    console.log(floorNumber);
-        //    if (floorNumber === 0) {
-        //        return "/floorimages/floortile.jpg";
-        //    }
-        //    else if (floorNumber === 1) {
-        //        return "/floorimages/kakelgolv.jpg";
-        //    }
-        //    else {
-        //        return "/floorimages/stonefloor.jpg";
-        //    }
-        //}
-
-
-
     </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/js/zoomsl.min.js"></script>
+    <script>
+        $('.zoomClass').imagezoomsl({
+            zoomrange: [1, 20],
+            zoomstart: 1,
+            innerzoommagnifier: true,
+            classmagnifier: 'glass',
+            magnifiersize: [150, 150]
+        });
+    </script>
+    
 </body>
 </html>

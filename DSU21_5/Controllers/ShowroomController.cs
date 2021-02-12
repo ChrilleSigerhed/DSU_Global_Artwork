@@ -27,8 +27,9 @@ namespace DSU21_5.Controllers
             List<ArtworkInformation> artToExhibits = new List<ArtworkInformation>();
             List<Member> exhibitMembers = new List<Member>();
 
-            Id = "638aa03d-c00c-4c9f-8e3e-2206b57f404d";
+            Id = "770613df-f24e-4aff-b9f8-c56d2be98ca1";
             var postedArt = await artRepository.GetAllArtToExhibitions();
+            //var postedArt = await artRepository.GetArtFromExhibit(Id);
             var members = await memberRepository.GetAllMembers();
             var member = await memberRepository.GetMember(Id);
             
