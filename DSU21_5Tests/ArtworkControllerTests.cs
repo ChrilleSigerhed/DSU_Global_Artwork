@@ -9,8 +9,8 @@ using Xunit;
 using DSU21_5.Models.ViewModel;
 namespace DSU21_5Tests
 {
-    public class ArtworkControllerTests
-    {
+    //public class ArtworkControllerTests
+    //{
         //[Fact]
         //public void CheckIfValuesMatchFromViewModel_AllArtFollowsFromViewModel()
         //{
@@ -65,5 +65,5 @@ namespace DSU21_5Tests
 
         //    Assert.NotNull(artworkViewmodel);
         //}
-    }
+    //}
 }

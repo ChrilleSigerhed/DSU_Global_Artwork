@@ -15,7 +15,7 @@
                     <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
                     <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
                     <div class="form-group">
-                        <form asp-controller="Profile" asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
+                        <form asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
                             <input type="submit" value="Add Friend" class="btn btn-primary" />
                         </form>
                     </div>

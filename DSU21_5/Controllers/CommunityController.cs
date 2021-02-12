@@ -18,15 +18,26 @@ namespace DSU21_5.Controllers
         public IImageRepository ImageRepository { get; set; }
         public IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
+        public IRelationshipRepository RelationshipRepository { get; set; }
         public CommunityViewModel CommunityViewModel { get; set; }
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public CommunityController(IMemberRepository memberRepository, IImageRepository imageRepository, IArtRepository artRepository, IRelationshipRepository relationshipRepository)
+        public CommunityController(IMemberRepository memberRepository, IImageRepository imageRepository, IArtRepository artRepository, IRelationshipRepository relationshipRepository, UserManager<ApplicationUser> userManager)
         {
             MemberRepository = memberRepository;
             ImageRepository = imageRepository;
             ArtRepository = artRepository;
-           
+            RelationshipRepository = relationshipRepository;
+            _userManager = userManager;
+
+
+        }
+
+        public string GetCurrentUserId()
+        {
+            var currentUserId = _userManager.GetUserId(HttpContext.User);
+            return currentUserId;
         }
 
         public async Task<IActionResult> Index()
@@ -64,7 +75,22 @@ namespace DSU21_5.Controllers
             return View(ProfileViewModel);
         
         }
+        public async Task<IActionResult> SendFriendRequest(string id)
+        {
+            Relationship relationship = new Relationship()
+            {
+                Requester = GetCurrentUserId(),
+                Requestee = id
+            };
+            var relationshipExists = await RelationshipRepository.CheckIfRelationshipAlreadyExists(relationship);
 
-       
+            if (!relationshipExists)
+            {
+                await RelationshipRepository.Create(relationship);
+            }
+
+            return RedirectToAction("Profile", new { id });
+        }
+
     }
 }

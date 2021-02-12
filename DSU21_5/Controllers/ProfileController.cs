@@ -308,23 +308,6 @@ namespace DSU21_5.Controllers
             return Json(member.Instagram);
         }
 
-        public async Task<IActionResult> SendFriendRequest(string id)
-        {
-            Relationship relationship = new Relationship()
-            {
-                Requester = GetCurrentUserId(),
-                Requestee = id
-            };
-            var relationshipExists = await RelationshipRepository.CheckIfRelationshipAlreadyExists(relationship);
-
-            if (!relationshipExists)
-            {
-                await RelationshipRepository.Create(relationship);
-            }
-
-            return RedirectToAction("Profile", new { id });
-        }
-
 
         public async Task<IActionResult> AcceptFriendRequest(string id)
         {
