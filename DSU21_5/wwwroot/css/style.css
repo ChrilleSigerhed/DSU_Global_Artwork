@@ -253,8 +253,8 @@ h1, h2, h3, h4, h5, h6, figure {
      height: 200px;
 }
 .exhibit-art {
-    width: 149px;
-    height: 200px;
+    width: 80px;
+    height: 80px;
     display: inline-block;
     padding: 4px;
     margin: 40px;
@@ -2254,10 +2254,22 @@ form label {
 #type-art {
     padding-top: 70px;
 }
+type-art-exhibit {
+    padding-top: 70px;
+}
 #type-art-button {
     padding-top: 10px;
     padding-bottom: 40px;
 }
 #input-art{
     width:200px;
+}
+#image-exhibition {
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+}
+#center-h4 {
+    text-align: center;
+    padding-top: 120px;
 }
