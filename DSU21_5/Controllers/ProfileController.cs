@@ -55,7 +55,12 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ImageId,ImageFile,UserId")] Image imageModel, string Id)
         {
+
             var image = imageModel;
+           var test = Request.Form.Files["myFile"];
+            image.ImageFile = test;
+            
+
             try
             {
                 if (ModelState.IsValid)
