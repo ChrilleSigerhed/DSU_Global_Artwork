@@ -42,12 +42,12 @@ namespace DSU21_5.Data
 
             var entity = await GetRelationship(id, id2);
 
-            if (entity.Status == 1 || entity.Status == 0)
+            if (entity == null || entity.Status == 2)
             {
-                return true;
+                return false;
             }
+            return true;
 
-            return false;
         }
 
         public async Task<Relationship> Create(Relationship relationship)
