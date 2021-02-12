@@ -19,12 +19,26 @@
 
 <h2>Showcase Your Artwork</h2>
 
-<form asp-action="Create" asp-controller="Profile" enctype="multipart/form-data" method="post">
+@*<form asp-action="Create" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
         <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
         <input asp-for="ImageFile" type="file" class="form-control-file" required oninvalid="this.setCustomValidity('Please upload your picture!')" oninput="this.setCustomValidity('')">
         <span asp-validation-for="ImageFile" class="text-danger"></span>
         <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+    </div>
+</form>*@
+<form asp-action="Create" asp-controller="Profile" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <div class="col-md-5" id="type-art">
+            <h2>Change profilepicture</h2>
+            <div class="drop-zone">
+
+                <span class="drop-zone__prompt">Drop Image Here</span>
+                <input asp-for="ImageFile" type="file" name="myFile" class="drop-zone__input">
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+                <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id"/>
+        </div>
     </div>
 </form>
 <div class="gtco-section border-bottom">

@@ -1,11 +1,72 @@
 ﻿@model ProfileViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
 }
+
+
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
+
+
+<div class="profile-page">
+
+    <div class="gtco-section border-bottom">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6 animate-box">
+                        <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                        <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
+                        <div class="social-media-div" style="margin-bottom: 1%;">
+
+                            @if (Model.Member.Facebook != null)
+                            {
+                                <a href="@Model.Member.Facebook" target="_blank">
+                                    <img class="social-media" src="~/images/Facebook.png" />
+                                </a>
+                            }
+                            @if (Model.Member.Twitter != null)
+                            {
+                                <a href="@Model.Member.Twitter" target="_blank">
+                                    <img class="social-media" src="~/images/Twitter.png" />
+                                </a>
+                            }
+                            @if (Model.Member.Instagram != null)
+                            {
+                                <a href="@Model.Member.Instagram" target="_blank">
+                                    <img class="social-media" src="~/images/Instagram.png" />
+                                </a>
+                            }
+                            @*else
+                                {
+
+                                        <a style="padding: 1%;">
+                                            <img class="social-media" src="~/images/Facebook.png" />
+                                        </a>
+                                        <a style="padding: 1%;">
+                                            <img class="social-media" src="~/images/Twitter.png" />
+                                        </a>
+                                        <a style="padding: 1%;">
+                                            <img class="social-media" src="~/images/Instagram.png" />
+                                        </a>
+                                }*@
+
+
+                        </div>
+                        <div class="description text-left-bio">
+                            <p id="bio">@Model.Member.Bio</p>
+                        </div>
+                        <div>
+                            <a asp-action="#" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Add friend" class="btn-danger"></a>
+
+                        </div>
 
 <div class="gtco-section border-bottom">
     <div class="gtco-container">
@@ -18,41 +79,72 @@
                         <form asp-controller="Profile" asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
                             <input type="submit" value="Add Friend" class="btn btn-primary" />
                         </form>
+
                     </div>
-                </div>
-                <div class="col-md-5 col-md-push-1 animate-box">
-                    <div class="gtco-contact-info">
-                        <h3>Contact Information</h3>
-                        <ul>
-                            <li class="address">198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-                            <li class="phone"><a href="tel://1234567920">+ 1235 2355 98</a></li>
-                            <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
-                            <li class="icon-instagram"><a href="#">artinsta</a></li>
-                        </ul>
+                    <div class="col-md-5 col-md-push-1 animate-box">
+                        <div class="gtco-contact-info">
+                            <h3>Friends</h3>
+                            @foreach (var item in Model.AllArtwork)
+                            {
+                                <a href="#">
+                                    <picture>
+                                        <img class="friends" src="~/imagesArt/@item.ImageName">
+                                    </picture>
+                                </a>
+                                @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                        <input type="submit" value="Delete" class="btn-danger" />
+                                    </form>*@
+
+                            }
+                            @*<ul>
+
+                                    <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
+                                    <li>
+
+                                    </li>
+                                    <li>
+                                    </li>
+                                </ul>*@
+                        </div>
                     </div>
+
                 </div>
             </div>
            
         </div>
     </div>
-</div>
+    <div class="gtco-section border-bottom">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+                <div class="artwork-container">
+                    <h3>My Artwork</h3>
 
-<div class="gtco-section border-bottom">
-    <div class="gtco-container">
-        <div class="row">
-            <div class="col-md-12">
-            </div>
-            <div class="artwork-container">
-                <h4>@Model.Member.Firstname Artworks</h4>
+                    @foreach (var item in Model.AllArtwork)
+                    {
 
-                @foreach (var item in Model.AllArtwork)
-                {
-                    <picture>
-                        <img src="~/imagesArt/@item.ImageName">
-                    </picture>
-                }
+                        <picture>
+                            <img src="~/imagesArt/@item.ImageName">
+                        </picture>
 
+                        @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                <input type="submit" value="Delete" class="btn-danger" />
+                            </form>*@
+
+                    }
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+
+
+

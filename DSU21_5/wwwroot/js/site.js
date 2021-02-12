@@ -119,10 +119,8 @@ jQueryAjaxUpdate = form => {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('.artwork-container').append(`<div class="exhibit-art" id="${data}"><picture>` + `<img src=/imagesArt/${data}>` +
-                        `  <form asp-action="DeleteArt" asp-route-id="${data}" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">` +
-                        `   <input type="submit" value="Delete" class="btn btn-danger" />` +
-                        ` </form>`);
+                    $('#type-art-exhibit').append(`<div class="exhibit-art" ><picture>` + `<img src=/imagesArt/${data} id="image-exhibition"> `) 
+                       
                 },
                 error: function (err) {
                     console.log(err)
@@ -138,10 +136,6 @@ jQueryAjaxUpdate = form => {
 
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
     const dropZoneElement = inputElement.closest(".drop-zone");
-
-    dropZoneElement.addEventListener("click", (e) => {
-        inputElement.click();
-    });
 
     inputElement.addEventListener("change", (e) => {
         if (inputElement.files.length) {
