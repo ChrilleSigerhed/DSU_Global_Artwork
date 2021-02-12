@@ -50,9 +50,6 @@ namespace DSU21_5.Controllers
             var acceptedFriendsRelationships = await RelationshipRepository.GetRelationshipsByUserId(userId);
             var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(userId);
             List<Member> members = await MemberRepository.GetAllMembers();
-            var art = await ArtRepository.GetArtFromExhibit(Id);
-            var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
-            var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
@@ -81,7 +78,7 @@ namespace DSU21_5.Controllers
 
 
 
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art)
+            ProfileViewModel = new ProfileViewModel(artwork, member, image)
             {
                 AcceptedFriends = acceptedFriends,
                 PendingFriends = pendingFriends
