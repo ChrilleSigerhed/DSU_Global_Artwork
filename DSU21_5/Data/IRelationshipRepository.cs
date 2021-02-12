@@ -14,6 +14,6 @@ namespace DSU21_5.Data
         Task<IEnumerable<Relationship>> GetRelationshipsByUserId(string id);
         Task<Relationship> AcceptRelationshipRequest(string id1, string id2);
         Task<Relationship> DenyRelationshipRequest(string id1, string id2);
-        Task<bool> CheckIfRelationshipAlreadyExists(Relationship relationship);
+        Task<bool> CheckIfRelationshipAlreadyExists(string id, string id2);
     }
 }

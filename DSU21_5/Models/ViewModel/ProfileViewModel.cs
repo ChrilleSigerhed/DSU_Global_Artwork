@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DSU21_5.Areas.Identity.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +11,7 @@ namespace DSU21_5.Models.ViewModel
 {
     public class ProfileViewModel 
     {
+
         private IEnumerable<Artwork> artwork;
         private Image image;
 
@@ -21,6 +24,7 @@ namespace DSU21_5.Models.ViewModel
         public Image ProfilePicture { get; set; }
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }
         public List<Artwork> ListOfArtwork { get; set; }
+        public bool DoesRelationshipExist { get; set; }
 
         public ProfileViewModel()
         {
@@ -60,6 +64,28 @@ namespace DSU21_5.Models.ViewModel
                 };
             }
             Member.ProfilePicture = image.ImageName;
+        }
+
+        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, ObservableCollection<ArtworkInformation> collection, List<Artwork> artworks, bool doesRelationshipExist)
+        {
+            ListOfArtwork = artworks;
+            ListOfArtInExhibits = collection;
+            Member = member;
+            DoesRelationshipExist = doesRelationshipExist;
+
+            if (image == null)
+            {
+                image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+
+                };
+            }
+
+
+            Member.ProfilePicture = image.ImageName;
+
+            AllArtwork = artwork.ToList();
         }
     }
 }

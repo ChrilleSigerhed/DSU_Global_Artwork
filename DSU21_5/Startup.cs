@@ -30,7 +30,7 @@ namespace DSU21_5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ImageDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ImageDbContextConnection")));
+            services.AddDbContext<IImageDbContext, ImageDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ImageDbContextConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -40,7 +40,6 @@ namespace DSU21_5
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IRelationshipRepository, RelationshipRepository>();
-            services.AddScoped<IArtRepository, ArtRepository>();
             services.AddSignalR();
 
         }

@@ -311,21 +311,21 @@ namespace DSU21_5.Controllers
 
         public async Task<IActionResult> AcceptFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
+            await RelationshipRepository.AcceptRelationshipRequest(requester, Id);
 
-            return RedirectToAction("Profile", new { id });
+            return RedirectToAction("Index", new { Id });
         }
 
 
         public async Task<IActionResult> DeclineFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
+            await RelationshipRepository.DenyRelationshipRequest(requester, Id);
 
-            return RedirectToAction("Profile", new { id });
+            return RedirectToAction("Index", new { Id });
 
         }
     }

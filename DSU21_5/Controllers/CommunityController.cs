@@ -60,35 +60,41 @@ namespace DSU21_5.Controllers
 
             CommunityViewModel = new CommunityViewModel(listOfImages, listOfMembers);
             return View(CommunityViewModel);
-        
+
         }
     
         public async Task<IActionResult> Profile(string Id)
         {
+            var currentUserId = GetCurrentUserId();
             var art = await ArtRepository.GetArtFromExhibit(Id);
             var test = await ArtRepository.GetUniqueIdsConnectedToExhibit();
             var test1 = await ArtRepository.GetArtConnectedToExhibit(test);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art);
+
+            var doesRelationshipExist = await RelationshipRepository.CheckIfRelationshipAlreadyExists(currentUserId, Id);
+
+
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, test1, art, doesRelationshipExist);
             return View(ProfileViewModel);
         
         }
         public async Task<IActionResult> SendFriendRequest(string id)
         {
+            
             Relationship relationship = new Relationship()
             {
                 Requester = GetCurrentUserId(),
                 Requestee = id
             };
-            var relationshipExists = await RelationshipRepository.CheckIfRelationshipAlreadyExists(relationship);
 
-            if (!relationshipExists)
+            var doesRelationshipExist = await RelationshipRepository.CheckIfRelationshipAlreadyExists(relationship.Requester, relationship.Requestee);
+
+            if (!doesRelationshipExist)
             {
                 await RelationshipRepository.Create(relationship);
             }
-
             return RedirectToAction("Profile", new { id });
         }
 

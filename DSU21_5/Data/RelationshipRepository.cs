@@ -14,14 +14,35 @@ namespace DSU21_5.Data
         {
             db = context;
         }
-        public async Task<bool> CheckIfRelationshipAlreadyExists(Relationship relationship)
+        //public async Task<bool> CheckIfRelationshipAlreadyExists(Relationship relationship)
+        //{
+        //    //if (relationship == null)
+        //    //{
+
+        //    //    return false;
+        //    //}
+
+        //    var entity = await GetRelationship(relationship.Requestee, relationship.Requester);
+
+        //    if (entity.Status == 1 || entity.Status == 0)
+        //    {
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
+
+        public async Task<bool> CheckIfRelationshipAlreadyExists(string id, string id2)
         {
-            if (relationship == null)
-                return false;
+            //if (relationship == null)
+            //{
 
-            var entity = await GetRelationship(relationship.Requestee, relationship.Requester);
+            //    return false;
+            //}
 
-            if (entity != null)
+            var entity = await GetRelationship(id, id2);
+
+            if (entity.Status == 1 || entity.Status == 0)
             {
                 return true;
             }
