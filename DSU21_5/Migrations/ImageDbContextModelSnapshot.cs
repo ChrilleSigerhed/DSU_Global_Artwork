@@ -96,6 +96,19 @@ namespace DSU21_5.Migrations
                     b.ToTable("Exhibit");
                 });
 
+            modelBuilder.Entity("DSU21_5.Models.Favourite", b =>
+                {
+                    b.Property<string>("MemberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ArtworkId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MemberId", "ArtworkId");
+
+                    b.ToTable("Favourites");
+                });
+
             modelBuilder.Entity("DSU21_5.Models.Image", b =>
                 {
                     b.Property<int>("ImageId")
@@ -188,6 +201,15 @@ namespace DSU21_5.Migrations
                     b.HasOne("DSU21_5.Models.Member", "Member")
                         .WithMany()
                         .HasForeignKey("MemberId");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Favourite", b =>
+                {
+                    b.HasOne("DSU21_5.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DSU21_5.Models.Image", b =>

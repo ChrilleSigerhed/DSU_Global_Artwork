@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
-    [Migration("20210210145144_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210211112858_initial-create")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,19 @@ namespace DSU21_5.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("Exhibit");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Favourite", b =>
+                {
+                    b.Property<string>("MemberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ArtworkId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MemberId", "ArtworkId");
+
+                    b.ToTable("Favourites");
                 });
 
             modelBuilder.Entity("DSU21_5.Models.Image", b =>
@@ -190,6 +203,15 @@ namespace DSU21_5.Migrations
                     b.HasOne("DSU21_5.Models.Member", "Member")
                         .WithMany()
                         .HasForeignKey("MemberId");
+                });
+
+            modelBuilder.Entity("DSU21_5.Models.Favourite", b =>
+                {
+                    b.HasOne("DSU21_5.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DSU21_5.Models.Image", b =>

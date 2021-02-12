@@ -2,7 +2,7 @@
 
 namespace DSU21_5.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,24 @@ namespace DSU21_5.Migrations
                         principalTable: "Members",
                         principalColumn: "MemberId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Favourites",
+                columns: table => new
+                {
+                    MemberId = table.Column<string>(nullable: false),
+                    ArtworkId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favourites", x => new { x.MemberId, x.ArtworkId });
+                    table.ForeignKey(
+                        name: "FK_Favourites_Members_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Members",
+                        principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,6 +158,9 @@ namespace DSU21_5.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Artworks");
+
+            migrationBuilder.DropTable(
+                name: "Favourites");
 
             migrationBuilder.DropTable(
                 name: "Images");

@@ -1084,3 +1084,12 @@
 	height: 35px;
 	width: 35px;
 }
+
+#heart-icon{
+	height: 35px;
+	width: 35px;
+	margin-top: 10px;
+	margin-left: 10px;
+	vertical-align: bottom;
+
+}

@@ -22,6 +22,7 @@ namespace DSU21_5.Controllers
         public IMemberRepository MemberRepository { get; set; }
         public IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
+        
 
         public ProfileController(ImageDbContext context, IWebHostEnvironment hostEnvironment, IImageRepository imageRepository, IMemberRepository memberRepository, IArtRepository artRepository)
         {
@@ -263,6 +264,8 @@ namespace DSU21_5.Controllers
             var task = await MemberRepository.UpdateInstagram(Id, member.Instagram);
             return Json(member.Instagram);
         }
+
+        
     }
 }
 

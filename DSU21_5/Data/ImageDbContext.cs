@@ -17,6 +17,12 @@ namespace DSU21_5.Data
         public DbSet<Member> Members { get; set; }
         public DbSet<Exhibit> Exhibit { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Favourite>()
+                .HasKey(vf => new { vf.MemberId, vf.ArtworkId });
+        }
     }
 }

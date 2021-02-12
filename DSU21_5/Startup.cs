@@ -40,7 +40,7 @@ namespace DSU21_5
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IRelationshipRepository, RelationshipRepository>();
-
+            services.AddScoped<IFavouritesRepository, FavouritesRepository>();
             services.AddScoped<IArtRepository, ArtRepository>();
             services.AddSignalR();
 

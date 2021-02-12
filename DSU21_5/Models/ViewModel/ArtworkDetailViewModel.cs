@@ -16,6 +16,11 @@ namespace DSU21_5.Models.ViewModel
             DetailArtwork = artwork;
             ListOfArt = RelatedArtToArtist(artworks);
         }
+
+        public ArtworkDetailViewModel()
+        {
+        }
+
         private List<Artwork> RelatedArtToArtist(IEnumerable<Artwork> artworks)
         {
             List<Artwork> artworkForPresentation = new List<Artwork>();

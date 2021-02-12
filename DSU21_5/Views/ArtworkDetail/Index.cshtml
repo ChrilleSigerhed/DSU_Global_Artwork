@@ -1,8 +1,17 @@
 ﻿@model ArtworkDetailViewModel
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 
 @{
     ViewData["Title"] = "ArtworkDetail";
     Layout = "_Layout";
+}
+
+@{
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
@@ -25,32 +34,42 @@
             <p>Size: @Model.DetailArtwork.Height x @Model.DetailArtwork.Width</p>
         }
         <p>Description: @Model.DetailArtwork.Description</p>
+        @if (user != null)
+        {
+            <form asp-controller="ArtworkDetail" asp-action="EditFavourite" asp-route-id="@user.Id" enctype="multipart/form-data" method="post" asp-for="@Model.DetailArtwork.ArtworkId" value="@Model.DetailArtwork.ArtworkId">
+                <input asp-for="@Model.DetailArtwork.ArtworkId" type="hidden"/>
+                <button type="submit">
+                    <img src="~/images/heart.png" id="heart-icon"/>
+                </button>
+
+</form>
+        }
     </div>
 </div>
 
 <div class="art-container">
     <h2>Other works by this Artist</h2>
-        @for (int i = 0; i < Model.ListOfArt.Count; i++)
-        {
-            <div class="view-art">
-                <div class="artist-artwork">
-                    <a class="fh5co-project-item" asp-action="Index" asp-controller="ArtworkDetail" asp-route-id="@Model.ListOfArt[i].ArtworkId">
-                        <div class="artwork-img">
-                            <img src="~/imagesArt/@Model.ListOfArt[i].ImageName" />
-                        </div>
-                    </a>
-                    <div class="artwork-info">
-                        <h3>@Model.ListOfArt[i].ArtName</h3>
-                        @if (@Model.ListOfArt[i].Height == "Not")
-                        {
-                            <p>Size: @Model.ListOfArt[i].Height @Model.ListOfArt[i].Width</p>
-                        }
-                        else
-                        {
-                            <p>Size: @Model.ListOfArt[i].Height x @Model.ListOfArt[i].Width</p>
-                        }
+    @for (int i = 0; i < Model.ListOfArt.Count; i++)
+    {
+        <div class="view-art">
+            <div class="artist-artwork">
+                <a class="fh5co-project-item" asp-action="Index" asp-controller="ArtworkDetail" asp-route-id="@Model.ListOfArt[i].ArtworkId">
+                    <div class="artwork-img">
+                        <img src="~/imagesArt/@Model.ListOfArt[i].ImageName" />
                     </div>
+                </a>
+                <div class="artwork-info">
+                    <h3>@Model.ListOfArt[i].ArtName</h3>
+                    @if (@Model.ListOfArt[i].Height == "Not")
+                    {
+                        <p>Size: @Model.ListOfArt[i].Height @Model.ListOfArt[i].Width</p>
+                    }
+                    else
+                    {
+                        <p>Size: @Model.ListOfArt[i].Height x @Model.ListOfArt[i].Width</p>
+                    }
                 </div>
             </div>
-         }
+        </div>
+    }
 </div>
