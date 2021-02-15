@@ -19,6 +19,7 @@ namespace DSU21_5.Models.ViewModel
         public Image ProfilePicture { get; set; }
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }
         public List<Artwork> ListOfArtwork { get; set; }
+        public List<Artwork> ArtworkConnectedToExhibition { get; set; }
         public bool DoesRelationshipExist { get; set; }
         public string CurrentUser { get; set; }
 
@@ -48,7 +49,7 @@ namespace DSU21_5.Models.ViewModel
         public ProfileViewModel(Member member, List<Artwork> art)
         {
             Member = member;
-            ListOfArtwork = art;
+            ArtworkConnectedToExhibition = art;
         }
 
         public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, List<Member> acceptedFriends, List<Member> pendingFriends)
@@ -86,6 +87,9 @@ namespace DSU21_5.Models.ViewModel
             Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
             AllArtwork = artwork.ToList();
         }
+
+       
+
         /// <summary>
         /// If member has not yet provided a ProfilePicture, this will give them a default profilepicture
         /// </summary>

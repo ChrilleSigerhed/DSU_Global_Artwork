@@ -32,18 +32,25 @@ namespace DSU21_5.Data
         /// <returns>a list of art</returns>
         public async Task<List<Artwork>> GetArtFromExhibit(string id)
         {
-            List<Artwork> AllArt = new List<Artwork>();
-            var allArt = db.Artworks.Where(x => x.UserId == id && x.ExhibitId != null).Select(x => x.ImageName);
-            foreach (var item in allArt)
-            {
-                Artwork artwork = new Artwork
-                {
-                    ImageName = item
-                };
-                AllArt.Add(artwork);
-            }
-            await db.SaveChangesAsync();
-            return AllArt;
+            //TODO: await?
+            var art = db.Artworks
+                .Where(x => x.UserId == id && x.ExhibitId != null)
+                .Include("Member")
+                .Include("Exhibit")
+                .ToList();
+            return art;
+
+            //List<Artwork> AllArt = new List<Artwork>();
+            //var allArt = db.Artworks.Where(x => x.UserId == id && x.ExhibitId != null).Select(x => x.ImageName);
+            //foreach (var item in allArt)
+            //{
+            //    Artwork artwork = new Artwork
+            //    {
+            //        ImageName = item
+            //    };
+            //    AllArt.Add(artwork);
+            //}
+            //await db.SaveChangesAsync();
         }
         /// <summary>
         /// Returns a list of unique ids
@@ -164,6 +171,7 @@ namespace DSU21_5.Data
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
             var art = db.Artworks
+                .Where(x => x.ExhibitId == null)
                 .Include("Member")
                 .ToList();
             await db.SaveChangesAsync();
