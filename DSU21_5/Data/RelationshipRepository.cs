@@ -66,5 +66,23 @@ namespace DSU21_5.Data
 
             return relationship;
         }
+        public async Task<Relationship> GetRelationship(string id, string id2)
+        {
+            Relationship relationship = db.Relationships.Where(x => (x.Requestee == id && x.Requester == id2 || x.Requestee == id2 && x.Requester == id) && (x.Status == 0 || x.Status == 1)).FirstOrDefault();
+            await db.SaveChangesAsync();
+            return relationship;
+        }
+        public async Task<bool> CheckIfRelationshipAlreadyExists(string id, string id2)
+        {
+
+            var entity = await GetRelationship(id, id2);
+
+            if (entity == null || entity.Status == 2)
+            {
+                return false;
+            }
+            return true;
+
+        }
     }
 }
