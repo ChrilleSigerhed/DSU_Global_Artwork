@@ -31,8 +31,6 @@ namespace DSU21_5.Controllers
             ArtRepository = artRepository;
             RelationshipRepository = relationshipRepository;
             _userManager = userManager;
-
-
         }
 
         public async Task<IActionResult> Index()
@@ -61,7 +59,7 @@ namespace DSU21_5.Controllers
             var doesRelationshipExist = await RelationshipRepository.CheckIfRelationshipAlreadyExists(currentUserId, Id);
 
 
-            ProfileViewModel = new ProfileViewModel(artwork, member, image, doesRelationshipExist);
+            ProfileViewModel = new ProfileViewModel(artwork, member, image, doesRelationshipExist, currentUserId);
             return View(ProfileViewModel);
         }
         public async Task<IActionResult> SendFriendRequest(string id)

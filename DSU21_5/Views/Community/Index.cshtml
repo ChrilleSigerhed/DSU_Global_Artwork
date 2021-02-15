@@ -11,22 +11,6 @@
 
 <div class="community-container">
     <div class="members-container">
-        @*<h1>Members</h1>
-            @foreach (var member in Model.CommunityMembers)
-            {
-
-                <div class="member">
-                    <div class="member-img">
-                        <img src="image/@member.ProfilePicture" />
-                    </div>
-
-                    <div class="member-info">
-                        <h2>@member.Firstname @member.Lastname</h2>
-                        <p>@member.Email</p>
-                        <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
-                    </div>
-                </div>
-            }*@
         <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search">
         <div class="col-12 col-md-7 align-self-center fh5co_mediya_right" id="noPaddingID">
             <div class="clearfix" id="fixed">
@@ -38,11 +22,7 @@
                                 <img class="search-Icon" src="image/@Model.CommunityMembers.ElementAt(i).ProfilePicture">
                                 <p id="firstname">@Model.CommunityMembers.ElementAt(i).Firstname</p>
                                 <p id="lastname">@Model.CommunityMembers.ElementAt(i).Lastname</p>
-                                @*<div class="member-info">
-                                        <h2>@Model.CommunityMembers.ElementAt(i).Firstname @Model.CommunityMembers.ElementAt(i).Lastname</h2>
-                                        <p>@Model.CommunityMembers.ElementAt(i).Email</p>
-                                        <a href="Community/Profile/@Model.CommunityMembers.ElementAt(i).MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
-                                    </div>*@
+
                             </a>
                         </li>
                     }
@@ -50,37 +30,63 @@
 
             </div>
         </div>
-
-
-        <div class="chat-container">
-            <form action="#">
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        @*<label class="sr-only" for="messageBox">Message</label>*@
-                        @*<textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>*@
-                        <ul class="form-control" id="messageList" style="overflow: auto"></ul>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <input type="text" id="name" placeholder="Write your name">
-                        <input type="text" id="message" placeholder="Write your message">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <input type="button" id="sendMessageBtn" value="Send Message" class="btn btn-primary">
-                </div>
-
-            </form>
-        </div>
-
-
-
-
     </div>
 </div>
+<div class="col-md-12">
+    @foreach (var member in Model.CommunityMembers)
+    {
+        <div class="member">
+            <div class="member-img">
+                <img src="image/@member.ProfilePicture" />
+            </div>
+
+            <div class="member-info">
+                <h2>@member.Firstname @member.Lastname</h2>
+                <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
+            </div>
+        </div>
+    }
+</div>
+        
+        @*@foreach (var member in Model.CommunityMembers)
+        {
+
+            <div class="member">
+                <div class="member-img">
+                    <img src="image/@member.ProfilePicture" />
+                </div>
+
+                <div class="member-info">
+                    <h2>@member.Firstname @member.Lastname</h2>
+                    <a href="Community/Profile/@member.MemberId"><input type="submit" value="View profile" class="btn-primary-view" /></a>
+                </div>
+            </div>
+        }*@
+        <!--<div class="chat-container"    CHATTEN ÄR TAGEN UR BRUK TILLSVIDARE>
+        <form action="#">
+            <div class="row form-group">
+                <div class="col-md-12">-->
+        @*<label class="sr-only" for="messageBox">Message</label>*@
+        @*<textarea name="message" id="messageBox" cols="30" rows="10" class="form-control" placeholder="Write us something"></textarea>*@
+        <!--<ul class="form-control" id="messageList" style="overflow: auto"></ul>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <input type="text" id="name" placeholder="Write your name">
+                    <input type="text" id="message" placeholder="Write your message">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <input type="button" id="sendMessageBtn" value="Send Message" class="btn btn-primary">
+            </div>
+
+        </form>
+    </div>-->
+    @*</div>
+</div>*@
 
 
 

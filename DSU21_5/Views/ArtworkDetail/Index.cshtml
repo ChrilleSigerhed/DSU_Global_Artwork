@@ -14,7 +14,7 @@
     </div>
     <div class="image-info">
         <h1>Name: @Model.DetailArtwork.ArtName</h1>
-        <p>Artist name: @Model.Member.Firstname @Model.Member.Lastname </p>
+        <p>Artist name: <a asp-action="Profile" asp-controller="Community" asp-route-id="@Model.Member.MemberId">@Model.Member.Firstname @Model.Member.Lastname</a></p>
         <p>Made: @Model.DetailArtwork.Year</p>
         @if (@Model.DetailArtwork.Height == "Not")
         {
