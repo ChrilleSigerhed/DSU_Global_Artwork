@@ -325,9 +325,12 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 @media screen and (max-width: 768px) {
-  .gtco-nav {
+    .gtco-nav {
     padding: 20px 0;
-  }
+    }
+    .login-register {
+    float: left;
+    }
 }
 .gtco-nav #gtco-logo {
   font-size: 18px;
