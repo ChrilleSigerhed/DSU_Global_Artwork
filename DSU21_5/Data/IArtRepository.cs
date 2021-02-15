@@ -22,7 +22,7 @@ namespace DSU21_5.Data
         Task<IEnumerable<Artwork>> GetArtToExhibitions(string id);
         Task<List<Artwork>> GetArtFromExhibit(string id);
         Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids);
-        Task<List<string>> GetUniqueIdsConnectedToExhibit();
+        Task<List<Exhibit>> GetUniqueIdsConnectedToExhibit();
         bool CheckIfIdExists(string id);
         int? GetExhibitId(string id);
         Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, int? exhibit);
