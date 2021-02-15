@@ -122,11 +122,7 @@ namespace DSU21_5.Data
             }
 
         }
-        /// <summary>
-        /// method that returns an ID of the existing exhibition
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>ID of existing exhibition </returns>
+
         public int? GetExhibitId(string id)
         {
             var getId = db.Exhibit
@@ -136,7 +132,17 @@ namespace DSU21_5.Data
             return exhibitId;
             
         }
-    
+        public async Task<List<Exhibit>> GetExhibits()
+        {
+            List<Exhibit> exhibits = new List<Exhibit>();
+            exhibits =  db.Exhibit.Where(x => x.Publish == true).ToList();
+            await db.SaveChangesAsync();
+            return exhibits;
+
+        }
+
+      
+     
         public async Task<Exhibit> UpdateExhibition(string id, Exhibit exhibit)
         {
             var exhibition = db.Exhibit.Where(x => x.MemberId == id).FirstOrDefault();
@@ -148,11 +154,7 @@ namespace DSU21_5.Data
             return exhibition;
           
         }
-        /// <summary>
-        /// Method that returns the artwork-viewmodel with all art uploaded in the database
-        /// </summary>
-        /// <param name="members"></param>
-        /// <returns>artwork-viewmodel</returns>
+ 
         public async Task<ArtworkViewModel> GetViewModel(List<Member> members)
         {
             var list = await GetArtThatsPosted();
@@ -189,6 +191,7 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return exhibit;
         }
+        
         public async Task<Artwork> AddArt(ImageDbContext context,IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
         {
             string wwwRootPath = hostEnvironment.WebRootPath;
@@ -329,6 +332,19 @@ namespace DSU21_5.Data
         }
 
         public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Artwork>> GetExhibitArt(Exhibit exhibit)
+        {
+            List<Artwork> artworks = new List<Artwork>();
+            artworks = db.Artworks.Where(x => x.ExhibitId == exhibit.Id).Include("Member").ToList();
+            await db.SaveChangesAsync();
+            return artworks;
+        }
+
+        public Task<List<Artwork>> GetExhibitArt(List<Exhibit> exhibits)
         {
             throw new NotImplementedException();
         }
