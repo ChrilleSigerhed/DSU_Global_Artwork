@@ -13,106 +13,93 @@
 
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
-
-<!--<head>-->
-    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-    @*<link rel="stylesheet" href="~/css/profile.css">*@
-<!--</head>-->
-
-
-
-
 <div class="profile-page">
-   
-    <div class="gtco-section border-bottom">
-        <div class="gtco-container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-6 animate-box">
-                        <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo" >
-                        <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
-                        <div class="social-media-div" style="margin-bottom: 1%;">
+  <div class="gtco-section border-bottom">
+      <div class="gtco-container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="col-md-6 animate-box">
+                      <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo" >
+                      <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
+                      <div class="social-media-div" style="margin-bottom: 1%;">
 
-                            @if (Model.Member.Facebook != null)
-                            {
-                                <a href="@Model.Member.Facebook" target="_blank">
-                                    <img class="social-media" src="~/images/Facebook.png" />
-                                </a>
-                            }
-                            @if (Model.Member.Twitter != null)
-                            {
-                                <a href="@Model.Member.Twitter" target="_blank">
-                                    <img class="social-media" src="~/images/Twitter.png" />
-                                </a>
-                            }
-                            @if (Model.Member.Instagram != null)
-                            {
-                                <a href="@Model.Member.Instagram" target="_blank">
-                                    <img class="social-media" src="~/images/Instagram.png" />
-                                </a>
-                            }
-                            
+                          @if (Model.Member.Facebook != null)
+                          {
+                              <a href="@Model.Member.Facebook" target="_blank">
+                                  <img class="social-media" src="~/images/Facebook.png" />
+                              </a>
+                          }
+                          @if (Model.Member.Twitter != null)
+                          {
+                              <a href="@Model.Member.Twitter" target="_blank">
+                                  <img class="social-media" src="~/images/Twitter.png" />
+                              </a>
+                          }
+                          @if (Model.Member.Instagram != null)
+                          {
+                              <a href="@Model.Member.Instagram" target="_blank">
+                                  <img class="social-media" src="~/images/Instagram.png" />
+                              </a>
+                          }
+                          
 
 
-                        </div>
-                        <div class="description text-left-bio">
-                            <p id="bio">@Model.Member.Bio</p>
-                        </div>
-                        <div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" class="btn-danger" /></a>
-                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn-danger"></a>
-                            <a asp-action="CreateArt" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Artwork" class="btn-danger"></a>
+                      </div>
+                      <div class="description text-left-bio">
+                          <p id="bio">@Model.Member.Bio</p>
+                      </div>
+                      <div>
+                          <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" class="btn-danger" /></a>
+                          <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn-danger"></a>
+                          <a asp-action="CreateArt" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Artwork" class="btn-danger"></a>
 
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-md-push-1 animate-box">
-                        <div class="gtco-contact-info">
-                            <h3>Friends</h3>
-                            @foreach (var item in Model.AcceptedFriends)
-                            {
-                                <a href="#">
-                                    <picture>
-                                        <img class="friends" src="~/image/@item.ProfilePicture">
-                                    </picture>
-                                </a>               
-                            }
+                      </div>
+                  </div>
+                  <div class="col-md-5 col-md-push-1 animate-box">
+                      <div class="gtco-contact-info">
+                          <h3>Friends</h3>
+                          @foreach (var item in Model.AcceptedFriends)
+                          {
+                              <a href="#">
+                                  <picture>
+                                      <img class="friends" src="~/image/@item.ProfilePicture">
+                                  </picture>
+                              </a>               
+                          }
+                         
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="artwork-container">
+                <h3>My Artwork</h3>
+                   @foreach (var item in Model.AllArtwork)
+                   {
                            
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="gtco-section border-bottom">
-        <div class="gtco-container">
-            <div class="row">
-                
-                <div class="artwork-container">
-                    <h3>My Artwork</h3>
-                                @foreach (var item in Model.AllArtwork)
-                                {
-                                        
-                                            <picture>
-                                                <img src="~/imagesArt/@item.ImageName">
-                                            </picture>
-                                                                   
-                                }
-                                 </div>
-                              </div>
-                            </div>
-                        </div>
+                      <picture>
+                          <img src="~/imagesArt/@item.ImageName">
+                      </picture>
+                                                      
+                    }
+             </div>
+         </div>
+      </div>
+   </div>
  </div>
  
 <div class="friends-container">
 
      <div class="friend-requests">
-         <h1>Friend Requests</h1>
-
+         @if(Model.PendingFriends.Count > 0)
+         {
+            <h2>Friend Requests</h2>
+         }
          @foreach (var pendingFriend in Model.PendingFriends)
          {
              <div class="searched-person">
@@ -132,25 +119,6 @@
                  </form>
                  <form asp-controller="Profile" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
                      <input type="submit" value="Decline" class="btn btn-primary" />
-                 </form>
-             </div>
-         }
-     </div>
-     <div class="friends-list">             
-         <h1>Friends</h1>
-         @foreach (var friend in Model.AcceptedFriends)
-         {
-             <div class="searched-person">
-                 <form method="get" asp-action="Index" asp-controller="Profile">
-                     <div class="person-info">
-                         <div class="search-img">
-                             <img id="profile-pic" src="~/image/@friend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
-                         </div>
-                         <div class="name-connection">
-                             <h2>@friend.Firstname @friend.Lastname</h2>
-                             <p>friend/mutual friend</p>
-                         </div>
-                     </div>
                  </form>
              </div>
          }
