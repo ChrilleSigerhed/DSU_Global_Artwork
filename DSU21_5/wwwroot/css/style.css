@@ -474,6 +474,9 @@ h1, h2, h3, h4, h5, h6, figure {
     margin-bottom: 10px;
     border: 3px solid #f54c53;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: block;
+    width: 30%;
+    height: 30%;
 }
 
 @media screen and (max-width: 768px) {
