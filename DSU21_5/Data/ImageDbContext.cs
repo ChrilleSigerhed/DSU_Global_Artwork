@@ -9,6 +9,10 @@ namespace DSU21_5.Data
 {
     public class ImageDbContext : DbContext
     {
+        public ImageDbContext()
+        {
+        }
+
         public ImageDbContext(DbContextOptions<ImageDbContext> options) : base(options)
         {
         }

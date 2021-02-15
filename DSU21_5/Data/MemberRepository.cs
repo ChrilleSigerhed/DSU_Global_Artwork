@@ -1,4 +1,5 @@
 ﻿using DSU21_5.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +27,18 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return member;
         }
-
+        /// <summary>
+        /// methods that creates a list with all members in db
+        /// </summary>
+        /// <returns>a list of members</returns>
+        
         public async Task<List<Member>> GetAllMembers()
         {
-            List<Member> members = new List<Member>();
+            // TODO: await?
+              var members = db.Members.ToList();
+           
 
-            List<String> Ids = db
-            .Members
-            .Select(u => u.MemberId)
-            .ToList();
-
-            foreach (string id in Ids)
-            {
-                Member member = await GetMember(id);
-                members.Add(member);
-            }
-
-            return members;
+             return members;
         }
 
         public async Task<Member> UpdateBio(string Id, string bio)

@@ -185,20 +185,32 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .members-container {
-    margin-right: 300px;
     padding: 20px;
-    float: left;
+    width: 56%;
+}
+
+.member-img {
+    height: 100%;
+    width: 100%;
 }
 
 .member {
-    display: flex;
-    margin: 10px;
+    display: inline-block;
+    width: 15%;
+    margin: 15px;
+    text-align: center;
 }
 
+
 .member-img img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    max-width: 120px;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+    /*object-fit: contain;*/
 }
 
 .member-info h2 {
@@ -211,7 +223,9 @@ h1, h2, h3, h4, h5, h6, figure {
     font-size: 12px;
     margin: 3px;
 }
+.community-h1{
 
+}
 .chat-container {
     margin-top: 50px;
     padding: 0;
@@ -315,9 +329,12 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 @media screen and (max-width: 768px) {
-  .gtco-nav {
+    .gtco-nav {
     padding: 20px 0;
-  }
+    }
+    .login-register {
+    float: left;
+    }
 }
 .gtco-nav #gtco-logo {
   font-size: 18px;
@@ -468,12 +485,13 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .profile-photo {
     vertical-align: middle;
-    width: 150px;
-    height: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
     border: 3px solid #f54c53;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: block;
+    width: 130px;
+    height: 130px;
 }
 
 @media screen and (max-width: 768px) {
@@ -2275,4 +2293,9 @@ type-art-exhibit {
 #center-h4 {
     text-align: center;
     padding-top: 120px;
+}
+.img-responsive-community {
+    display: block;
+    width: 20%;
+    height: 20%;
 }

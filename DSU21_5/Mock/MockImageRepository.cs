@@ -159,5 +159,30 @@ namespace DSU21_5.Mock
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<Exhibit>> GetExhibits()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt(List<Exhibit> exhibits)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt(Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Exhibit>> IArtRepository.GetUniqueIdsConnectedToExhibit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

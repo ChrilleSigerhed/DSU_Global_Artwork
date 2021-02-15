@@ -44,26 +44,12 @@
                                     <img class="social-media" src="~/images/Instagram.png" />
                                 </a>
                             }
-                            @*else
-                                {
-
-                                        <a style="padding: 1%;">
-                                            <img class="social-media" src="~/images/Facebook.png" />
-                                        </a>
-                                        <a style="padding: 1%;">
-                                            <img class="social-media" src="~/images/Twitter.png" />
-                                        </a>
-                                        <a style="padding: 1%;">
-                                            <img class="social-media" src="~/images/Instagram.png" />
-                                        </a>
-                                }*@
-
 
                         </div>
                         <div class="description text-left-bio">
                             <p id="bio">@Model.Member.Bio</p>
                         </div>
-                        @if (Model.DoesRelationshipExist == false)
+                        @if (Model.DoesRelationshipExist == false && Model.CurrentUser != null)
                         {
                             <div class="form-group">
 
@@ -72,31 +58,26 @@
                                 </form>
                             </div>
                         }
+                    </div>
 
                         <div class="gtco-section border-bottom">
-                            <div class="gtco-section border-bottom">
-                                <div class="gtco-container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                        </div>
-                                        <div class="artwork-container">
-                                            <h3>My Artwork</h3>
+                            <div class="gtco-container">
+                                <div class="row">
 
-                                            @foreach (var item in Model.AllArtwork)
-                                            {
+                                    <div class="artwork-container">
+                                        <h3>Artworks</h3>
+                                        @foreach (var item in Model.AllArtwork)
+                                        {
 
-                                                <picture>
-                                                    <img src="~/imagesArt/@item.ImageName">
-                                                </picture>
+                                            <picture>
+                                                <img src="~/imagesArt/@item.ImageName">
+                                            </picture>
 
-                                            }
-
-                                        </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

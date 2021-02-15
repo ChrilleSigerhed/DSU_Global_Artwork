@@ -52,12 +52,26 @@ namespace DSU21_5.Controllers
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
 
+            //TODO: FIX THIS METHOD
 
             var pendingFriends = new List<Member>();
 
             foreach (var pending in pendingFriendsRelationships)
             {
                 Member friendMember = await MemberRepository.GetMember(pending.Requester);
+                var profilePicture = ImageRepository.GetImageFromDb(pending.Requester);
+                if (profilePicture == null)
+                {
+                    friendMember.ProfilePicture = "profile.jpeg";
+
+                }
+                else
+                {
+
+                friendMember.ProfilePicture = profilePicture.ImageName;
+                }
+
+          
                 pendingFriends.Add(friendMember);
             }
 
@@ -303,6 +317,7 @@ namespace DSU21_5.Controllers
             return Json(member.Instagram);
         }
 
+
         public async Task<IActionResult> SendFriendRequest(string id)
         {
             Relationship relationship = new Relationship()
@@ -313,28 +328,29 @@ namespace DSU21_5.Controllers
 
             await RelationshipRepository.Create(relationship);
 
-            return Ok("You sent a friend request");
+            return RedirectToAction("Index", new { id });
         }
+
 
 
         public async Task<IActionResult> AcceptFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
+            await RelationshipRepository.AcceptRelationshipRequest(requester, Id);
 
-            return Ok("You accepted a friend request");
+            return RedirectToAction("Index", new { Id });
+
         }
 
 
         public async Task<IActionResult> DeclineFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
+            await RelationshipRepository.DenyRelationshipRequest(requester, Id);
 
-            return Ok("You declined a friend request");
-
+            return RedirectToAction("Index", new { Id });
         }
     }
 }
