@@ -63,87 +63,49 @@
                         <div class="description text-left-bio">
                             <p id="bio">@Model.Member.Bio</p>
                         </div>
-                        <div>
-                            <a asp-action="#" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Add friend" class="btn-danger"></a>
+                        @if (Model.DoesRelationshipExist == false)
+                        {
+                            <div class="form-group">
 
-                        </div>
+                                <form asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
+                                    <input type="submit" value="Add Friend" class="btn btn-primary" />
+                                </form>
+                            </div>
+                        }
 
-<div class="gtco-section border-bottom">
-    <div class="gtco-container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6 animate-box">
-                    <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
-                    <h3>@Model.Member.Firstname @Model.Member.Lastname</h3>
-                    <div class="form-group">
-                        <form asp-controller="Profile" asp-action="SendFriendRequest" asp-route-id="@Model.Member.MemberId">
-                            <input type="submit" value="Add Friend" class="btn btn-primary" />
-                        </form>
+                        <div class="gtco-section border-bottom">
+                            <div class="gtco-section border-bottom">
+                                <div class="gtco-container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        </div>
+                                        <div class="artwork-container">
+                                            <h3>My Artwork</h3>
 
-                    </div>
-                    <div class="col-md-5 col-md-push-1 animate-box">
-                        <div class="gtco-contact-info">
-                            <h3>Friends</h3>
-                            @foreach (var item in Model.AllArtwork)
-                            {
-                                <a href="#">
-                                    <picture>
-                                        <img class="friends" src="~/imagesArt/@item.ImageName">
-                                    </picture>
-                                </a>
-                                @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                                        <input type="submit" value="Delete" class="btn-danger" />
-                                    </form>*@
+                                            @foreach (var item in Model.AllArtwork)
+                                            {
 
-                            }
-                            @*<ul>
+                                                <picture>
+                                                    <img src="~/imagesArt/@item.ImageName">
+                                                </picture>
 
-                                    <li class="email"><a href="@Model.Member.Email">@Model.Member.Email</a></li>
-                                    <li>
+                                            }
 
-                                    </li>
-                                    <li>
-                                    </li>
-                                </ul>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-           
-        </div>
-    </div>
-    <div class="gtco-section border-bottom">
-        <div class="gtco-container">
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-                <div class="artwork-container">
-                    <h3>My Artwork</h3>
-
-                    @foreach (var item in Model.AllArtwork)
-                    {
-
-                        <picture>
-                            <img src="~/imagesArt/@item.ImageName">
-                        </picture>
-
-                        @*<form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
-                                <input type="submit" value="Delete" class="btn-danger" />
-                            </form>*@
-
-                    }
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 
 
 

@@ -12,6 +12,7 @@ namespace DSU21_5.Models.ViewModel
         private IEnumerable<Artwork> artwork;
         private Image image;
         private List<Artwork> art;
+        private bool doesRelationshipExist;
 
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
@@ -22,6 +23,7 @@ namespace DSU21_5.Models.ViewModel
         public Image ProfilePicture { get; set; }
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }
         public List<Artwork> ListOfArtwork { get; set; }
+        public bool DoesRelationshipExist { get; set; }
 
         public ProfileViewModel()
         {
@@ -111,6 +113,23 @@ namespace DSU21_5.Models.ViewModel
                     pendingFriends[i].ProfilePicture = img.ImageName;
                 }
             }
+        }
+
+        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, bool doesRelationshipExist)
+        {
+            Member = member;
+            DoesRelationshipExist = doesRelationshipExist;
+
+            if (image == null)
+            {
+                image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+
+                };
+            }
+            Member.ProfilePicture = image.ImageName;
+            AllArtwork = artwork.ToList();
         }
     }
 }
