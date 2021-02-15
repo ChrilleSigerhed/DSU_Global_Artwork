@@ -52,7 +52,9 @@ namespace DSU21_5.Data
         public async Task<List<Exhibit>> GetUniqueIdsConnectedToExhibit()
         {
             //List<string> listOfIds = new List<string>();
-            var listOfIds = db.Exhibit.Include("Member").ToList();
+            var listOfIds = db.Exhibit
+                .Include("Member")
+                .ToList();
 
             //var ids = db.Artworks.Where(x => x.ExhibitId != null).Select(x => x.UserId);
             //foreach (var item in ids)
@@ -127,7 +129,9 @@ namespace DSU21_5.Data
         /// <returns>ID of existing exhibition </returns>
         public int? GetExhibitId(string id)
         {
-            var getId = db.Exhibit.Where(x => x.MemberId == id).FirstOrDefault();
+            var getId = db.Exhibit
+                .Where(x => x.MemberId == id)
+                .FirstOrDefault();
             int? exhibitId = getId.Id;
             return exhibitId;
             
@@ -157,7 +161,9 @@ namespace DSU21_5.Data
         }
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
-            var art = db.Artworks.Include("Member").ToList();
+            var art = db.Artworks
+                .Include("Member")
+                .ToList();
             await db.SaveChangesAsync();
             return art;
         }
@@ -271,7 +277,7 @@ namespace DSU21_5.Data
         }
         public async Task<List<ArtworkInformation>> GetAllInformation(string Id)
         {
-
+            //TODO: kanske inte behöver artworkInformation? använda include istället
             IEnumerable<Artwork> artwork = db.Artworks.Where(x => x.UserId == Id);
           
             await db.SaveChangesAsync();

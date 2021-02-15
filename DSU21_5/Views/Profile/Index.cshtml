@@ -60,7 +60,7 @@
                           <h3>Friends</h3>
                           @foreach (var item in Model.AcceptedFriends)
                           {
-                              <a href="#">
+                              <a href="@item.MemberId">
                                   <picture>
                                       <img class="friends" src="~/image/@item.ProfilePicture">
                                   </picture>
