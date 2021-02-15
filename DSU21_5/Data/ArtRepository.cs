@@ -2,6 +2,7 @@
 using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace DSU21_5.Data
         ImageDbContext db;
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
         public IEnumerable<Artwork> ArtToExhibits { get; set; }
-        public List<string> ListOfIds { get; set; } = new List<string>();
+        public List<Exhibit> ListOfIds { get; set; } = new List<Exhibit>();
         public ObservableCollection<ArtworkInformation> ListOfArtToExhibit { get; set; }
 
 
@@ -48,19 +49,22 @@ namespace DSU21_5.Data
         /// Returns a list of unique ids
         /// </summary>
         /// <returns>list of ids</returns>
-        public async Task<List<string>> GetUniqueIdsConnectedToExhibit()
+        public async Task<List<Exhibit>> GetUniqueIdsConnectedToExhibit()
         {
-            List<string> listOfIds = new List<string>();
+            //List<string> listOfIds = new List<string>();
+            var listOfIds = db.Exhibit
+                .Include("Member")
+                .ToList();
 
-            var ids = db.Artworks.Where(x => x.ExhibitId != null).Select(x => x.UserId);
-            foreach (var item in ids)
-            {
-                if (!listOfIds.Contains(item))
-                {
-                    listOfIds.Add(item);
-                }
-            }
-            await db.SaveChangesAsync();
+            //var ids = db.Artworks.Where(x => x.ExhibitId != null).Select(x => x.UserId);
+            //foreach (var item in ids)
+            //{
+            //    if (!listOfIds.Contains(item))
+            //    {
+            //        listOfIds.Add(item);
+            //    }
+            //}
+            //await db.SaveChangesAsync();
             ListOfIds = listOfIds;
             return ListOfIds;
         }
@@ -125,7 +129,9 @@ namespace DSU21_5.Data
         /// <returns>ID of existing exhibition </returns>
         public int? GetExhibitId(string id)
         {
-            var getId = db.Exhibit.Where(x => x.MemberId == id).FirstOrDefault();
+            var getId = db.Exhibit
+                .Where(x => x.MemberId == id)
+                .FirstOrDefault();
             int? exhibitId = getId.Id;
             return exhibitId;
             
@@ -155,9 +161,11 @@ namespace DSU21_5.Data
         }
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
         {
-            IEnumerable<Artwork> images = db.Artworks;
+            var art = db.Artworks
+                .Include("Member")
+                .ToList();
             await db.SaveChangesAsync();
-            return images;
+            return art;
         }
         /// <summary>
         /// method that creates a new exhibition
@@ -232,29 +240,44 @@ namespace DSU21_5.Data
             await db.SaveChangesAsync();
             return artworkModel;
         }
+        /// <summary>
+        /// method that returns all art that a member has posted
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>list of art from one user</returns>
         public async Task<IEnumerable<Artwork>> GetPostedArtFromUniqueUser(string Id)
         {
-            IEnumerable<Artwork> art = db.Artworks.Where(x => x.UserId == Id && x.ExhibitId == null);
+            IEnumerable<Artwork> art = db.Artworks
+                .Where(x => x.UserId == Id && x.ExhibitId == null)
+                .Include("Member")
+                .ToList();
             await db.SaveChangesAsync();
             return art;
         }
 
         public async Task<IEnumerable<Artwork>> GetArtToExhibitions(string id)
         {
-            IEnumerable<Artwork> art = db.Artworks.Where(x => x.UserId == id && x.ExhibitId != null);
+            IEnumerable<Artwork> art = db.Artworks
+                .Where(x => x.UserId == id && x.ExhibitId != null)
+                .Include("Member")
+                .ToList();
             await db.SaveChangesAsync();
             return art;
         }
         public async Task<IEnumerable<Artwork>> GetAllArtToExhibitions()
         {
-            IEnumerable<Artwork> art = db.Artworks.Where(x => x.ExhibitId != null);
+            IEnumerable<Artwork> art = db.Artworks
+                .Where(x => x.ExhibitId != null)
+                .Include("Exhibit")
+                .Include("Member")
+                .ToList();
             await db.SaveChangesAsync();
             ArtToExhibits = art;
             return ArtToExhibits;
         }
         public async Task<List<ArtworkInformation>> GetAllInformation(string Id)
         {
-
+            //TODO: kanske inte behöver artworkInformation? använda include istället
             IEnumerable<Artwork> artwork = db.Artworks.Where(x => x.UserId == Id);
           
             await db.SaveChangesAsync();

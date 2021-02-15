@@ -9,10 +9,6 @@ namespace DSU21_5.Models.ViewModel
 {
     public class ProfileViewModel 
     {
-        private IEnumerable<Artwork> artwork;
-        private Image image;
-        private List<Artwork> art;
-        private bool doesRelationshipExist;
 
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
@@ -24,6 +20,7 @@ namespace DSU21_5.Models.ViewModel
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }
         public List<Artwork> ListOfArtwork { get; set; }
         public bool DoesRelationshipExist { get; set; }
+        public string CurrentUser { get; set; }
 
         public ProfileViewModel()
         {
@@ -34,19 +31,9 @@ namespace DSU21_5.Models.ViewModel
             ListOfArtwork = artworks;
             ListOfArtInExhibits = collection;
             Member = member;
+            Member.ProfilePicture = ChangeProfilePictureIfNull(image);
+            Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
 
-            if (image == null)
-            {
-                image = new Image()
-                {
-                    ImageName = "profile.jpeg"
-
-                };
-            }
-     
-
-            Member.ProfilePicture = image.ImageName;
-           
             AllArtwork = artwork.ToList();
         }
 
@@ -54,15 +41,8 @@ namespace DSU21_5.Models.ViewModel
         {
             AllArtwork = artwork.ToList();
             Member = member;
-            if (image == null)
-            {
-                image = new Image()
-                {
-                    ImageName = "profile.jpeg"
-
-                };
-            }
-            Member.ProfilePicture = image.ImageName;
+            Member.ProfilePicture = ChangeProfilePictureIfNull(image);
+            Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
         }
 
         public ProfileViewModel(Member member, List<Artwork> art)
@@ -78,48 +58,41 @@ namespace DSU21_5.Models.ViewModel
             ProfilePicture = image;
             AcceptedFriends = acceptedFriends;
             PendingFriends = pendingFriends;
-            if(image == null)
-            {
-                Image img = new Image()
-                {
-                    ImageName = "profile.jpeg"
-                };
-                Member.ProfilePicture = img.ImageName;
-            }
-            else
-            {
-                Member.ProfilePicture = image.ImageName;
-            }
+            Member.ProfilePicture = ChangeProfilePictureIfNull(image);
+            Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
 
             for (int i = 0; i < acceptedFriends.Count; i++)
             {
                 if(acceptedFriends[i].ProfilePicture == null)
                 {
-                    Image img = new Image()
-                    {
-                        ImageName = "profile.jpeg"
-                    };
-                    acceptedFriends[i].ProfilePicture = img.ImageName;
+                    acceptedFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
                 }
             }
             for (int i = 0; i < pendingFriends.Count; i++)
             {
                 if (pendingFriends[i].ProfilePicture == null)
                 {
-                    Image img = new Image()
-                    {
-                        ImageName = "profile.jpeg"
-                    };
-                    pendingFriends[i].ProfilePicture = img.ImageName;
+                    pendingFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
                 }
             }
         }
 
-        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, bool doesRelationshipExist)
+        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, bool doesRelationshipExist,string currentUser)
         {
+            CurrentUser = currentUser;
             Member = member;
             DoesRelationshipExist = doesRelationshipExist;
-
+            Member.ProfilePicture = ChangeProfilePictureIfNull(image);
+            Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
+            AllArtwork = artwork.ToList();
+        }
+        /// <summary>
+        /// If member has not yet provided a ProfilePicture, this will give them a default profilepicture
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        private string ChangeProfilePictureIfNull(Image image)
+        {
             if (image == null)
             {
                 image = new Image()
@@ -128,8 +101,20 @@ namespace DSU21_5.Models.ViewModel
 
                 };
             }
-            Member.ProfilePicture = image.ImageName;
-            AllArtwork = artwork.ToList();
+            return image.ImageName;
+        }
+        /// <summary>
+        /// If member has not yet provided a Description, a default description is given to the member to encourage them to provide one!
+        /// </summary>
+        /// <param name="Description"></param>
+        /// <returns></returns>
+        private string ChangeMemberDescriptionIfNull(string Description)
+        {
+            if(Description == null)
+            {
+                Description = "You have not yet provided a description for your profile, click on Edit Profile and tell us more about who you are!";
+            }
+            return Description;
         }
     }
 }
