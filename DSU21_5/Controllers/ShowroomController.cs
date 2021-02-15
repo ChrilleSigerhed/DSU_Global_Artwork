@@ -20,20 +20,14 @@ namespace DSU21_5.Controllers
             this.artRepository = artRepository;
         }
         [Route("Showroom")]
-        public async Task<IActionResult> Index(string Id)
+        public async Task<IActionResult> Index(int Id)
         {
+            List<Exhibit> exhibits = await artRepository.GetExhibits();
+            Exhibit exhibit = exhibits.Where(x => x.Id == Id).FirstOrDefault(); 
+            List<Artwork> exhibitArt = await artRepository.GetExhibitArt(exhibit);
 
-
-            List<ArtworkInformation> artToExhibits = new List<ArtworkInformation>();
-            List<Member> exhibitMembers = new List<Member>();
-
-            Id = "770613df-f24e-4aff-b9f8-c56d2be98ca1";
-            var postedArt = await artRepository.GetAllArtToExhibitions();
-            //var postedArt = await artRepository.GetArtFromExhibit(Id);
-            var members = await memberRepository.GetAllMembers();
-            var member = await memberRepository.GetMember(Id);
             
-            return View(new ShowroomViewModel(postedArt.ToList(), member, members));
+            return View(new ShowroomViewModel(exhibitArt, exhibit, exhibits));
         }
     }
 }

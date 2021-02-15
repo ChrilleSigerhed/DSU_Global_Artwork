@@ -1,4 +1,4 @@
-﻿@model ShowroomViewModel
+﻿@model ExhibitViewModel
 @{
     ViewData["Title"] = "Exhibition";
     Layout = "_Layout";
@@ -15,8 +15,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <a asp-action="Index" asp-controller="Showroom" asp-route-id="770613df-f24e-4aff-b9f8-c56d2be98ca1" class="fh5co-project-item">
+            @for (int i = 0; i < Model.Exhibits.Count; i++)
+            {
+
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[i].Id" class="fh5co-project-item">
+                        <figure>
+
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="imagesArt/@Model.Artworks.Where(x => x.ExhibitId == Model.Exhibits[i].Id).ElementAt(Model.random.Next(0, Model.Artworks.Where(x => x.ExhibitId == Model.Exhibits[i].Id).Count())).ImageName" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>@Model.Exhibits[i].Name</h2>
+                            <p>@Model.Exhibits[i].StartDate to @Model.Exhibits[i].StopDate</p>
+                        </div>
+                    </a>
+                </div>
+            }
+            @*<div class="col-lg-4 col-md-4 col-sm-6">
+                <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[0].Id" class="fh5co-project-item">
                     <figure>
 
                         <div class="overlay"><i class="ti-plus"></i></div>
@@ -93,7 +110,7 @@
                         <p>2021-01-25 till 2021-02-01</p>
                     </div>
                 </a>
-            </div>
+            </div>*@
 
         </div>
     </div>

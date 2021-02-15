@@ -13,12 +13,12 @@ namespace DSU21_5.Models.ViewModel
         Random random = new Random();
         public List<Artwork> Images { get; set; }
 
-        public Member Member { get; set; }
-        public List<Member> Members { get; set; }
+        public Exhibit Exhibit { get; set; }
+        public List<Exhibit> Exhibits { get; set; }
         //public List<Artwork> ListOfArtToExhibit { get; set; } = new List<Artwork>();
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
 
-        public List<ArtworkInformation> ArtToExhibit { get; set; } = new List<ArtworkInformation>();
+        public List<Artwork> ArtToExhibit { get; set; } = new List<Artwork>();
 
         public List<string> ShowroomList { get; set; }
         public int PositionInList { get; set; }
@@ -27,111 +27,41 @@ namespace DSU21_5.Models.ViewModel
         public int RandomIndex { get; set; }
         public string ImageRatio { get; set; } = "1";
         public string ShowroomFloor { get; set; }
+        public string Artist { get; set; }
 
-
-        public ShowroomViewModel(List<Artwork> list, Member member, List<Member> members)
+        public ShowroomViewModel(List<Artwork> list, Exhibit exhibit, List<Exhibit> exhibits)
         {
-            Member = member;
-            Members = members;
-
+            Exhibit = exhibit;
+            Exhibits = exhibits;
+            ArtToExhibit = list;
             SetRandomIndex();
+            Artist = $"{list[0].Member.Firstname} {list[0].Member.Lastname}";
             SetShowRoomFloor();
-            SetShowroomPositions(member, members);
-            GetListOfArtworkInformation(member, list);
+            SetShowroomPositions(exhibit, exhibits);
             
             Images = FillOutListWithArtworks(list);
             //GetShowroomListFromMock();
         }
+
         public void SetRandomIndex()
         {
-            RandomIndex = random.Next(0, Members.Count);
-        }
-        public List<ArtworkInformation> GetListOfArtworkInformation(Member member, List<Artwork> postedArt)
-        {
-            for (int i = 0; i < 17; i++)
-            {
-                if (i < postedArt.Count)
-                {
-                    ArtworkInformation.Add(new ArtworkInformation
-                    {
-                        Firstname = member.Firstname,
-                        Source = postedArt[i].ImageName,
-                        Lastname = member.Lastname,
-                        Height = postedArt[i].Height,
-                        Width = postedArt[i].Width,
-                        Type = postedArt[i].Type,
-                        Year = postedArt[i].Year,
-                        Description = postedArt[i].Description,
-                        Title = postedArt[i].ArtName,
-                        UserId = member.MemberId
-                    }) ;
-                }
-                else
-                {
-                    ArtworkInformation.Add(new ArtworkInformation
-                    {
-                        Source = "EmptySpaceInShowroom.jpg"
-                    });
-
-                }
-            }
-            return ArtworkInformation;
+            RandomIndex = random.Next(0, Exhibits.Count);
         }
 
-        //public List<ArtworkInformation> GetExhibitionArt()
-        //{
-
-        //    foreach (var item in Members)
-        //    {
-        //        for (int i = 0; i < ListOfArtToExhibit.Count; i++)
-        //        {
-        //            if (CollectiveArt[i].UserId == item.MemberId)
-        //            {
-        //                ArtToExhibit.Add(new ArtworkInformation
-        //                {
-        //                    Firstname = item.Firstname,
-        //                    Source = CollectiveArt[i].ImageName,
-        //                    Lastname = item.Lastname,
-        //                    Height = CollectiveArt[i].Height,
-        //                    Width = CollectiveArt[i].Width,
-        //                    Type = CollectiveArt[i].Type,
-        //                    Year = CollectiveArt[i].Year,
-        //                    Description = CollectiveArt[i].Description,
-        //                    Title = CollectiveArt[i].ArtName,
-        //                    UserId = item.MemberId
-
-        //                });
-        //            }
-
-        //        }
-        //    }
-
-        //    return ArtToExhibit;
-        //}
-
-
-
-
-        //public void GetShowroomListFromMock()
-        //{
-        //    //Gets a list of userId's from a mock file.
-        //    ShowroomList = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("Mock/ExhibitionsMock.json"));
-        //}
-
-        public void SetShowroomPositions(Member member, List<Member> members)
+        public void SetShowroomPositions(Exhibit exhibit, List<Exhibit> exhibits)
         {
             //Figures out which position in the list the current member is located, and then sets the previous and next Id's.
-            for (int i = 0; i < members.Count; i++)
+            for (int i = 0; i < exhibits.Count; i++)
             {
-                if (member.MemberId == members[i].MemberId)
+                if (exhibit.Id == exhibits[i].Id)
                 {
                     if (i == 0)
                     {
                         PositionInList = i;
-                        PreviousInList = members.Count - 1;
+                        PreviousInList = exhibits.Count - 1;
                         NextInList = 1;
                     }
-                    else if (i == members.Count - 1)
+                    else if (i == exhibits.Count - 1)
                     {
                         PositionInList = i;
                         PreviousInList = i - 1;
@@ -145,7 +75,7 @@ namespace DSU21_5.Models.ViewModel
                     }
                 }
             }
-            if(members.Count <= 1)
+            if(exhibits.Count <= 1)
             {
                 NextInList = 0;
                 PreviousInList = 0;

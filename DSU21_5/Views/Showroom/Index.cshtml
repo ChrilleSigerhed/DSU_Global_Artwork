@@ -78,18 +78,18 @@
         </div>*@
         <div id="artInfo">
             <ul id="myUL">
-                @for (int i = 0; i < Model.Images.Count(); i++)
+                @for (int i = 0; i < Model.ArtToExhibit.Count(); i++)
                 {
                     <li id="@(i+1)" style="display: none">
                         <div id="art-info-text">
-                            <h1 id="painting-title">@Model.ArtworkInformation.ElementAt(i).Title</h1>
-                           <p id="art-artist">Artist:@Model.ArtworkInformation.ElementAt(i).Firstname @Model.ArtworkInformation.ElementAt(i).Lastname</p>
-                            <p id="art-year">Year: @Model.ArtworkInformation.ElementAt(i).Year</p>
-                            <p id="art-description">Description: @Model.ArtworkInformation.ElementAt(i).Description</p>
-                            <p id="art-type">Type: @Model.ArtworkInformation.ElementAt(i).Type</p>
-                            <p id="art-height-width">Measurements: @Model.ArtworkInformation.ElementAt(i).Height x @Model.ArtworkInformation.ElementAt(i).Width cm</p>
+                            <h1 id="painting-title">@Model.ArtToExhibit.ElementAt(i).ArtName</h1>
+                           <p id="art-artist">Artist: @Model.Artist</p>
+                            <p id="art-year">Year: @Model.ArtToExhibit.ElementAt(i).Year</p>
+                            <p id="art-description">Description: @Model.ArtToExhibit.ElementAt(i).Description</p>
+                            <p id="art-type">Type: @Model.ArtToExhibit.ElementAt(i).Type</p>
+                            <p id="art-height-width">Measurements: @Model.ArtToExhibit.ElementAt(i).Height x @Model.ArtToExhibit.ElementAt(i).Width cm</p>
                         </div>
-                        <div id=art-source><img src="/imagesArt/@Model.ArtworkInformation.ElementAt(i).Source" id="@($"myimage{i+1}")" class="zoomClass"></div>
+                        <div id=art-source><img src="/imagesArt/@Model.ArtToExhibit.ElementAt(i).ImageName" id="@($"myimage{i+1}")" class="zoomClass"></div>
                     </li>
                 }
             </ul>
@@ -97,23 +97,23 @@
         </div>
         <div id="exit" style="display: none">
             <h1>Do you want to exit the exhibition?</h1>
-            <form>
+   
                 <a asp-action="Index" asp-controller="Exhibit">
                     <button class="btn-extreme-danger">Yes</button>
                 </a>
                 <button id="exit-no" class="btn-extreme-danger">No</button>
-            </form>
+            
         </div>
 
         <div id="elevator" style="display: none">
 
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.PreviousInList].MemberId" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[Model.PreviousInList].Id" class="fh5co-project-item">
                 <button value="Previous Exhibition" class="btn-extreme-danger">Previous Exhibition</button>
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.NextInList].MemberId" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[Model.NextInList].Id" class="fh5co-project-item">
                 <button value="Next Exhibition" class="btn-extreme-danger">Next Exhibition</button>
             </a>
-            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Members[Model.RandomIndex].MemberId" class="fh5co-project-item">
+            <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[Model.RandomIndex].Id" class="fh5co-project-item">
                 <button value="I'm Feeling Lucky!" class="btn-extreme-danger">I'm Feeling Lucky!</button>
             </a>
         </div>
