@@ -52,12 +52,26 @@ namespace DSU21_5.Controllers
             Member member = await MemberRepository.GetMember(Id);
             IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
 
+            //TODO: FIX THIS METHOD
 
             var pendingFriends = new List<Member>();
 
             foreach (var pending in pendingFriendsRelationships)
             {
                 Member friendMember = await MemberRepository.GetMember(pending.Requester);
+                var profilePicture = ImageRepository.GetImageFromDb(pending.Requester);
+                if (profilePicture == null)
+                {
+                    friendMember.ProfilePicture = "profile.jpeg";
+
+                }
+                else
+                {
+
+                friendMember.ProfilePicture = profilePicture.ImageName;
+                }
+
+          
                 pendingFriends.Add(friendMember);
             }
 

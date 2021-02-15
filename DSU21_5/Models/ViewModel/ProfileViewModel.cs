@@ -66,14 +66,14 @@ namespace DSU21_5.Models.ViewModel
             {
                 if(acceptedFriends[i].ProfilePicture == null)
                 {
-                    acceptedFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
+                    acceptedFriends[i].ProfilePicture = ChangeProfilePictureIfNull();
                 }
             }
             for (int i = 0; i < pendingFriends.Count; i++)
             {
                 if (pendingFriends[i].ProfilePicture == null)
                 {
-                    pendingFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
+                    pendingFriends[i].ProfilePicture = ChangeProfilePictureIfNull();
                 }
             }
         }
@@ -88,8 +88,18 @@ namespace DSU21_5.Models.ViewModel
             AllArtwork = artwork.ToList();
         }
 
-       
 
+        private string ChangeProfilePictureIfNull()
+        {
+           
+                Image image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+
+                };
+          
+            return image.ImageName;
+        }
         /// <summary>
         /// If member has not yet provided a ProfilePicture, this will give them a default profilepicture
         /// </summary>
