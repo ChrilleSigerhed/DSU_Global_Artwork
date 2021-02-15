@@ -313,7 +313,7 @@ namespace DSU21_5.Controllers
 
             await RelationshipRepository.Create(relationship);
 
-            return Ok("You sent a friend request");
+            return RedirectToAction("Index", new { id });
         }
 
 
