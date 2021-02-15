@@ -303,38 +303,24 @@ namespace DSU21_5.Controllers
             return Json(member.Instagram);
         }
 
-        public async Task<IActionResult> SendFriendRequest(string id)
-        {
-            Relationship relationship = new Relationship()
-            {
-                Requester = GetCurrentUserId(),
-                Requestee = id
-            };
-
-            await RelationshipRepository.Create(relationship);
-
-            return Ok("You sent a friend request");
-        }
-
-
         public async Task<IActionResult> AcceptFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.AcceptRelationshipRequest(requester, requestee);
+            await RelationshipRepository.AcceptRelationshipRequest(requester, Id);
 
-            return Ok("You accepted a friend request");
+            return RedirectToAction("Index", new { Id });
+
         }
 
 
         public async Task<IActionResult> DeclineFriendRequest(string id)
         {
-            string requestee = GetCurrentUserId();
+            string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.DenyRelationshipRequest(requester, requestee);
+            await RelationshipRepository.DenyRelationshipRequest(requester, Id);
 
-            return Ok("You declined a friend request");
-
+            return RedirectToAction("Index", new { Id });
         }
     }
 }

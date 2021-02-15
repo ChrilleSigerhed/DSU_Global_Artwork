@@ -64,6 +64,7 @@
                                   <picture>
                                       <img class="friends" src="~/image/@item.ProfilePicture">
                                   </picture>
+
                               </a>               
                           }
                          
@@ -103,7 +104,7 @@
          @foreach (var pendingFriend in Model.PendingFriends)
          {
              <div class="searched-person">
-                 <form method="get" asp-action="Index" asp-controller="Profile">
+                 <form method="get" asp-action="Index">
                      <div class="person-info">
                          <div class="search-img">
                              <img id="profile-pic" src="~/image/@pendingFriend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
@@ -114,10 +115,10 @@
                          </div>
                      </div>
                  </form>
-                 <form asp-controller="Profile" asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                 <form asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
                      <input type="submit" value="Accept" class="btn btn-primary" />
                  </form>
-                 <form asp-controller="Profile" asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                 <form asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
                      <input type="submit" value="Decline" class="btn btn-primary" />
                  </form>
              </div>
