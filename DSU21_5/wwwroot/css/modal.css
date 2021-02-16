@@ -1,5 +1,6 @@
-﻿/*﻿.modal-open {
-    overflow: hidden
+﻿﻿.modal-open {
+    overflow: hidden;
+   
 }
 
 .modal {
@@ -12,7 +13,11 @@
     display: none;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
-    outline: 0
+    outline: 0;
+}
+
+.show {
+    display: block !important; 
 }
 
     .modal.fade .modal-dialog {
@@ -47,7 +52,7 @@
 
 .modal-content {
     position: relative;
-    background-color: #fff;
+    /*background-color: #fff;*/
     background-clip: padding-box;
     border: 1px solid #999;
     border: 1px solid rgba(0,0,0,.2);
@@ -64,18 +69,14 @@
     bottom: 0;
     left: 0;
     z-index: 1040;
-    background-color: #000
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-    .modal-backdrop.fade {
-        filter: alpha(opacity=0);
-        opacity: 0
-    }
 
-    .modal-backdrop.in {
-        filter: alpha(opacity=50);
-        opacity: .5
-    }
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5
+}
 
 .modal-header {
     padding: 15px;
@@ -152,11 +153,7 @@
     transition: opacity .15s linear
 }
 
-    .fade.in {
-        opacity: 1;
-    }
-
-.show {
-    display: block !important
+.fade.in {
+    opacity: .75;
+    background-color: #000;
 }
-*/

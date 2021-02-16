@@ -19,6 +19,7 @@ namespace DSU21_5.Models.ViewModel
         public Image ProfilePicture { get; set; }
         public ObservableCollection<ArtworkInformation> ListOfArtInExhibits { get; set; }
         public List<Artwork> ListOfArtwork { get; set; }
+        public List<Artwork> ArtworkConnectedToExhibition { get; set; }
         public bool DoesRelationshipExist { get; set; }
         public string CurrentUser { get; set; }
 
@@ -48,7 +49,7 @@ namespace DSU21_5.Models.ViewModel
         public ProfileViewModel(Member member, List<Artwork> art)
         {
             Member = member;
-            ListOfArtwork = art;
+            ArtworkConnectedToExhibition = art;
         }
 
         public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, List<Member> acceptedFriends, List<Member> pendingFriends)
@@ -65,14 +66,14 @@ namespace DSU21_5.Models.ViewModel
             {
                 if(acceptedFriends[i].ProfilePicture == null)
                 {
-                    acceptedFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
+                    acceptedFriends[i].ProfilePicture = ChangeProfilePictureIfNull();
                 }
             }
             for (int i = 0; i < pendingFriends.Count; i++)
             {
                 if (pendingFriends[i].ProfilePicture == null)
                 {
-                    pendingFriends[i].ProfilePicture = ChangeProfilePictureIfNull(image);
+                    pendingFriends[i].ProfilePicture = ChangeProfilePictureIfNull();
                 }
             }
         }
@@ -82,9 +83,26 @@ namespace DSU21_5.Models.ViewModel
             CurrentUser = currentUser;
             Member = member;
             DoesRelationshipExist = doesRelationshipExist;
+            if(currentUser == Member.MemberId)
+            {
+                DoesRelationshipExist = true;
+            }
             Member.ProfilePicture = ChangeProfilePictureIfNull(image);
             Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
             AllArtwork = artwork.ToList();
+        }
+
+
+        private string ChangeProfilePictureIfNull()
+        {
+           
+                Image image = new Image()
+                {
+                    ImageName = "profile.jpeg"
+
+                };
+          
+            return image.ImageName;
         }
         /// <summary>
         /// If member has not yet provided a ProfilePicture, this will give them a default profilepicture

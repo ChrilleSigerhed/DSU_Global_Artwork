@@ -37,9 +37,9 @@
                 </select>
             </div>
             <div class="col-md-6" id="type-art-exhibit">
-                <h4 id="center-h4">Uploaded Exhibit art: @Model.ListOfArtwork.Count/17</h4>
+                <h4 id="center-h4">Uploaded Exhibit art: @Model.ArtworkConnectedToExhibition.Count/17</h4>
 
-                @foreach (var item in Model.ListOfArtwork)
+                @foreach (var item in Model.ArtworkConnectedToExhibition)
                 {
             <div class="exhibit-art" id="@item.ImageName">
                 <picture>
@@ -56,7 +56,7 @@
         </div>
     </form>
 </div>
-@if (Model.ListOfArtwork.Count == 0)
+@if (Model.ArtworkConnectedToExhibition.Count == 0)
 {
     <div class="col-md-12">
         <form asp-action="UploadExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post">
