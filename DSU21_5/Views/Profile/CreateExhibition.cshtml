@@ -11,11 +11,9 @@
 <div class="col-md-12">
     <form asp-action="CreateExhibition" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdate(this);">
         <div class="form-group">
-
             <div class="col-md-5" id="type-art">
                 <h2>Upload Artwork <br />to your Exhbition</h2>
                 <div class="drop-zone">
-
                     <span class="drop-zone__prompt">Drop Image Here</span>
                     <input asp-for="@Model.Artwork.ImageFile" type="file" name="myFile" class="drop-zone__input">
                     <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
@@ -35,26 +33,25 @@
                     <option value="ReadyMade">Ready Made</option>
                     <option value="Sculpture">Sculpture</option>
                 </select>
-            </div>
-            <div class="col-md-6" id="type-art-exhibit">
-                <h4 id="center-h4">Uploaded Exhibit art: @Model.ArtworkConnectedToExhibition.Count/17</h4>
-
-                @foreach (var item in Model.ArtworkConnectedToExhibition)
-                {
-            <div class="exhibit-art" id="@item.ImageName">
-                <picture>
-                    <img src="~/imagesArt/@item.ImageName" id="image-exhibition">
-                </picture>
-                
-            </div>
-                }
-            </div>
-            <div class="col-md-12" id="type-art-button">
                 <input type="submit" value="Add Artwork to your exhibition" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
                 <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
             </div>
+
         </div>
     </form>
+    <div class="col-md-6" id="type-art-exhibit">
+       <div class="form-group">
+           @foreach (var item in Model.ArtworkConnectedToExhibition)
+           {
+               <div class="exhibit-art" id="@item.ImageName">
+                   <picture>
+                       <img src="~/imagesArt/@item.ImageName" id="image-exhibition">
+                   </picture>
+                 @*<input type="submit" value="Delete" class="btn btn-danger" id="deleteButton"/>*@
+               </div>
+           }
+        </div>
+    </div>
 </div>
 @if (Model.ArtworkConnectedToExhibition.Count == 0)
 {

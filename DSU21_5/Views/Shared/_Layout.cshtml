@@ -50,7 +50,7 @@
                     <ul>
                         <li class="has-dropdown">
 
-                            <a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a>
+                            <a asp-area="" asp-controller="Artwork" asp-action="Index">Artworks</a>
                             <ul class="dropdown">
                                 <li><a asp-area="" asp-controller="Artwork" asp-action="Index">Artwork</a></li>
                                 <li><a asp-area="" asp-controller="Artwork" asp-action="DigitalArt">Digital Art</a></li>
@@ -61,7 +61,7 @@
                                 <li><a asp-area="" asp-controller="Artwork" asp-action="Sculpture">Sculpture</a></li>
                             </ul>
                         </li>
-                        <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibition</a></li>
+                        <li><a asp-area="" asp-controller="Exhibit" asp-action="Index">Exhibitions</a></li>
                         <li><a asp-area="" asp-controller="Community" asp-action="Index">Community</a></li>
                         <ul class="login-register"><partial name="_LoginPartial.cshtml" />
                     </ul>
@@ -71,7 +71,7 @@
         </div>
     </nav>
     <div id="page">
-        <div class="container">
+        <div id="page-container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
@@ -81,46 +81,19 @@
 
             <footer id="gtco-footer" role="contentinfo">
                 <div class="gtco-container">
-                    <div class="row row-p	b-md">
 
-                        <div class="col-md-4">
+                        <div class="about-container">
                             <div class="gtco-widget">
-                                <h3>About <span class="footer-logo">Counter-art:Global Showcase<span>.<span></span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eos molestias quod sint ipsum possimus temporibus officia iste perspiciatis consectetur in fugiat repudiandae cum. Totam cupiditate nostrum ut neque ab?</p>
+                                <h3>About <span class="footer-logo">Counter-art:Global Showcase</span></h3>
+                                <p>Counter-art:Global Showcase is a website that enables you to present your artworks digitally in a 3D exhibition showroom which gives you as an artist an opportunity to showcase your work all over the world.</p>
                             </div>
                         </div>
-
-                        <div class="col-md-4 col-md-push-1">
-                            <div class="gtco-widget">
-                                <h3>Links</h3>
-                                <ul class="gtco-footer-links">
-                                    <li><a href="#">Knowledge Base</a></li>
-                                    <li><a href="#">Career</a></li>
-                                    <li><a href="#">Press</a></li>
-                                    <li><a href="#">Terms of services</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="gtco-widget">
-                                <h3>Get In Touch</h3>
-                                <ul class="gtco-quick-contact">
-                                    <li><a href="#"><i class="icon-phone"></i> +1 234 567 890</a></li>
-                                    <li><a href="#"><i class="icon-mail2"></i> info@FreeHTML5.co</a></li>
-                                    <li><a href="#"><i class="icon-chat"></i> Live Chat</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
 
                     <div class="row copyright">
                         <div class="col-md-12">
                             <p class="pull-left">
-                                <small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
-                                <small class="block">Designed by <a href="http://FreeHTML5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+                                <small class="block">&copy; 2021 Counter-art:Global Showcase All Rights Reserved.</small>
+                               
                             </p>
                             <p class="pull-right">
                                 <ul class="gtco-social-icons pull-right">

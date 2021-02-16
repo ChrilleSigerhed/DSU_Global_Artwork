@@ -14,119 +14,121 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 <div class="profile-page">
-    <div class="gtco-section border-bottom">
-        <div class="gtco-container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-6 animate-box">
-                        <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
-                        <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
-                        <div class="social-media-div" style="margin-bottom: 1%;">
+  <div class="gtco-section border-bottom">
+      <div class="gtco-container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="col-md-6 animate-box">
+                      <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo" >
+                      <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
+                      <div class="social-media-div" style="margin-bottom: 1%;">
 
-                            @if (Model.Member.Facebook != null)
-                            {
-                                <a href="@Model.Member.Facebook" target="_blank">
-                                    <img class="social-media" src="~/images/Facebook.png" />
-                                </a>
-                            }
-                            @if (Model.Member.Twitter != null)
-                            {
-                                <a href="@Model.Member.Twitter" target="_blank">
-                                    <img class="social-media" src="~/images/Twitter.png" />
-                                </a>
-                            }
-                            @if (Model.Member.Instagram != null)
-                            {
-                                <a href="@Model.Member.Instagram" target="_blank">
-                                    <img class="social-media" src="~/images/Instagram.png" />
-                                </a>
-                            }
+                          @if (Model.Member.Facebook != null)
+                          {
+                              <a href="@Model.Member.Facebook" target="_blank">
+                                  <img class="social-media" src="~/images/Facebook.png" />
+                              </a>
+                          }
+                          @if (Model.Member.Twitter != null)
+                          {
+                              <a href="@Model.Member.Twitter" target="_blank">
+                                  <img class="social-media" src="~/images/Twitter.png" />
+                              </a>
+                          }
+                          @if (Model.Member.Instagram != null)
+                          {
+                              <a href="@Model.Member.Instagram" target="_blank">
+                                  <img class="social-media" src="~/images/Instagram.png" />
+                              </a>
+                          }
+                          
 
 
+                      </div>
+                      <div class="description text-left-bio">
+                          <p id="bio">@Model.Member.Bio</p>
+                      </div>
+                      <div>
+                          <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" class="btn-danger" /></a>
+                          <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn-danger"></a>
+                          <a asp-action="CreateArt" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Artwork" class="btn-danger"></a>
 
-                        </div>
-                        <div class="description text-left-bio">
-                            <p id="bio">@Model.Member.Bio</p>
-                        </div>
-                        <div>
-                            <a asp-action="Edit" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Edit profile" class="btn-danger" /></a>
-                            <a asp-action="CreateExhibition" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Create exhibition" class="btn-danger"></a>
-                            <a asp-action="CreateArt" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Upload Artwork" class="btn-danger"></a>
+                      </div>
+                  </div>
+                  <div class="col-md-5 col-md-push-1 animate-box">
+                      <div class="gtco-contact-info">
+                          <h3>Friends</h3>
+                          @foreach (var item in Model.AcceptedFriends)
+                          {
+                    
+                              <a asp-action="Profile" asp-controller="Community" asp-route-id="@item.MemberId" >
+                                  <picture>
+                                      <img class="friends" src="~/image/@item.ProfilePicture">
+                                  </picture>
 
-                        </div>
-                    </div>
-                    <div class="col-md-5 col-md-push-1 animate-box">
-                        <div class="gtco-contact-info">
-                            <h3>Friends</h3>
-                            @foreach (var item in Model.AcceptedFriends)
-                            {
-                                <a href="@item.MemberId">
-                                    <picture>
-                                        <img class="friends" src="~/image/@item.ProfilePicture">
-                                    </picture>
+                              </a>
+  
+                          }
+                         
+                      </div>
+                  </div>
 
-                                </a>
-                            }
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="gtco-section border-bottom">
-        <div class="gtco-container">
-            <div class="row">
-                <div class="artwork-container">
-                    <h3>My Artwork</h3>
-                    @foreach (var item in Model.AllArtwork)
-                    {
-
-                        <picture>
-                            <img src="~/imagesArt/@item.ImageName">
-                        </picture>
-
+              </div>
+          </div>
+      </div>
+  </div>
+<div class="gtco-section border-bottom">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="artwork-container">
+                <h3>My Artwork</h3>
+                   @foreach (var item in Model.AllArtwork)
+                   {
+                           
+                      <picture>
+                          <img src="~/imagesArt/@item.ImageName">
+                      </picture>
+                                                      
                     }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="margin-div">
-    <div class="friends-container">
+             </div>
+         </div>
+      </div>
+   </div>
+ </div>
+ 
+<div class="friends-container">
 
-        <div class="friend-requests">
-            @if (Model.PendingFriends.Count > 0)
-            {
-                <h2>Friend Requests</h2>
-            }
-            @foreach (var pendingFriend in Model.PendingFriends)
-            {
-                <div class="searched-person">
-                    <form method="get" asp-action="Index">
-                        <div class="person-info">
-                            <div class="search-img">
-                                <img id="profile-pic" src="~/image/@pendingFriend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
-                            </div>
-                            <div class="name-connection">
-                                <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
-                                <p>friend/mutual friend</p>
-                            </div>
-                        </div>
-                    </form>
-                    <form asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                        <input type="submit" value="Accept" class="btn btn-primary" />
-                    </form>
-                    <form asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                        <input type="submit" value="Decline" class="btn btn-primary" />
-                    </form>
-                </div>
-            }
-        </div>
-    </div>
-</div>
+     <div class="friend-requests">
+         @if(Model.PendingFriends.Count > 0)
+         {
+            <h2>Friend Requests</h2>
+         }
+         @foreach (var pendingFriend in Model.PendingFriends)
+         {
+             <div class="searched-person">
+                 <form method="get" asp-action="Index">
+                     <div class="person-info">
+                         <div class="search-img">
+                             <img id="profile-pic" src="~/image/@pendingFriend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
+                         </div>
+                         <div class="name-connection">
+                             <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                             <p>friend/mutual friend</p>
+                         </div>
+                     </div>
+                 </form>
+                 <form asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                     <input type="submit" value="Accept" class="btn btn-primary" />
+                 </form>
+                 <form asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                     <input type="submit" value="Decline" class="btn btn-primary" />
+                 </form>
+             </div>
+         }
+     </div>
+ </div>          
 
+ 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>

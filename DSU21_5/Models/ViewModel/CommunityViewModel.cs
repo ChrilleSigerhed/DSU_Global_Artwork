@@ -7,17 +7,6 @@ namespace DSU21_5.Models.ViewModel
 {
     public class CommunityViewModel
     {
-        public string Requester { get; set; }
-        public string Requestee { get; set; }
-       
-        public List<Relationship> Relationships { get; set; }
-        public List<Member> Members { get; set; }
-        public Relationship Relationship { get; set; }
-
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public Image ProfileImage { get; set; }
-
         public List<Member> CommunityMembers { get; set; }
         public CommunityViewModel(List<Image> listOfImages, List<Member> listOfMembers)
         {

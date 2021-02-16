@@ -11,21 +11,13 @@ namespace DSU21_5.Models.ViewModel
     public class ShowroomViewModel
     {
         Random random = new Random();
-        public List<Artwork> Images { get; set; }
-
         public Exhibit Exhibit { get; set; }
         public List<Exhibit> Exhibits { get; set; }
-        //public List<Artwork> ListOfArtToExhibit { get; set; } = new List<Artwork>();
-        public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
-
-        public List<Artwork> ArtToExhibit { get; set; } = new List<Artwork>();
-
-        public List<string> ShowroomList { get; set; }
+        public List<Artwork> ArtToDisplay { get; set; } = new List<Artwork>();
         public int PositionInList { get; set; }
         public int PreviousInList { get; set; }
         public int NextInList { get; set; }
         public int RandomIndex { get; set; }
-        public string ImageRatio { get; set; } = "1";
         public string ShowroomFloor { get; set; }
         public string Artist { get; set; }
 
@@ -33,22 +25,21 @@ namespace DSU21_5.Models.ViewModel
         {
             Exhibit = exhibit;
             Exhibits = exhibits;
-            ArtToExhibit = list;
             SetRandomIndex();
-            Artist = $"{list[0].Member.Firstname} {list[0].Member.Lastname}";
+            Artist = $"{Exhibit.Member.Firstname} {Exhibit.Member.Lastname}";
             SetShowRoomFloor();
-            SetShowroomPositions(exhibit, exhibits);
-            
-            Images = FillOutListWithArtworks(list);
-            //GetShowroomListFromMock();
+            SetShowroomPositionsInList(exhibit, exhibits);
+            ArtToDisplay = FillOutListWithArtworks(list);
+
         }
 
         public void SetRandomIndex()
         {
+            //Sets a random number for the elevator randomizer in Showroom.
             RandomIndex = random.Next(0, Exhibits.Count);
         }
 
-        public void SetShowroomPositions(Exhibit exhibit, List<Exhibit> exhibits)
+        public void SetShowroomPositionsInList(Exhibit exhibit, List<Exhibit> exhibits)
         {
             //Figures out which position in the list the current member is located, and then sets the previous and next Id's.
             for (int i = 0; i < exhibits.Count; i++)
@@ -88,16 +79,6 @@ namespace DSU21_5.Models.ViewModel
             List<string> floors = new List<string>();
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
             ShowroomFloor = floors[random.Next(0, 5)];  
-        }
-        public List<Artwork> GiveMeasurementsToArtworks(List<Artwork> list)
-        {
-            //Gives measurements to all paintings as there are no measurements that gets registered at the moment. Temp function.
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].Width = "10";
-                list[i].Height = "11";
-            }
-            return list;
         }
 
         public List<Artwork> FillOutListWithArtworks(List<Artwork> list)

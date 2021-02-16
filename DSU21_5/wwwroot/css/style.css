@@ -39,6 +39,7 @@ body {
 #page {
   position: relative;
   overflow-x: hidden;
+  overflow-y: hidden;
   width: 100%;
   height: 100%;
   -webkit-transition: 0.5s;
@@ -152,6 +153,12 @@ h1, h2, h3, h4, h5, h6, figure {
     #looper-video {
         display: none;
     }
+}
+
+#page-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 ::-webkit-selection {
@@ -523,8 +530,8 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #gtco-simple-header{
   height: 80px;
-  width: 106% !important;
-  margin-left: -38px;
+  width: 100% !important;
+ /* margin-left: -38px;*/
 
 }
 
@@ -780,6 +787,7 @@ h1, h2, h3, h4, h5, h6, figure {
 @media screen and (max-width: 768px) {
   .gtco-cover {
     height: 600px;
+    width: 100%;
   }
 }
 .gtco-cover .display-t,
@@ -1261,8 +1269,12 @@ form label {
 #gtco-footer .gtco-footer-links li a:hover {
   text-decoration: underline;
 }
+
+.about-container{
+    width: 70%;
+}
 #gtco-footer .gtco-widget {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 #gtco-footer .gtco-widget h3 {
   margin-bottom: 15px;
@@ -1333,7 +1345,10 @@ form label {
   transition: 0.5s;
 }
 @media screen and (max-width: 768px) {
-  #gtco-offcanvas {
+  .about-container {
+      width: 100%;
+  }
+    #gtco-offcanvas {
     display: block;
   }
 }
@@ -2332,8 +2347,12 @@ form label {
 #type-art {
     padding-top: 70px;
 }
-type-art-exhibit {
-    padding-top: 70px;
+#type-art-exhibit {
+    padding-bottom: 50px;
+}
+#deleteButton {
+    width: 151px !IMPORTANT;
+    margin-top: 5px;
 }
 #type-art-button {
     padding-top: 10px;

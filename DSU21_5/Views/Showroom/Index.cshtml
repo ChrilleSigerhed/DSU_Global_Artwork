@@ -68,28 +68,20 @@
                 <button id="exit-btn" class="btn-extreme-danger">Exit</button>
             </a>
         </div>
-        @*<div class="container mt-5 mb-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src ="/imagesArt/@Model.ArtworkInformation.ElementAt(0).Source" id="myimage" style="width: 570px" />
-                </div>
-                <div class="col-md-6"></div>
-            </div>
-        </div>*@
         <div id="artInfo">
             <ul id="myUL">
-                @for (int i = 0; i < Model.ArtToExhibit.Count(); i++)
+                @for (int i = 0; i < Model.ArtToDisplay.Count(); i++)
                 {
                     <li id="@(i+1)" style="display: none">
                         <div id="art-info-text">
-                            <h1 id="painting-title">@Model.ArtToExhibit.ElementAt(i).ArtName</h1>
+                            <h1 id="painting-title">@Model.ArtToDisplay.ElementAt(i).ArtName</h1>
                            <p id="art-artist">Artist: @Model.Artist</p>
-                            <p id="art-year">Year: @Model.ArtToExhibit.ElementAt(i).Year</p>
-                            <p id="art-description">Description: @Model.ArtToExhibit.ElementAt(i).Description</p>
-                            <p id="art-type">Type: @Model.ArtToExhibit.ElementAt(i).Type</p>
-                            <p id="art-height-width">Measurements: @Model.ArtToExhibit.ElementAt(i).Height x @Model.ArtToExhibit.ElementAt(i).Width cm</p>
+                            <p id="art-year">Year: @Model.ArtToDisplay.ElementAt(i).Year</p>
+                            <p id="art-description">Description: @Model.ArtToDisplay.ElementAt(i).Description</p>
+                            <p id="art-type">Type: @Model.ArtToDisplay.ElementAt(i).Type</p>
+                            <p id="art-height-width">Measurements: @Model.ArtToDisplay.ElementAt(i).Height x @Model.ArtToDisplay.ElementAt(i).Width cm</p>
                         </div>
-                        <div id=art-source><img src="/imagesArt/@Model.ArtToExhibit.ElementAt(i).ImageName" id="@($"myimage{i+1}")" class="zoomClass"></div>
+                        <div id=art-source><img src="/imagesArt/@Model.ArtToDisplay.ElementAt(i).ImageName" id="@($"myimage{i+1}")" class="zoomClass"></div>
                     </li>
                 }
             </ul>
@@ -556,40 +548,40 @@
             mesh.position.set(126, 17.5, 11);
 
             //Tavlor Vänsteryttervägg
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(0).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(0).ImageName');
             var number = 1;
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(0).Height, @Model.Images.ElementAt(0).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(0).Height, @Model.ArtToDisplay.ElementAt(0).Width, number);
 
-            //new THREE.BoxGeometry(0.3, 10, 8);
+ 
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
 
 
 
-            //mesh.background = 0xFFFFFF;
+    
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -27);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(1).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(1).ImageName');
             var number = 2;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(1).Height, @Model.Images.ElementAt(1).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(1).Height, @Model.ArtToDisplay.ElementAt(1).Width, number);
 
-            //var geometry = new THREE.BoxGeometry(0.1, 10, 8);
+            
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
-            //mesh.background = 0xFFFFFF;
+ 
 
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -70);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(2).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(2).ImageName');
             var number = 3;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(2).Height, @Model.Images.ElementAt(2).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(2).Height, @Model.ArtToDisplay.ElementAt(2).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -597,10 +589,10 @@
             scene.add(mesh);
             mesh.position.set(-26.5, 12, -113);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(3).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(3).ImageName');
             var number = 4;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(3).Height, @Model.Images.ElementAt(3).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(3).Height, @Model.ArtToDisplay.ElementAt(3).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -610,10 +602,10 @@
 
             //Tavlor YtterFramVägg
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(4).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(4).ImageName');
             var number = 5;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(4).Height, @Model.Images.ElementAt(4).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(4).Height, @Model.ArtToDisplay.ElementAt(4).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -622,10 +614,10 @@
             mesh.position.set(7, 12, -191.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(5).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(5).ImageName');
             var number = 6;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(5).Height, @Model.Images.ElementAt(5).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(5).Height, @Model.ArtToDisplay.ElementAt(5).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -633,10 +625,10 @@
             mesh.position.set(50, 12, -191.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(6).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(6).ImageName');
             var number = 7;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(6).Height, @Model.Images.ElementAt(6).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(6).Height, @Model.ArtToDisplay.ElementAt(6).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -646,10 +638,10 @@
 
             //Tavlor YtterHögerVägg
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(7).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(7).ImageName');
             var number = 8;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(7).Height, @Model.Images.ElementAt(7).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(7).Height, @Model.ArtToDisplay.ElementAt(7).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -657,10 +649,10 @@
             mesh.position.set(126.5, 12, -27);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(8).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(8).ImageName');
             var number = 9;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(8).Height, @Model.Images.ElementAt(8).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(8).Height, @Model.ArtToDisplay.ElementAt(8).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -668,10 +660,10 @@
             scene.add(mesh);
             mesh.position.set(126.5, 12, -70);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(9).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(9).ImageName');
             var number = 10;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(9).Height, @Model.Images.ElementAt(9).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(9).Height, @Model.ArtToDisplay.ElementAt(9).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -679,10 +671,10 @@
             scene.add(mesh);
             mesh.position.set(126.5, 12, -113);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(10).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(10).ImageName');
             var number = 11;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(10).Height, @Model.Images.ElementAt(10).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(10).Height, @Model.ArtToDisplay.ElementAt(10).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -693,10 +685,10 @@
             //Tavla YtterväggBak
 
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(11).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(11).ImageName');
             var number = 12;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(11).Height, @Model.Images.ElementAt(11).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(11).Height, @Model.ArtToDisplay.ElementAt(11).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -704,10 +696,10 @@
             mesh.position.set(50, 12, 11.5);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(12).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(12).ImageName');
             var number = 13;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(12).Height, @Model.Images.ElementAt(12).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(12).Height, @Model.ArtToDisplay.ElementAt(12).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -717,10 +709,10 @@
 
 
             //Tavla InnerväggVänster
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(13).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(13).ImageName');
             var number = 14;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(13).Height, @Model.Images.ElementAt(13).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(13).Height, @Model.ArtToDisplay.ElementAt(13).Width, number);
             var material = new THREE.MeshLambertMaterial({map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -728,10 +720,10 @@
             mesh.position.set(26.5, 12, -70);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(14).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(14).ImageName');
             var number = 15;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(14).Height, @Model.Images.ElementAt(14).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(14).Height, @Model.ArtToDisplay.ElementAt(14).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -740,10 +732,10 @@
             scene.add(mesh);
 
             //TavlorInnerväggHöger
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(15).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(15).ImageName');
             var number = 16;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(15).Height, @Model.Images.ElementAt(15).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(15).Height, @Model.ArtToDisplay.ElementAt(15).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -751,10 +743,10 @@
             mesh.position.set(73.5, 12, -70);
             scene.add(mesh);
 
-            var art = new THREE.TextureLoader().load('/imagesArt/@Model.Images.ElementAt(16).ImageName');
+            var art = new THREE.TextureLoader().load('/imagesArt/@Model.ArtToDisplay.ElementAt(16).ImageName');
             var number = 17;
 
-            var geometry = GetPaintingRatio(@Model.Images.ElementAt(16).Height, @Model.Images.ElementAt(16).Width, number);
+            var geometry = GetPaintingRatio(@Model.ArtToDisplay.ElementAt(16).Height, @Model.ArtToDisplay.ElementAt(16).Width, number);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
             mesh.Number = number;
@@ -773,7 +765,7 @@
             scene.add(mesh);
 
             //Hiss BakreInnerVägg
-            var art = new THREE.TextureLoader().load('/ShowroomImages/elevator.png');
+            var art = new THREE.TextureLoader().load('/ShowroomImages/elevatorDoor.png');
             var geometry = new THREE.BoxGeometry(16, 20, 0.1);
             var material = new THREE.MeshLambertMaterial({ map: art });
             var mesh = new THREE.Mesh(geometry, material);
