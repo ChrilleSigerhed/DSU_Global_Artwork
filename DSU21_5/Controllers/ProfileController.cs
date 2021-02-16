@@ -191,7 +191,6 @@ namespace DSU21_5.Controllers
             {
                 return View(ex);
             }
-            return Json(true);
         }
 
         [HttpPost("Profile/DeleteArtConfirmExhibit")]
