@@ -255,8 +255,8 @@ namespace DSU21_5.Controllers
         {
             var startDate = Request.Form["trip-start"];
             var stopDate = Request.Form["trip-stop"];
-            profileView.Exhibit.StartDate = startDate;
-            profileView.Exhibit.StopDate = stopDate;
+            profileView.Exhibit.StartDate = DateTime.Parse(startDate);
+            profileView.Exhibit.StopDate = DateTime.Parse(stopDate);
             bool exist = ArtRepository.CheckIfIdExists(profileView.Member);
             try
             {

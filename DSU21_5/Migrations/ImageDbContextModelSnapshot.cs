@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
     [DbContext(typeof(ImageDbContext))]
     partial class ImageDbContextModelSnapshot : ModelSnapshot
@@ -83,11 +83,11 @@ namespace DSU21_5.Migrations.ImageDb
                     b.Property<bool>("Publish")
                         .HasColumnType("bit");
 
-                    b.Property<string>("StartDate")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("StopDate")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateTime>("StopDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

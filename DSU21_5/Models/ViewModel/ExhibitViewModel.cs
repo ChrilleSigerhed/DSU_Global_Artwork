@@ -12,12 +12,17 @@ namespace DSU21_5.Models.ViewModel
     {
         public List<Exhibit> Exhibits { get; set; }
         public List<Artwork> Artworks { get; set; }
+
+
         public Random random = new Random();
 
         public ExhibitViewModel(List<Exhibit> exhibits, List<Artwork> artworks)
         {
+            
             Exhibits = exhibits;
             Artworks = artworks;
+
+            
         }
 
     }

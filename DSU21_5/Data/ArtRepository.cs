@@ -116,8 +116,8 @@ namespace DSU21_5.Data
             Exhibit exhibit = new Exhibit()
             {
 
-                StartDate = "not available",
-                StopDate = "not available",
+                //StartDate = "not available",
+                //StopDate = "not available",
                 Name = "not available",
                 MemberId = member.MemberId,
                 

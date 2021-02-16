@@ -22,6 +22,8 @@ namespace DSU21_5.Models.ViewModel
         public List<Artwork> ArtworkConnectedToExhibition { get; set; }
         public bool DoesRelationshipExist { get; set; }
         public string CurrentUser { get; set; }
+        public DateTime Start { get; } = DateTime.Now.Date;
+        public string Stop { get; set; }
 
         public ProfileViewModel()
         {
@@ -50,6 +52,7 @@ namespace DSU21_5.Models.ViewModel
         {
             Member = member;
             ArtworkConnectedToExhibition = art;
+            SetStopDate();
         }
 
         public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, List<Member> acceptedFriends, List<Member> pendingFriends)
@@ -92,6 +95,14 @@ namespace DSU21_5.Models.ViewModel
             AllArtwork = artwork.ToList();
         }
 
+        private string SetStopDate()
+        {
+            int year = Start.Year;
+            year += 1;
+            Stop = $"{year}-{Start.Month}-{Start.Day}";
+            
+            return Stop;
+        }
 
         private string ChangeProfilePictureIfNull()
         {

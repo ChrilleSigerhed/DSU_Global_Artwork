@@ -63,13 +63,13 @@
                     <label for="start">Start date:</label>
 
                     <input asp-for="@Model.Exhibit.StartDate" type="date" class="start" runat="server" id="start" name="trip-start"
-                           value="2021-02-09"
-                           min="2021-01-01" max="2021-12-31" />
+                           value="@Model.Start"
+                           min="@Model.Start" max="@Model.Stop" />
                     <label for="start">Stop date:</label>
 
                     <input asp-for="@Model.Exhibit.StopDate" type="date" id="stop" name="trip-stop"
-                           value="2021-02-09"
-                           min="2021-01-01" max="2021-12-31" />
+                           value="@Model.Stop"
+                           min="@Model.Start" max="@Model.Stop"/>
                     <input type="hidden" value="@Model.Member.MemberId" class="btn btn-primary" asp-for="@Model.Member.MemberId" />
                     <input type="hidden" value="@Model.Member.Firstname" class="btn btn-primary" asp-for="@Model.Member.Firstname" />
                     <input type="hidden" value="@Model.Member.Lastname" class="btn btn-primary" asp-for="@Model.Member.Lastname" />
