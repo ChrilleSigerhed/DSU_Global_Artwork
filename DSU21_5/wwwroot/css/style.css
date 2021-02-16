@@ -528,8 +528,12 @@ h1, h2, h3, h4, h5, h6, figure {
 
 }
 
+#margin-div {
+    margin-left: 2%;
+    padding-top: 10%;
+}
 
-.social-media-div{
+.social-media-div {
     margin-bottom: 1%;
 }
 .social-media {
