@@ -39,18 +39,17 @@
 </header>
 
 
- <div id="video-container">
+ @*<div id="video-container">
 
     <div class="overlay">
         <video id="looper-video" playsinline autoplay loop muted>
 
             <source src="video/slowLookAround.mp4" type="video/mp4" />
-            
 
         </video>
         <h3>Showcase your art to the world</h3>
     </div>
- </div>
+ </div>*@
 
 <div id="gtco-products">
     <div class="gtco-container">
@@ -65,14 +64,13 @@
                 {
                     <div class="item">
                         <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[i].Id">
-                            <img src="imagesArt/@Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).ElementAt(Model.random.Next(0, Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).Count())).ImageName" alt="Exhibit">
+                            <img src="imagesArt/@Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).ElementAt(Model.random.Next(0, Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).Count())).ImageName" alt="Exhibit" style="width: 300px; height: 225px; object-fit: cover;">
                             <div class="visit-exhibit">
                                 <div class="text">Visit</div>
                             </div>
                         </a>
                         <p>@Model.Exhibits[i].Name <br>@Model.Exhibits[i].StartDate - @Model.Exhibits[i].StopDate</p>
                     </div>
-
                 }
                
             </div>
@@ -104,68 +102,6 @@
                         </a>
                     </div>
                 }
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/art2.jpg" class="fh5co-project-item image-popup">
-                        <figure>
-                            <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="images/art2.jpg" alt="Image" class="img-responsive">
-                        </figure>
-                        <div class="fh5co-text">
-                            <h2>Artwork name</h2>
-                            <p>Artist name.</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/art3.jpg" class="fh5co-project-item image-popup">
-                        <figure>
-                            <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="images/art3.jpg" alt="Image" class="img-responsive">
-                        </figure>
-                        <div class="fh5co-text">
-                            <h2>Artwork name</h2>
-                            <p>Artist name</p>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/art4.jpg" class="fh5co-project-item image-popup">
-                        <figure>
-                            <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="images/art4.jpg" alt="Image" class="img-responsive">
-                        </figure>
-                        <div class="fh5co-text">
-                            <h2>Artwork name</h2>
-                            <p>Artist name</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/art5.jpg" class="fh5co-project-item image-popup">
-                        <figure>
-                            <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="images/art5.jpg" alt="Image" class="img-responsive">
-                        </figure>
-                        <div class="fh5co-text">
-                            <h2>Artwork name</h2>
-                            <p>Artist name</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="images/art6.jpg" class="fh5co-project-item image-popup">
-                        <figure>
-                            <div class="overlay"><i class="ti-plus"></i></div>
-                            <img src="images/art6.jpg" alt="Image" class="img-responsive">
-                        </figure>
-                        <div class="fh5co-text">
-                            <h2>Artwork name</h2>
-                            <p>Artist name</p>
-                        </div>
-                    </a>
-                </div>
-
             </div>
         </div>
     </div>
