@@ -14,10 +14,10 @@ namespace DSU21_5.Models
         public int Id { get; set; }
         [Column(TypeName ="nvarchar(100)")]
         public string Name { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
-        public string StartDate { get; set; }
-        [Column(TypeName = "nvarchar(100)")]
-        public string StopDate { get; set; }
+        [Column]
+        public DateTime StartDate { get; set; }
+        [Column]
+        public DateTime StopDate { get; set; }
         [ForeignKey("Member")]
         public string MemberId { get; set; }
         public Member Member { get; set; }

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DSU21_5.Migrations.ImageDb
+namespace DSU21_5.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,8 +47,8 @@ namespace DSU21_5.Migrations.ImageDb
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    StartDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    StopDate = table.Column<string>(type: "nvarchar(100)", nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    StopDate = table.Column<DateTime>(nullable: false),
                     MemberId = table.Column<string>(nullable: true),
                     Publish = table.Column<bool>(nullable: false)
                 },
