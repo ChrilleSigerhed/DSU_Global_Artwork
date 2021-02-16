@@ -69,7 +69,7 @@
                                 <div class="text">Visit</div>
                             </div>
                         </a>
-                        <p>@Model.Exhibits[i].Name <br>@Model.Exhibits[i].StartDate - @Model.Exhibits[i].StopDate</p>
+                        <p>@Model.Exhibits[i].Name <br>@Model.Exhibits[i].StartDate.Date.Year-@Model.Exhibits[i].StartDate.Date.Month-@Model.Exhibits[i].StartDate.Date.Day to @Model.Exhibits[i].StartDate.Date.Year-@Model.Exhibits[i].StartDate.Date.Month-@Model.Exhibits[i].StartDate.Date.Day</p>
                     </div>
                 }
                
