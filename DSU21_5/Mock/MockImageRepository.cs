@@ -123,13 +123,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Task<List<string>> GetUniqueIdsConnectedToExhibit()
-        {
-            throw new NotImplementedException();
-        }
-
         
-
         public Task<Exhibit> UpdateExhibition(Member member, Exhibit exhibit)
         {
             throw new NotImplementedException();

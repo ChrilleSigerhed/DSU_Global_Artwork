@@ -19,8 +19,7 @@ namespace DSU21_5.Data
         Task<ArtworkViewModel> GetViewModel(List<Member> members);
         Task<Exhibit> CreateExhibit(ImageDbContext context, Member member);
         Task<List<Artwork>> GetArtFromExhibit(Member member);
-        Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids);
-        Task<List<Exhibit>> GetUniqueIdsConnectedToExhibit();
+      
         bool CheckIfIdExists(Member member);
         Exhibit GetExhibitId(Member member);
         Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit);

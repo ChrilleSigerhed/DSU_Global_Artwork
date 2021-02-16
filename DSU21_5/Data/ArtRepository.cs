@@ -15,10 +15,7 @@ namespace DSU21_5.Data
     public class ArtRepository : IArtRepository
     {
         ImageDbContext db;
-        public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
-        public IEnumerable<Artwork> ArtToExhibits { get; set; }
-        public List<Exhibit> ListOfIds { get; set; } = new List<Exhibit>();
-        public ObservableCollection<ArtworkInformation> ListOfArtToExhibit { get; set; }
+        private IEnumerable<Artwork> ArtToExhibits { get; set; }
 
 
         public ArtRepository(ImageDbContext context)
@@ -39,61 +36,9 @@ namespace DSU21_5.Data
                 .Include("Exhibit")
                 .ToList();
             return art;
-        }
+        }  
 
-        /// <summary>
-        /// Returns a list of unique ids
-        /// </summary>
-        /// <returns>list of ids</returns>
-        public async Task<List<Exhibit>> GetUniqueIdsConnectedToExhibit()
-        {
-           
-            var listOfIds = db.Exhibit
-                .Include("Member")
-                .ToList();
-
-            
-            ListOfIds = listOfIds;
-            return ListOfIds;
-        }
-
-        /// <summary>
-        /// creates a list with all information of the art connected to an exhibition
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns>observablecollection of artwork-information</returns>
-        public async Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids)
-        {
-            ListOfArtToExhibit = new ObservableCollection<ArtworkInformation>();
-            ArtworkInformation artworkInformation;
-            foreach (var item in ids)
-            {
-                //TODO: hämtar en member, den metoden ligger också i memberrepository, kanske slå ihop dessa repon?
-                var member = db.Members.Where(x => x.MemberId == item).FirstOrDefault();
-                var artworks = db.Artworks.Where(x => x.UserId == item && x.ExhibitId != null).Select(x => x.ArtworkId);
-                foreach (var artwork in artworks)
-                {
-                    var art = db.Artworks.Where(x => x.ArtworkId == artwork).FirstOrDefault();
-                    artworkInformation = new ArtworkInformation()
-                    {
-                        Firstname = member.Firstname,
-                        Source = art.ImageName,
-                        Lastname = member.Lastname,
-                        Height = art.Height,
-                        Width = art.Width,
-                        Type = art.Type,
-                        Year = art.Year,
-                        Description = art.Description,
-                        Title = art.ArtName,
-                        UserId = member.MemberId
-                    };
-                    ListOfArtToExhibit.Add(artworkInformation);
-                }
-                await db.SaveChangesAsync();
-            }
-            return ListOfArtToExhibit;
-
-        }
+        //}
         /// <summary>
         /// method that checks if an id already exists in the database
         /// </summary>
