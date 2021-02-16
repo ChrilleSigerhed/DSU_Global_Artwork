@@ -103,9 +103,60 @@ h1, h2, h3, h4, h5, h6, figure {
     margin-right: 5%;
 }
 
+
+#video-container {
+    position: relative;
+    background-color: black;
+    height: 35vh;
+    min-height: 25rem;
+    width: 100%;
+    overflow: hidden;
+}
+
+#looper-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#video-container .container {
+    position: relative;
+    z-index: 2;
+}
+
+#video-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+@media (pointer: coarse) and (hover: none) {
+    #video-container {
+        background: url('images/banner1.jpg') black no-repeat center center scroll;
+    }
+
+    #looper-video {
+        display: none;
+    }
+}
+
 ::-webkit-selection {
-  color: #fff;
-  background: #f54c53;
+    color: #fff;
+    background: #f54c53;
 }
 
 ::-moz-selection {
@@ -466,7 +517,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 #gtco-header {
-   background: #fdd035;
+    background: #fdd035;
+    height: 800px;
 }
 
 #gtco-simple-header{
@@ -475,6 +527,7 @@ h1, h2, h3, h4, h5, h6, figure {
   margin-left: -38px;
 
 }
+
 
 .social-media-div{
     margin-bottom: 1%;
