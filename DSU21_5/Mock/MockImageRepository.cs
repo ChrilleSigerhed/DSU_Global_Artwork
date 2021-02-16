@@ -161,9 +161,5 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        Task<List<Exhibit>> IArtRepository.GetUniqueIdsConnectedToExhibit()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
