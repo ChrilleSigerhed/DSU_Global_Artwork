@@ -68,10 +68,10 @@ namespace DSU21_5.Controllers
                 else
                 {
 
-                friendMember.ProfilePicture = profilePicture.ImageName;
+                    friendMember.ProfilePicture = profilePicture.ImageName;
                 }
 
-          
+
                 pendingFriends.Add(friendMember);
             }
 
@@ -79,29 +79,29 @@ namespace DSU21_5.Controllers
 
             foreach (var friend in acceptedFriendsRelationships)
             {
-                if(friend.Requester == Id)
+                if (friend.Requester == Id)
                 {
-                     Member AcceptedFriend = await MemberRepository.GetMember(friend.Requestee);
-                     Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
-                      if (profilePicture != null)
-                        {
-                          AcceptedFriend.ProfilePicture = profilePicture.ImageName;
-                        }
+                    Member AcceptedFriend = await MemberRepository.GetMember(friend.Requestee);
+                    Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
+                    if (profilePicture != null)
+                    {
+                        AcceptedFriend.ProfilePicture = profilePicture.ImageName;
+                    }
                     acceptedFriends.Add(AcceptedFriend);
                 }
                 else
                 {
                     Member AcceptedFriend = await MemberRepository.GetMember(friend.Requester);
                     Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
-                    if(profilePicture != null)
+                    if (profilePicture != null)
                     {
-                         AcceptedFriend.ProfilePicture = profilePicture.ImageName;
+                        AcceptedFriend.ProfilePicture = profilePicture.ImageName;
                     }
                     acceptedFriends.Add(AcceptedFriend);
                 }
             }
             ProfileViewModel = new ProfileViewModel(artwork, member, image, acceptedFriends, pendingFriends);
-            
+
             return View(ProfileViewModel);
         }
 
@@ -117,9 +117,9 @@ namespace DSU21_5.Controllers
         {
 
             var image = imageModel;
-           var test = Request.Form.Files["myFile"];
+            var test = Request.Form.Files["myFile"];
             image.ImageFile = test;
-            
+
 
             try
             {
@@ -164,8 +164,8 @@ namespace DSU21_5.Controllers
             try
             {
                 if (ModelState.IsValid)
-                { 
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
+                {
+                    var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
                 }
             }
             catch (Exception ex)
@@ -185,12 +185,13 @@ namespace DSU21_5.Controllers
             {
                 Artwork artwork = ArtRepository.GetArtworkForUser(Id);
                 await ArtRepository.DeleteArtworkFromArtworkTable(_hostEnvironment, artwork);
+                return Json(Id);
             }
             catch (Exception ex)
             {
                 return View(ex);
             }
-            return Json(Id);
+            return Json(true);
         }
 
         [HttpPost("Profile/DeleteArtConfirmExhibit")]
