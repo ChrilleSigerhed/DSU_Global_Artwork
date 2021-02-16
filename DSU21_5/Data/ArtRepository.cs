@@ -91,7 +91,9 @@ namespace DSU21_5.Data
         public async Task<ArtworkViewModel> GetViewModel(List<Member> members)
         {
             var list = await GetArtThatsPosted();
-            var model = new ArtworkViewModel(list, members);
+            var listFromExhibitions = await GetAllArtToExhibitions();
+            List<Exhibit> exhibits = await GetExhibits();
+            var model = new ArtworkViewModel(list, members, exhibits, listFromExhibitions.ToList());
             return model;
         }
         public async Task<IEnumerable<Artwork>> GetArtThatsPosted()
@@ -247,11 +249,6 @@ namespace DSU21_5.Data
             artworks = db.Artworks.Where(x => x.ExhibitId == exhibit.Id).Include("Member").ToList();
             await db.SaveChangesAsync();
             return artworks;
-        }
-
-        public Task<List<Artwork>> GetExhibitArt(List<Exhibit> exhibits)
-        {
-            throw new NotImplementedException();
         }
     }
 }

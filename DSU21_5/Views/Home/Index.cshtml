@@ -61,42 +61,20 @@
         </div>
         <div class="row">
             <div class="owl-carousel owl-carousel-carousel">
-                <div class="item">
-                    <a asp-action="Index" asp-controller="Showroom">
-                        <img src="images/gallery1.png" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-                        <div class="visit-exhibit">
-                            <div class="text">Visit</div>
-                        </div>
-                    </a>
-                    <p>Exhibition name <br>2021-01-25 till 2021-02-01</br></p>
-                </div>
-                <div class="item">
-                    <a asp-action="Index" asp-controller="Showroom">
-                        <img src="images/gallery3.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-                        <div class="visit-exhibit">
-                            <div class="text">Visit</div>
-                        </div>
-                    </a>
-                    <p>Exhibition name <br>2021-02-25 till 2021-03-01</br></p>
-                </div>
-                <div class="item">
-                    <a asp-action="Index" asp-controller="Showroom">
-                        <img src="images/gallery4.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-                        <div class="visit-exhibit">
-                            <div class="text">Visit</div>
-                        </div>
-                    </a>
-                    <p>Exhibition name <br>2021-03-25 till 2021-04-01</br></p>
-                </div>
-                <div class="item">
-                    <a asp-action="Index" asp-controller="Showroom">
-                        <img src="images/gallery2.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
-                        <div class="visit-exhibit">
-                            <div class="text">Visit</div>
-                        </div>
-                    </a>
-                    <p>Exhibition name <br>2021-04-25 till 2021-05-01</br></p>
-                </div>
+                @for (int i = 0; i < Model.Exhibits.Count; i++)
+                {
+                    <div class="item">
+                        <a asp-action="Index" asp-controller="Showroom" asp-route-id="@Model.Exhibits[i].Id">
+                            <img src="imagesArt/@Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).ElementAt(Model.random.Next(0, Model.ArtInExhibits.Where(x => x.ExhibitId == Model.Exhibits[i].Id).Count())).ImageName" alt="Exhibit">
+                            <div class="visit-exhibit">
+                                <div class="text">Visit</div>
+                            </div>
+                        </a>
+                        <p>@Model.Exhibits[i].Name <br>@Model.Exhibits[i].StartDate - @Model.Exhibits[i].StopDate</p>
+                    </div>
+
+                }
+               
             </div>
         </div>
     </div>

@@ -9,8 +9,11 @@ namespace DSU21_5.Models.ViewModel
     public class ArtworkViewModel 
     {
         public List<Artwork> CollectiveArt { get; set; } = new List<Artwork>();
+        public List<Artwork> ArtInExhibits { get; set; } = new List<Artwork>();
         public List<Member> Members { get; set; }
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
+        public List<Exhibit> Exhibits { get; set; }
+        public Random random = new Random();
 
         /// <summary>
         /// Slumpar ordningen på listan som ska presentera uppladdade konstverk
@@ -25,7 +28,18 @@ namespace DSU21_5.Models.ViewModel
             var listOFArtworkinformation  = GetListOfArtworkInformation();
             ArtworkInformation = GetRandomListOfArtworkInformation(listOFArtworkinformation);
         }
- 
+
+        public ArtworkViewModel(IEnumerable<Artwork> collectiveArt, List<Member> members, List<Exhibit> exhibits, List<Artwork> exhibitArtworks)
+        {
+            Members = members;
+            CollectiveArt = collectiveArt.ToList();
+            Exhibits = exhibits;
+            ArtInExhibits = exhibitArtworks;
+
+            var listOFArtworkinformation = GetListOfArtworkInformation();
+            ArtworkInformation = GetRandomListOfArtworkInformation(listOFArtworkinformation);
+        }
+
         public List<ArtworkInformation> GetRandomListOfArtworkInformation(List<ArtworkInformation> artworkInformation)
         {
 

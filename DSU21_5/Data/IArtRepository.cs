@@ -15,7 +15,7 @@ namespace DSU21_5.Data
         Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit); //TODO: Kolla varför interface inte klagar på att man inte implementerat alla metoder
         Task<IEnumerable<Artwork>> GetPostedArtFromUniqueUser(Member member);
         Task<Artwork> DeleteArtworkFromArtworkTable(IWebHostEnvironment webHostEnvironment, Artwork artwork);
-        Task<List<Artwork>> GetExhibitArt(List<Exhibit> exhibits);
+        Task<List<Artwork>> GetExhibitArt(Exhibit exhibit);
         Task<ArtworkViewModel> GetViewModel(List<Member> members);
         Task<Exhibit> CreateExhibit(ImageDbContext context, Member member);
         Task<List<Artwork>> GetArtFromExhibit(Member member);
@@ -28,7 +28,6 @@ namespace DSU21_5.Data
         Artwork GetArtworkForUser(int id);
         Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork);
         Task<List<Exhibit>> GetExhibits();
-        Task<List<Artwork>> GetExhibitArt(Exhibit exhibit);
 
     }
 }

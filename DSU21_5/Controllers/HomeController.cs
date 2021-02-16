@@ -27,7 +27,7 @@ namespace DSU21_5.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var members = await MemberRepository.GetAllMembers();
+           var members = await MemberRepository.GetAllMembers();
            var model = await ArtRepository.GetViewModel(members);
 
             return View(model);
