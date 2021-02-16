@@ -8,12 +8,12 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 
-<div class="art-details">
+<div class="art-details" style="margin: 50px; margin-bottom: 20px;">
     <div class="art-image">
         <img src="~/imagesArt/@Model.DetailArtwork.ImageName" style="width: 100%;height: auto;margin: auto;margin-top: 25px;"/>
     </div>
 </div>
-    <div class="image-info" style="margin-top: 30px;padding-left: 20px;">
+    <div class="image-info" style="margin-top: 10px;padding-left: 70px;">
         <h1>@Model.DetailArtwork.ArtName</h1>
         <p>Artist name: <a asp-action="Profile" asp-controller="Community" asp-route-id="@Model.Member.MemberId">@Model.Member.Firstname @Model.Member.Lastname</a></p>
         <p>Made: @Model.DetailArtwork.Year</p>

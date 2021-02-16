@@ -14,6 +14,7 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;">
 </header>
 <div class="profile-page">
+
   <div class="gtco-section border-bottom">
       <div class="gtco-container">
           <div class="row">
@@ -89,46 +90,47 @@
                           <img src="~/imagesArt/@item.ImageName">
                       </picture>
                                                       
+
                     }
-             </div>
-         </div>
-      </div>
-   </div>
- </div>
- 
-<div class="friends-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="margin-div">
+    <div class="friends-container">
 
-     <div class="friend-requests">
-         @if(Model.PendingFriends.Count > 0)
-         {
-            <h2>Friend Requests</h2>
-         }
-         @foreach (var pendingFriend in Model.PendingFriends)
-         {
-             <div class="searched-person">
-                 <form method="get" asp-action="Index">
-                     <div class="person-info">
-                         <div class="search-img">
-                             <img id="profile-pic" src="~/image/@pendingFriend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
-                         </div>
-                         <div class="name-connection">
-                             <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
-                             <p>friend/mutual friend</p>
-                         </div>
-                     </div>
-                 </form>
-                 <form asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                     <input type="submit" value="Accept" class="btn btn-primary" />
-                 </form>
-                 <form asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
-                     <input type="submit" value="Decline" class="btn btn-primary" />
-                 </form>
-             </div>
-         }
-     </div>
- </div>          
+        <div class="friend-requests">
+            @if (Model.PendingFriends.Count > 0)
+            {
+                <h2>Friend Requests</h2>
+            }
+            @foreach (var pendingFriend in Model.PendingFriends)
+            {
+                <div class="searched-person">
+                    <form method="get" asp-action="Index">
+                        <div class="person-info">
+                            <div class="search-img">
+                                <img id="profile-pic" src="~/image/@pendingFriend.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="friends" />
+                            </div>
+                            <div class="name-connection">
+                                <h2>@pendingFriend.Firstname @pendingFriend.Lastname</h2>
+                                <p>friend/mutual friend</p>
+                            </div>
+                        </div>
+                    </form>
+                    <form asp-action="AcceptFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                        <input type="submit" value="Accept" class="btn btn-primary" />
+                    </form>
+                    <form asp-action="DeclineFriendRequest" asp-route-id="@pendingFriend.MemberId">
+                        <input type="submit" value="Decline" class="btn btn-primary" />
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
- 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
