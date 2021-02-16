@@ -2346,6 +2346,7 @@ form label {
 }
 #type-art {
     padding-top: 70px;
+    padding-bottom: 80px;
 }
 #type-art-exhibit {
     padding-bottom: 50px;
@@ -2374,4 +2375,9 @@ form label {
     display: block;
     width: 20%;
     height: 20%;
+}
+#artwork-button {
+    width: 260px !IMPORTANT;
+    padding: 1%;
+    height: 50px;
 }

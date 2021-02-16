@@ -45,7 +45,7 @@
                 </select>
         </div>
         <div class="col-md-12" id="type-art-button">
-            <input type="submit" value="Upload Artwork" class="btn btn-primary" asp-route-id="@user.Id" />
+            <input type="submit" value="Upload Artwork" class="btn btn-danger" asp-route-id="@user.Id" id="artwork-button"/>
             <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
         </div>
     </div>

@@ -33,7 +33,7 @@
                     <option value="ReadyMade">Ready Made</option>
                     <option value="Sculpture">Sculpture</option>
                 </select>
-                <input type="submit" value="Add Artwork to your exhibition" class="btn btn-primary" asp-route-id="@Model.Member.MemberId" />
+                <input type="submit" value="Add Artwork to your exhibition" class="btn btn-danger" asp-route-id="@Model.Member.MemberId"  id="artwork-button" />
                 <span asp-validation-for="@Model.Artwork.ImageFile" class="text-danger"></span>
             </div>
 
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="col-md-12" id="type-art-button">
-                <input type="submit" value="Publish your exhibition" class="btn btn-primary" />
+                <input type="submit" value="Publish your exhibition" class="btn btn-danger" id="artwork-button" />
             </div>
         </form>
     </div>
