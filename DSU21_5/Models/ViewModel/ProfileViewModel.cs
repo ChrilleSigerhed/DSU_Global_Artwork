@@ -83,6 +83,10 @@ namespace DSU21_5.Models.ViewModel
             CurrentUser = currentUser;
             Member = member;
             DoesRelationshipExist = doesRelationshipExist;
+            if(currentUser == Member.MemberId)
+            {
+                DoesRelationshipExist = true;
+            }
             Member.ProfilePicture = ChangeProfilePictureIfNull(image);
             Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
             AllArtwork = artwork.ToList();
