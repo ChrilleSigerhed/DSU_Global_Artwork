@@ -54,7 +54,7 @@ namespace DSU21_5.Controllers
             var currentUserId = GetCurrentUserId();
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
-            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(member);
 
             var doesRelationshipExist = await RelationshipRepository.CheckIfRelationshipAlreadyExists(currentUserId, Id);
 

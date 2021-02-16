@@ -21,10 +21,9 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> Index(int Id)
         {
             var artwork = ArtRepository.GetArtworkForUser(Id);
-            var allArtworksFromUser = await ArtRepository.GetPostedArtFromUniqueUser(artwork.UserId);
-            var user = await MemberRepository.GetMember(artwork.UserId);
+            var allArtworksFromUser = await ArtRepository.GetPostedArtFromUniqueUser(artwork.Member);
 
-            artworkDetailViewModel = new ArtworkDetailViewModel(allArtworksFromUser,artwork, user);
+            artworkDetailViewModel = new ArtworkDetailViewModel(allArtworksFromUser,artwork, artwork.Member);
             return View(artworkDetailViewModel);
         }
     }

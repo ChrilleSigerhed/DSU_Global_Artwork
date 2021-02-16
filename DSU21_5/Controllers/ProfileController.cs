@@ -50,7 +50,7 @@ namespace DSU21_5.Controllers
             var pendingFriendsRelationships = await RelationshipRepository.GetPendingRelationship(Id);
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
-            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(member);
 
             //TODO: FIX THIS METHOD
 
@@ -144,7 +144,7 @@ namespace DSU21_5.Controllers
         {
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
-            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(member);
             ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
         }
@@ -211,8 +211,8 @@ namespace DSU21_5.Controllers
 
         public async Task<IActionResult> CreateExhibition(string Id)
         {
-            var art = await ArtRepository.GetArtFromExhibit(Id);
             Member member = await MemberRepository.GetMember(Id);
+            var art = await ArtRepository.GetArtFromExhibit(member);
             ProfileViewModel = new ProfileViewModel(member, art);
             return View(ProfileViewModel);
         }
@@ -227,15 +227,15 @@ namespace DSU21_5.Controllers
             profileView.Artwork.ImageFile = selected;
             profileView.Artwork.ImageName = selected.FileName;
             Member member = await MemberRepository.GetMember(Id);
-            bool exist = ArtRepository.CheckIfIdExists(Id);
+            bool exist = ArtRepository.CheckIfIdExists(member);
             try
             {
                 if (ModelState.IsValid)
                 { 
                     if (exist == true)
                     {
-                        var exhibitId = ArtRepository.GetExhibitId(Id);
-                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, profileView.Artwork, member, exhibitId);
+                        Exhibit exhibit = ArtRepository.GetExhibitId(member);
+                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
                     }
                     else if (exist == false)
                     {
@@ -258,14 +258,14 @@ namespace DSU21_5.Controllers
             var stopDate = Request.Form["trip-stop"];
             profileView.Exhibit.StartDate = startDate;
             profileView.Exhibit.StopDate = stopDate;
-            bool exist = ArtRepository.CheckIfIdExists(profileView.Member.MemberId);
+            bool exist = ArtRepository.CheckIfIdExists(profileView.Member);
             try
             {
                 if (ModelState.IsValid)
                 {
                     if (exist == true)
                     {
-                        await ArtRepository.UpdateExhibition(profileView.Member.MemberId, profileView.Exhibit);
+                        await ArtRepository.UpdateExhibition(profileView.Member, profileView.Exhibit);
                     }
                 }
             }
@@ -281,7 +281,7 @@ namespace DSU21_5.Controllers
         {
             Image image = ImageRepository.GetImageFromDb(Id);
             Member member = await MemberRepository.GetMember(Id);
-            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(Id);
+            IEnumerable<Artwork> artwork = await ArtRepository.GetPostedArtFromUniqueUser(member);
             ProfileViewModel = new ProfileViewModel(artwork, member, image);
             return View(ProfileViewModel);
         }
