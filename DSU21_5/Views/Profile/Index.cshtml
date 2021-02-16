@@ -60,12 +60,14 @@
                           <h3>Friends</h3>
                           @foreach (var item in Model.AcceptedFriends)
                           {
-                              <a href="@item.MemberId">
+                    
+                              <a asp-action="Profile" asp-controller="Community" asp-route-id="@item.MemberId" >
                                   <picture>
                                       <img class="friends" src="~/image/@item.ProfilePicture">
                                   </picture>
 
-                              </a>               
+                              </a>
+  
                           }
                          
                       </div>
