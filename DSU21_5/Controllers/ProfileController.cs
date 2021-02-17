@@ -14,7 +14,7 @@ using DSU21_5.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 
 namespace DSU21_5.Controllers
-{
+{ // TODO: kolla om det behövs try-catch på några fler metoder
     public class ProfileController : Controller
     {
         private readonly ImageDbContext _context;
