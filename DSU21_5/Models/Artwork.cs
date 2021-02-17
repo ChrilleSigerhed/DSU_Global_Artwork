@@ -11,7 +11,7 @@ namespace DSU21_5.Models
 {
     public class Artwork : IArtwork
     {
-        //TODO: lägg till required och uppdatera databas
+       
         [Key]
         public int ArtworkId { get; set; }
 
