@@ -12,6 +12,7 @@ namespace DSU21_5.Models
         [Key]
         public int RelationshipId { get; set; }
 
+        // TODO: Dessa FK's funkar inte utan en Member property
         [Column(TypeName = "nvarchar(100)")]
         [ForeignKey("Member")]
         public string Requester { get; set; }

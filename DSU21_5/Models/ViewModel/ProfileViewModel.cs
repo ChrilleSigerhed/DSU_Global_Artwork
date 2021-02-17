@@ -31,6 +31,7 @@ namespace DSU21_5.Models.ViewModel
         }
         public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, ObservableCollection<ArtworkInformation> collection, List<Artwork> artworks)
         {
+            //TODO: den här konstruktorn använder vi aldrig? 
             ListOfArtwork = artworks;
             ListOfArtInExhibits = collection;
             Member = member;
