@@ -216,7 +216,7 @@ namespace DSU21_5.Controllers
             ProfileViewModel = new ProfileViewModel(member, art);
             return View(ProfileViewModel);
         }
-        [HttpPost("/Profile/CreateExhibition/{Id}")]
+        [HttpPost("/Profile/CreateExhibition/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateExhibition([Bind("Artwork")] ProfileViewModel profileView, string Id)
         {
