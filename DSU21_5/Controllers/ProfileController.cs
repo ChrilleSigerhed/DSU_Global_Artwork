@@ -166,7 +166,7 @@ namespace DSU21_5.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
+                    var artwork = await ArtRepository.AddArt(_hostEnvironment, profileView.Artwork, member, exhibit);
                 }
             }
             catch (Exception ex)
@@ -212,7 +212,7 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> CreateExhibition(string Id)
         {
             Member member = await MemberRepository.GetMember(Id);
-            var art = await ArtRepository.GetArtFromExhibit(member);
+            var art = ArtRepository.GetArtFromExhibit(member);
             ProfileViewModel = new ProfileViewModel(member, art);
             return View(ProfileViewModel);
         }
@@ -235,12 +235,12 @@ namespace DSU21_5.Controllers
                     if (exist == true)
                     {
                         Exhibit exhibit = ArtRepository.GetExhibitId(member);
-                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
+                        var artwork = await ArtRepository.AddArtWithExistingExhibitId(_hostEnvironment, profileView.Artwork, member, exhibit);
                     }
                     else if (exist == false)
                     {
-                        Exhibit exhibit = await ArtRepository.CreateExhibit(_context, member);
-                        var artwork = await ArtRepository.AddArt(_context, _hostEnvironment, profileView.Artwork, member, exhibit);
+                        Exhibit exhibit = await ArtRepository.CreateExhibit(member);
+                        var artwork = await ArtRepository.AddArt(_hostEnvironment, profileView.Artwork, member, exhibit);
                     }
                 }
             }

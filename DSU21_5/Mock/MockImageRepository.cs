@@ -134,13 +134,6 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-      
-
-        Task<List<Artwork>> IArtRepository.GetArtFromExhibit(Member member)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<List<Exhibit>> GetExhibits()
         {
             throw new NotImplementedException();
@@ -161,5 +154,24 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
+        public Task<Artwork> AddArt(IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exhibit> CreateExhibit(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Artwork> IArtRepository.GetArtFromExhibit(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> AddArtWithExistingExhibitId(IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
