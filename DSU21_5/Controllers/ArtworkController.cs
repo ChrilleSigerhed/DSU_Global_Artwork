@@ -11,8 +11,8 @@ namespace DSU21_5.Controllers
 {
     public class ArtworkController : Controller
     {
-        public IArtRepository ArtRepository { get; set; }
-        public IMemberRepository MemberRepository { get; set; }
+        private IArtRepository ArtRepository { get; set; }
+        private IMemberRepository MemberRepository { get; set; }
 
 
         public ArtworkViewModel ArtworkViewModel;
@@ -32,7 +32,7 @@ namespace DSU21_5.Controllers
 
         public async Task<IActionResult> DigitalArt()
         {
-            List<Artwork> DigitalArt = new List<Artwork>();
+            List<Artwork> digitalArt = new List<Artwork>();
 
             var member = await MemberRepository.GetAllMembers();
             IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
@@ -41,11 +41,11 @@ namespace DSU21_5.Controllers
             {
                 if (piece.Type == "DigitalArt")
                 {
-                    DigitalArt.Add(piece);
+                    digitalArt.Add(piece);
                 }
             }
 
-            ArtworkViewModel = new ArtworkViewModel(DigitalArt, member);
+            ArtworkViewModel = new ArtworkViewModel(digitalArt, member);
             
             return View(ArtworkViewModel);
         }

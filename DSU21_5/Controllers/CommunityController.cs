@@ -15,11 +15,11 @@ namespace DSU21_5.Controllers
     public class CommunityController : Controller
     {
 
-        public IMemberRepository MemberRepository { get; set; }
-        public IImageRepository ImageRepository { get; set; }
-        public IArtRepository ArtRepository { get; set; }
+        private IMemberRepository MemberRepository { get; set; }
+        private IImageRepository ImageRepository { get; set; }
+        private IArtRepository ArtRepository { get; set; }
         public ProfileViewModel ProfileViewModel { get; set; }
-        public IRelationshipRepository RelationshipRepository { get; set; }
+        private IRelationshipRepository RelationshipRepository { get; set; }
         public CommunityViewModel CommunityViewModel { get; set; }
         private readonly UserManager<ApplicationUser> _userManager;
 
