@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Exhibit : IExhibit
+    interface IExhibit
     {
         [Key]
         public int Id { get; set; }
-        [Column(TypeName ="nvarchar(100)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; }
         [Column]
         public DateTime StartDate { get; set; }
