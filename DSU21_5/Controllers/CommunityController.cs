@@ -33,9 +33,9 @@ namespace DSU21_5.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<Member> listOfMembers = await MemberRepository.GetAllMembers();
+            List<Member> listOfMembers = MemberRepository.GetAllMembers();
             List<Image> listOfImages = ImageRepository.GetAllImagesFromDbConnectedToUsers();
             CommunityViewModel = new CommunityViewModel(listOfImages, listOfMembers);
             return View(CommunityViewModel);

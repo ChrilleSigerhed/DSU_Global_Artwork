@@ -43,7 +43,7 @@ namespace DSU21_5.Data
         /// method that gets a list of all members from db
         /// </summary>
         /// <returns>a list of members</returns>      
-        public async Task<List<Member>> GetAllMembers()
+        public List<Member> GetAllMembers()
         {
 
              var members = db.Members.ToList();

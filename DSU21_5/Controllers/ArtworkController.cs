@@ -24,7 +24,7 @@ namespace DSU21_5.Controllers
         }
         public async Task<IActionResult> Index(string Id)
         {
-            var member = await MemberRepository.GetAllMembers();
+            var member = MemberRepository.GetAllMembers();
             IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
             ArtworkViewModel = new ArtworkViewModel(listOfArtworks, member);
             return View(ArtworkViewModel);
@@ -34,7 +34,7 @@ namespace DSU21_5.Controllers
         {
             List<Artwork> ArtList = new List<Artwork>();
 
-            var member = await MemberRepository.GetAllMembers();
+            var member = MemberRepository.GetAllMembers();
             IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
 
             foreach (Artwork piece in listOfArtworks)
