@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class ArtworkInformation
+    public class ArtworkInformation : IArtworkInformation
     {
         public int ArtId { get; set; }
         public string Title { get; set; }
@@ -18,7 +18,6 @@ namespace DSU21_5.Models
         public string Height { get; set; }
         public string Width { get; set; }
         public string Type { get; set; }
-        public string ImageRatio { get; set; }
 
     }
 }

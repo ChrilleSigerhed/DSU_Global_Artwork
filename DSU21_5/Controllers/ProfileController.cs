@@ -129,7 +129,7 @@ namespace DSU21_5.Controllers
                     var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
                     if (checkIfUserHadProfilePictureAlready != null)
                     {
-                        ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
+                       await ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
                     }
                     image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id);
                 }
@@ -290,7 +290,7 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Bio")] Member member, string Id)
         {
-            var task = await MemberRepository.UpdateBio(Id, member.Bio);
+            await MemberRepository.UpdateBio(Id, member.Bio);
             return Json(member.Bio);
         }
 
@@ -298,7 +298,7 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditFacebook([Bind("Facebook")] Member member, string Id)
         {
-            var task = await MemberRepository.UpdateFacebook(Id, member.Facebook);
+            await MemberRepository.UpdateFacebook(Id, member.Facebook);
             return Json(member.Facebook);
         }
 
@@ -306,7 +306,7 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTwitter([Bind("Twitter")] Member member, string Id)
         {
-            var task = await MemberRepository.UpdateTwitter(Id, member.Twitter);
+            await MemberRepository.UpdateTwitter(Id, member.Twitter);
             return Json(member.Twitter);
         }
 
@@ -314,24 +314,9 @@ namespace DSU21_5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditInstagram([Bind("Instagram")] Member member, string Id)
         {
-            var task = await MemberRepository.UpdateInstagram(Id, member.Instagram);
+            await MemberRepository.UpdateInstagram(Id, member.Instagram);
             return Json(member.Instagram);
         }
-
-
-        public async Task<IActionResult> SendFriendRequest(string id)
-        {
-            Relationship relationship = new Relationship()
-            {
-                Requester = GetCurrentUserId(),
-                Requestee = id
-            };
-
-            await RelationshipRepository.Create(relationship);
-
-            return RedirectToAction("Index", new { id });
-        }
-
 
 
         public async Task<IActionResult> AcceptFriendRequest(string id)
@@ -349,7 +334,7 @@ namespace DSU21_5.Controllers
         {
             string Id = GetCurrentUserId();
             string requester = id;
-            await RelationshipRepository.DenyRelationshipRequest(requester, Id);
+            await RelationshipRepository.DenclineRelationshipRequest(requester, Id);
 
             return RedirectToAction("Index", new { Id });
         }

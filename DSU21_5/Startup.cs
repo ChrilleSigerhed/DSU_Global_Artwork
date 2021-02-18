@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DSU21_5.Hubs;
 using Microsoft.AspNetCore.SignalR;
 
 namespace DSU21_5
@@ -73,7 +72,6 @@ namespace DSU21_5
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
