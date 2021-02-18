@@ -60,19 +60,11 @@ namespace DSU21_5.Controllers
             foreach (var pending in pendingFriendsRelationships)
             {
                 Member friendMember = await MemberRepository.GetMember(pending.Requester);
-                var profilePicture = ImageRepository.GetImageFromDb(pending.Requester);
-                if (profilePicture == null)
+                Image profilePicture = ImageRepository.GetImageFromDb(pending.Requester);
+                if(profilePicture != null)
                 {
-                    friendMember.ProfilePicture = "profile.jpeg";
-
-                }
-                else
-                {
-
                     friendMember.ProfilePicture = profilePicture.ImageName;
                 }
-
-
                 pendingFriends.Add(friendMember);
             }
 
@@ -84,7 +76,7 @@ namespace DSU21_5.Controllers
                 {
                     Member AcceptedFriend = await MemberRepository.GetMember(friend.Requestee);
                     Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
-                    if (profilePicture != null)
+                    if(profilePicture != null)
                     {
                         AcceptedFriend.ProfilePicture = profilePicture.ImageName;
                     }
@@ -94,10 +86,7 @@ namespace DSU21_5.Controllers
                 {
                     Member AcceptedFriend = await MemberRepository.GetMember(friend.Requester);
                     Image profilePicture = ImageRepository.GetImageFromDb(AcceptedFriend.MemberId);
-                    if (profilePicture != null)
-                    {
-                        AcceptedFriend.ProfilePicture = profilePicture.ImageName;
-                    }
+                    AcceptedFriend.ProfilePicture = profilePicture.ImageName;
                     acceptedFriends.Add(AcceptedFriend);
                 }
             }
