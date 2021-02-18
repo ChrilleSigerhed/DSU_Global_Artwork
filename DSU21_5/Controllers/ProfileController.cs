@@ -129,7 +129,7 @@ namespace DSU21_5.Controllers
                     var checkIfUserHadProfilePictureAlready = ImageRepository.GetImageFromDb(Id);
                     if (checkIfUserHadProfilePictureAlready != null)
                     {
-                        ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
+                       await ImageRepository.RemoveImageFromDb(_hostEnvironment, checkIfUserHadProfilePictureAlready);
                     }
                     image = await ImageRepository.CreateNewProfilePicture(_context, _hostEnvironment, imageModel, Id);
                 }
