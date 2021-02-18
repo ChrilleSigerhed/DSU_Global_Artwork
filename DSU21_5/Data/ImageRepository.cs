@@ -12,7 +12,7 @@ namespace DSU21_5.Data
 {
     public class ImageRepository : IImageRepository
     {
-        private string basePath;
+       
         ImageDbContext db;
         public ImageRepository(ImageDbContext context)
         {
@@ -23,36 +23,36 @@ namespace DSU21_5.Data
         /// <summary>
         /// Input is UserId from current user that is using the application, the method takes that ID and checks it against the DataBase, to controll if the user already has a profilepicture uploaded.
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public Image GetImageFromDb(string Id)
+        public Image GetImageFromDb(string id)
         {
-            var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
+            var image = db.Images.Where(x => x.UserId == id).FirstOrDefault();
             return image;
         }
-        public List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members)
+        /// <summary>
+        /// method that returns a list of all profile pictures in database
+        /// </summary>
+        /// <param name="members"></param>
+        /// <returns>a list of profile pictures</returns>
+        public List<Image> GetAllImagesFromDbConnectedToUsers()
         {
-            var listOfImages = new List<Image>();
-            for (int i = 0; i < members.Count; i++)
-            {
-                var task = db.Images.Where(x => x.UserId == members[i].MemberId).FirstOrDefault();
-                if(task != null)
-                {
-                    listOfImages.Add(task);
-                }
-            }
+            var listOfImages = db.Images
+                .Include("Member")
+                .ToList();
             return listOfImages;
         }
+
         /// <summary>
         /// Removes the entry in Database and also clears the /image/ folder
         /// </summary>
         /// <param name="hostEnvironment"></param>
         /// <param name="imgModel"></param>
         /// <returns></returns>
-        public Image RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel)
+        public async Task<Image> RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel)
         {
-            //TODO: Add async and save
-            db.Images.Remove(imgModel); 
+            db.Images.Remove(imgModel);
+            await db.SaveChangesAsync();
             string wwwRootPath = hostEnvironment.WebRootPath;
             string path = Path.Combine(wwwRootPath + "/image/", imgModel.ImageName);
             FileInfo file = new FileInfo(path);
@@ -85,11 +85,6 @@ namespace DSU21_5.Data
             context.Add(imageModel);
             await context.SaveChangesAsync();
             return imageModel;
-        }
-
-        public Task<ShowroomViewModel> GetShowroomImages()
-        {
-            throw new NotImplementedException();
         }
     }
 }

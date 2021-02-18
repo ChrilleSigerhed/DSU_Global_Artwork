@@ -1,0 +1,221 @@
+﻿@model ProfileViewModel
+@using Microsoft.AspNetCore.Identity
+@using DSU21_5.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_Layout";
+}
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black;"></header>
+
+<head>
+    <link rel="stylesheet" href="~/css/modal.css">
+</head>
+
+<div class="profile-page">
+    <a asp-action="Index" asp-route-id="@Model.Member.MemberId"><input type="submit" id="btn-back" value="< Back" class="btn-danger"></a>
+
+    <div class="gtco-section border-bottom">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6 animate-box">
+                        <img src="~/image/@Model.Member.ProfilePicture" fallback="~/images/profile.jpeg" alt="Profile Photo" class="profile-photo">
+                        <h3 class="name-h3">@Model.Member.Firstname @Model.Member.Lastname</h3>
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto">
+                                <div class="profile">
+
+
+
+                                    <a data-toggle="modal" data-target="#editFacebookModal">
+                                        <img src="~/images/Facebook.png" id="social-icon" class="social-media" />
+                                    </a>
+
+                                    <a data-toggle="modal" data-target="#editTwitterModal">
+                                        <img src="~/images/Twitter.png" id="social-icon" class="social-media" />
+                                    </a>
+
+                                    <a data-toggle="modal" data-target="#editInstagramModal">
+                                        <img src="~/images/Instagram.png" id="social-icon" class="social-media" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="description text-left-bio">
+                            <p id="bio">@Model.Member.Bio</p>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn-danger" data-toggle="modal" data-target="#editBioModal">Edit bio</button>
+                            <a asp-action="Create" asp-route-id="@Model.Member.MemberId"><input type="submit" value="Change profile picture" class="btn-danger"></a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gtco-section border-bottom">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+                <div class="artwork-container">
+                    <h3>My Artwork</h3>
+
+                    @foreach (var item in Model.AllArtwork)
+                    {
+
+                        <picture>
+                            <img src="~/imagesArt/@item.ImageName">
+                        </picture>
+
+                        <form asp-action="DeleteArt" asp-route-id="@item.ArtworkId" onsubmit="return jQueryAjaxDelete(this);" class="d-inline">
+                                <input type="submit" value="Delete" class="btn-danger" />
+                            </form>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------- MODALS -------------->
+<!-- editBioModal -->
+<div class="modal" id="editBioModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">My Bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="Edit" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateBio(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Bio" class="form-control-art" placeholder="@Model.Member.Bio"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Bio" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editFacebookModal -->
+<div class="modal" id="editFacebookModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Facebook</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditFacebook" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateFacebook(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Facebook" class="form-control-art" placeholder="Enter the link to your profile here! Example, https://www.facebook.com/profile.php?id=100006668791569"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Facebook" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editTwitterModal -->
+<div class="modal" id="editTwitterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Twitter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditTwitter" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateTwitter(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Twitter" class="form-control-art" placeholder="Enter the link to your twitter profile here! Example, https://twitter.com/YourUserNameHere"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Twitter" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- editInstagramModal -->
+<div class="modal" id="editInstagramModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Instagram</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="bio-text-form" asp-action="EditInstagram" asp-route-id="@user.Id" asp-controller="Profile" enctype="multipart/form-data" method="post" onsubmit="return jQueryAjaxUpdateInstagram(this);">
+                <div id="edit-modal-body" class="modal-body">
+
+                    <div id="bio-text-form-group" class="form-group">
+                        <textarea id="bio-text" asp-for="Member.Instagram" class="form-control-art" placeholder="Enter the link to your Instagram profile here! Example, https://www.instagram.com/YourUserNameHere"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    <input id="bio-form-submit" asp-for="Member.Instagram" type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/js/jquery.countTo.js"></script>
+<script src="~/js/jquery.easing.1.3.js"></script>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/jquery.stellar.min.js"></script>
+<script src="~/js/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src="~/js/site.js"></script>

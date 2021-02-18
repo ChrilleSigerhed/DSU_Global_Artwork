@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class ArtworkInformation
+    public class ArtworkInformation : IArtworkInformation
     {
+        public int ArtId { get; set; }
         public string Title { get; set; }
         public string UserId { get; set; }
         public string Firstname { get; set; }

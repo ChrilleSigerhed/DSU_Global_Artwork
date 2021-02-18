@@ -1532,7 +1532,7 @@ Texture.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 
 		if (this.image !== undefined) {
 
-			// TODO: Move to THREE.Image
+			
 
 			const image = this.image;
 
@@ -3569,7 +3569,7 @@ class Vector3 {
 
 	}
 
-	// TODO lengthSquared?
+	
 
 	lengthSq() {
 
@@ -5482,7 +5482,6 @@ class Matrix4 {
 		const n31 = te[2], n32 = te[6], n33 = te[10], n34 = te[14];
 		const n41 = te[3], n42 = te[7], n43 = te[11], n44 = te[15];
 
-		//TODO: make this more efficient
 		//( based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm )
 
 		return (
@@ -8723,7 +8722,6 @@ Material.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 
 		if (JSON.stringify(this.userData) !== '{}') data.userData = this.userData;
 
-		// TODO: Copied from Object3D.toJSON
 
 		function extractFromCache(cache) {
 
@@ -13554,7 +13552,6 @@ const UniformsLib = {
 			}
 		},
 
-		// TODO (abelnation): RectAreaLight BRDF data needs to be moved from example to main src
 		rectAreaLights: {
 			value: [], properties: {
 				color: {},
@@ -13919,7 +13916,6 @@ function WebGLBackground(renderer, cubemaps, state, objects, premultipliedAlpha)
 		}
 
 		// Ignore background in AR
-		// TODO: Reconsider this.
 
 		const xr = renderer.xr;
 		const session = xr.getSession && xr.getSession();
@@ -13991,7 +13987,6 @@ function WebGLBackground(renderer, cubemaps, state, objects, premultipliedAlpha)
 
 			if (background.isWebGLCubeRenderTarget) {
 
-				// TODO Deprecate
 
 				background = background.texture;
 
@@ -14452,7 +14447,6 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
 
 					const attribute = attributes.get(geometryAttribute);
 
-					// TODO Attribute may not be available on context restore
 
 					if (attribute === undefined) continue;
 
@@ -14512,7 +14506,6 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
 
 					const attribute = attributes.get(object.instanceMatrix);
 
-					// TODO Attribute may not be available on context restore
 
 					if (attribute === undefined) continue;
 
@@ -14535,7 +14528,6 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
 
 					const attribute = attributes.get(object.instanceColor);
 
-					// TODO Attribute may not be available on context restore
 
 					if (attribute === undefined) continue;
 
@@ -18354,7 +18346,6 @@ function ShadowUniformsCache() {
 					};
 					break;
 
-				// TODO (abelnation): set RectAreaLight shadow uniforms
 
 			}
 
@@ -21815,7 +21806,6 @@ function WebGLUtils(gl, extensions, capabilities) {
 
 			if (extension !== null) {
 
-				// TODO Complete?
 
 				return p;
 
@@ -21833,7 +21823,6 @@ function WebGLUtils(gl, extensions, capabilities) {
 
 			if (extension !== null) {
 
-				// TODO Complete?
 
 				return p;
 
@@ -22261,7 +22250,7 @@ function WebXRManager(renderer, gl) {
 		//
 
 		renderer.setFramebuffer(null);
-		renderer.setRenderTarget(renderer.getRenderTarget()); // Hack #15830
+		renderer.setRenderTarget(renderer.getRenderTarget()); 
 		animation.stop();
 
 		scope.isPresenting = false;
@@ -22448,7 +22437,6 @@ function WebXRManager(renderer, gl) {
 		const zOffset = ipd / (- leftFov + rightFov);
 		const xOffset = zOffset * - leftFov;
 
-		// TODO: Better way to apply this offset?
 		cameraL.matrixWorld.decompose(camera.position, camera.quaternion, camera.scale);
 		camera.translateX(xOffset);
 		camera.translateZ(zOffset);
@@ -24711,7 +24699,6 @@ function WebGLRenderer(parameters) {
 			uniforms.spotShadowMatrix.value = lights.state.spotShadowMatrix;
 			uniforms.pointShadowMap.value = lights.state.pointShadowMap;
 			uniforms.pointShadowMatrix.value = lights.state.pointShadowMatrix;
-			// TODO (abelnation): add area lights shadow info to uniforms
 
 		}
 
@@ -39067,7 +39054,7 @@ Path.prototype = Object.assign(Object.create(CurvePath.prototype), {
 
 	moveTo: function (x, y) {
 
-		this.currentPoint.set(x, y); // TODO consider referencing vectors instead of copying?
+		this.currentPoint.set(x, y);
 
 		return this;
 
@@ -40273,7 +40260,7 @@ LightProbe.prototype = Object.assign(Object.create(Light.prototype), {
 
 	fromJSON: function (json) {
 
-		this.intensity = json.intensity; // TODO: Move this bit to Light.fromJSON();
+		this.intensity = json.intensity;
 		this.sh.fromArray(json.sh);
 
 		return this;
@@ -42727,7 +42714,6 @@ HemisphereLightProbe.prototype = Object.assign(Object.create(LightProbe.prototyp
 
 		const data = LightProbe.prototype.toJSON.call(this, meta);
 
-		// data.sh = this.sh.toArray(); // todo
 
 		return data;
 
@@ -42764,7 +42750,6 @@ AmbientLightProbe.prototype = Object.assign(Object.create(LightProbe.prototype),
 
 		const data = LightProbe.prototype.toJSON.call(this, meta);
 
-		// data.sh = this.sh.toArray(); // todo
 
 		return data;
 
@@ -47465,7 +47450,7 @@ class PointLightHelper extends Mesh {
 
 
 		/*
-	// TODO: delete this comment?
+
 	const distanceGeometry = new THREE.IcosahedronBufferGeometry( 1, 2 );
 	const distanceMaterial = new THREE.MeshBasicMaterial( { color: hexColor, fog: false, wireframe: true, opacity: 0.1, transparent: true } );
 

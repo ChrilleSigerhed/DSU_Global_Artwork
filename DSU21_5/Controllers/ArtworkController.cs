@@ -24,10 +24,30 @@ namespace DSU21_5.Controllers
         }
         public async Task<IActionResult> Index(string Id)
         {
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfMovies = await ArtRepository.GetArtThatsPosted();
-            ArtworkViewModel = new ArtworkViewModel(listOfMovies, member);
+            var member = MemberRepository.GetAllMembers();
+            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
+            ArtworkViewModel = new ArtworkViewModel(listOfArtworks, member);
             return View(ArtworkViewModel);
+        }
+
+        public async Task<IActionResult> Category(string Id)
+        {
+            List<Artwork> ArtList = new List<Artwork>();
+
+            var member = MemberRepository.GetAllMembers();
+            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
+
+            foreach (Artwork piece in listOfArtworks)
+            {
+                if (piece.Type == Id)
+                {
+                    ArtList.Add(piece);
+                }
+            }
+
+            ArtworkViewModel = new ArtworkViewModel(ArtList, member);
+            
+            return View(Id, ArtworkViewModel);
         }
     }
 }

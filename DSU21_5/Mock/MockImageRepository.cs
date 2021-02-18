@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using DSU21_5.Infrastructure;
 using DSU21_5.Models.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace DSU21_5.Mock
 {
@@ -47,7 +48,7 @@ namespace DSU21_5.Mock
 
       
 
-        Task<IEnumerable<Artwork>> IArtRepository.GetPostedArtFromUniqueUser(string Id)
+        Task<IEnumerable<Artwork>> IArtRepository.GetPostedArtFromUniqueUser(Member member)
         {
             throw new NotImplementedException();
         }
@@ -63,7 +64,7 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Artwork GetArtworkThatsGonnaBeDeleted(int id)
+        public Artwork GetArtworkForUser(int id)
         {
             throw new NotImplementedException();
         }
@@ -74,12 +75,101 @@ namespace DSU21_5.Mock
             throw new NotImplementedException();
         }
 
-        public Task<List<ArtworkInformation>> GetAllInformation(string Id)
+        
+        public Task<ArtworkViewModel> GetViewModel(List<Member> members)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ArtworkViewModel> GetViewModel(List<Member> members)
+
+        public Task<Artwork> AddArt(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exhibit> CreateExhibit(ImageDbContext context, Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+   
+        public Task<IEnumerable<Artwork>> GetAllArtToExhibitions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CheckIfIdExists(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Exhibit GetExhibitId(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> AddArtWithExistingExhibitId(ImageDbContext context, IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Artwork>> GetArtFromExhibit(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ObservableCollection<ArtworkInformation>> GetArtConnectedToExhibit(List<string> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+        public Task<Exhibit> UpdateExhibition(Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> DeleteArtworkFromExhibit(IWebHostEnvironment hostEnvironment, string artwork)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Exhibit>> GetExhibits()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt(List<Exhibit> exhibits)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Artwork>> GetExhibitArt(Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> AddArt(IWebHostEnvironment hostEnvironment, Artwork imageModel, Member member, Exhibit exhibit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exhibit> CreateExhibit(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Artwork> IArtRepository.GetArtFromExhibit(Member member)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Artwork> AddArtWithExistingExhibitId(IWebHostEnvironment hostEnvironment, Artwork artworkModel, Member member, Exhibit exhibit)
         {
             throw new NotImplementedException();
         }

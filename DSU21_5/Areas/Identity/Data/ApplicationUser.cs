@@ -11,7 +11,7 @@ namespace DSU21_5.Areas.Identity.Data
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        // TODO: Add Requirement for FirstName/LastName
+        
         [PersonalData]
         [Required]
         [Column(TypeName = "nvarchar(100)")]

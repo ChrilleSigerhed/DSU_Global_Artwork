@@ -20,13 +20,14 @@ namespace DSU21_5.Controllers
             this.artRepository = artRepository;
         }
         [Route("Showroom")]
-        public async Task<IActionResult> Index(string Id)
+        public async Task<IActionResult> Index(int Id)
         {
-            //Id = "aca28772-e443-4b6f-a7bb-6088c20131e6";
-            var postedArt = await artRepository.GetPostedArtFromUniqueUser(Id);
-            var member = await memberRepository.GetMember(Id);
+            List<Exhibit> exhibits = await artRepository.GetExhibits();
+            Exhibit exhibit = exhibits.Where(x => x.Id == Id).FirstOrDefault(); 
+            List<Artwork> exhibitArt = await artRepository.GetExhibitArt(exhibit);
+
             
-            return View(new ShowroomViewModel(postedArt.ToList(), member));
+            return View(new ShowroomViewModel(exhibitArt, exhibit, exhibits));
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DSU21_5Tests.Profile
             List<Artwork> listOfArt = new List<Artwork>();
             Image image = new Image()
             {
-                ImageName = "Röd drake"
+                ImageName = "Röda drake"
             };
 
             listOfArt.Add(art);
@@ -48,7 +48,7 @@ namespace DSU21_5Tests.Profile
 
             ProfileViewModel profileViewModel = new ProfileViewModel(artwork, member, image);
             string expected = image.ImageName;
-            string actual = profileViewModel.ProfilePicture.ImageName;
+            string actual = profileViewModel.Member.ProfilePicture;
 
             Assert.Equal(expected, actual);
         }
@@ -65,7 +65,7 @@ namespace DSU21_5Tests.Profile
 
             ProfileViewModel profileViewModel = new ProfileViewModel(artwork, member, image);
             string expected = "profile.jpeg";
-            string actual = profileViewModel.ProfilePicture.ImageName;
+            string actual = profileViewModel.Member.ProfilePicture;
 
             Assert.Equal(expected, actual);
         }

@@ -17,53 +17,38 @@
 <header id="gtco-simple-header" class="gtco-cover" role="banner" style="background-color: black; width: 100%;">
 </header>
 
-<h2>Showcase Your Artwork</h2>
-
 <form asp-action="Create" asp-controller="Profile" enctype="multipart/form-data" method="post">
     <div class="form-group">
-        <input asp-for="ImageName" type="text" class="form-control1" placeholder="Image name">
-        <input asp-for="ImageFile" type="file" class="form-control-file">
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
-        <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id" />
+        <div class="col-md-5" id="type-art">
+            <h2>Change profilepicture</h2>
+            <div class="drop-zone">
+
+                <span class="drop-zone__prompt">Drop Image Here</span>
+                <p><input asp-for="ImageFile" type="file" name="myFile" class="drop-zone__input" required oninvalid="this.setCustomValidity('Please choose an image to upload')" oninput="this.setCustomValidity('')"></p>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+                <input type="submit" value="Upload" class="btn btn-primary" asp-route-id="@user.Id"/>
+        </div>
     </div>
 </form>
 <div class="gtco-section border-bottom">
     <div class="artwork-container">
-        <h4>Uploaded Artworks</h4>
+        <h4>Current Profile Picture</h4>
+        @if (Model != null)
+        {
+
         <picture>
-            <img src="images/art.jpg">
+            <img src="~/image/@Model.ImageName">
         </picture>
+        }
+        else
+        {
+            <p>Upload a profile picture<br />and show yourself!</p>
+        }
     </div>
 </div>
 
-@*<h1>Create</h1>
 
-    <h4>ImageModel</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create" enctype="multipart/form-data">
-
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="ImageName" class="control-label"></label>
-                    <input asp-for="ImageName" class="form-control" />
-                    <span asp-validation-for="ImageName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ImageFile" class="control-label"></label>
-                    <input asp-for="ImageFile" accept="image/*" />
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@user.Id" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
