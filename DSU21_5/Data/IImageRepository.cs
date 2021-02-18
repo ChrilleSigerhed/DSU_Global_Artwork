@@ -10,10 +10,10 @@ namespace DSU21_5.Data
     {
 
         Image GetImageFromDb(string Id);
-        Image RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel);
+        Task<Image> RemoveImageFromDb(IWebHostEnvironment hostEnvironment, Image imgModel);
         Task<Image> CreateNewProfilePicture(ImageDbContext context, IWebHostEnvironment hostEnvironment, Image imageModel, string Id);
-        Task<ShowroomViewModel> GetShowroomImages();
-        List<Image> GetAllImagesFromDbConnectedToUsers(List<Member> members);
+     
+        List<Image> GetAllImagesFromDbConnectedToUsers();
 
     }
         

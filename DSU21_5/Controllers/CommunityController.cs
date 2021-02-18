@@ -36,10 +36,7 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> Index()
         {
             List<Member> listOfMembers = await MemberRepository.GetAllMembers();
-            List<Image> listOfImages = ImageRepository.GetAllImagesFromDbConnectedToUsers(listOfMembers);
-
-
-
+            List<Image> listOfImages = ImageRepository.GetAllImagesFromDbConnectedToUsers();
             CommunityViewModel = new CommunityViewModel(listOfImages, listOfMembers);
             return View(CommunityViewModel);
         

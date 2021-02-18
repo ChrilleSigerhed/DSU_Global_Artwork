@@ -8,6 +8,12 @@ namespace DSU21_5.Models.ViewModel
     public class CommunityViewModel
     {
         public List<Member> CommunityMembers { get; set; }
+
+        /// <summary>
+        /// Gets list of all members and their profilepictures ordered by lastname
+        /// </summary>
+        /// <param name="listOfImages"></param>
+        /// <param name="listOfMembers"></param>
         public CommunityViewModel(List<Image> listOfImages, List<Member> listOfMembers)
         {
             for (int i = 0; i < listOfMembers.Count; i++)
