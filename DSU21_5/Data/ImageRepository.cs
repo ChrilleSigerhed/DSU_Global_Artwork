@@ -37,7 +37,9 @@ namespace DSU21_5.Data
         /// <returns>a list of profile pictures</returns>
         public List<Image> GetAllImagesFromDbConnectedToUsers()
         {
-            var listOfImages = db.Images.Include("Member").ToList();
+            var listOfImages = db.Images
+                .Include("Member")
+                .ToList();
             return listOfImages;
         }
 
