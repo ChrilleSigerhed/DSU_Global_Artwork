@@ -39,7 +39,6 @@ namespace DSU21_5.Controllers
             List<Image> listOfImages = ImageRepository.GetAllImagesFromDbConnectedToUsers(listOfMembers);
 
 
-
             CommunityViewModel = new CommunityViewModel(listOfImages, listOfMembers);
             return View(CommunityViewModel);
         
