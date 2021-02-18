@@ -25,129 +25,29 @@ namespace DSU21_5.Controllers
         public async Task<IActionResult> Index(string Id)
         {
             var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfMovies = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-            ArtworkViewModel = new ArtworkViewModel(listOfMovies, member);
+            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
+            ArtworkViewModel = new ArtworkViewModel(listOfArtworks, member);
             return View(ArtworkViewModel);
         }
 
-        public async Task<IActionResult> DigitalArt()
+        public async Task<IActionResult> Category(string Id)
         {
-            List<Artwork> DigitalArt = new List<Artwork>();
+            List<Artwork> ArtList = new List<Artwork>();
 
             var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
+            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted();
 
             foreach (Artwork piece in listOfArtworks)
             {
-                if (piece.Type == "DigitalArt")
+                if (piece.Type == Id)
                 {
-                    DigitalArt.Add(piece);
+                    ArtList.Add(piece);
                 }
             }
 
-            ArtworkViewModel = new ArtworkViewModel(DigitalArt, member);
+            ArtworkViewModel = new ArtworkViewModel(ArtList, member);
             
-            return View(ArtworkViewModel);
-        }
-
-        public async Task<IActionResult> Drawing()
-        {
-            List<Artwork> Drawings = new List<Artwork>();
-
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-
-            foreach (Artwork piece in listOfArtworks)
-            {
-                if (piece.Type == "Drawing")
-                {
-                    Drawings.Add(piece);
-                }
-            }
-
-            ArtworkViewModel = new ArtworkViewModel(Drawings, member);
-
-            return View(ArtworkViewModel);
-        }
-
-        public async Task<IActionResult> Painting()
-        {
-            List<Artwork> Paintings = new List<Artwork>();
-
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-
-            foreach (Artwork piece in listOfArtworks)
-            {
-                if (piece.Type == "Painting")
-                {
-                    Paintings.Add(piece);
-                }
-            }
-
-            ArtworkViewModel = new ArtworkViewModel(Paintings, member);
-
-            return View(ArtworkViewModel);
-        }
-
-        public async Task<IActionResult> Photography()
-        {
-            List<Artwork> Photos = new List<Artwork>();
-
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-
-            foreach (Artwork piece in listOfArtworks)
-            {
-                if (piece.Type == "Photography")
-                {
-                    Photos.Add(piece);
-                }
-            }
-
-            ArtworkViewModel = new ArtworkViewModel(Photos, member);
-
-            return View(ArtworkViewModel);
-        }
-
-        public async Task<IActionResult> ReadyMade()
-        {
-            List<Artwork> ReadyMades = new List<Artwork>();
-
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-
-            foreach (Artwork piece in listOfArtworks)
-            {
-                if (piece.Type == "ReadyMade")
-                {
-                    ReadyMades.Add(piece);
-                }
-            }
-
-            ArtworkViewModel = new ArtworkViewModel(ReadyMades, member);
-
-            return View(ArtworkViewModel);
-        }
-
-        public async Task<IActionResult> Sculpture()
-        {
-            List<Artwork> Sculptures = new List<Artwork>();
-
-            var member = await MemberRepository.GetAllMembers();
-            IEnumerable<Artwork> listOfArtworks = await ArtRepository.GetArtThatsPosted(); //TODO: ListOfMovies?
-
-            foreach (Artwork piece in listOfArtworks)
-            {
-                if (piece.Type == "Sculpture")
-                {
-                    Sculptures.Add(piece);
-                }
-            }
-
-            ArtworkViewModel = new ArtworkViewModel(Sculptures, member);
-
-            return View(ArtworkViewModel);
+            return View(Id, ArtworkViewModel);
         }
     }
 }
