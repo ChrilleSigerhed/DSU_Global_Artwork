@@ -3,18 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*<div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>*@
-<head>
-
-<link rel="stylesheet" href="~/css/style.css">
-</head>
-
 <div class="gtco-loader"></div>
-
-
 
 <header id="gtco-header" class="gtco-cover" role="banner" style="background-image: url(images/banner1.jpg)">
     <div class="overlay"></div>
@@ -38,19 +27,6 @@
     </div>
 </header>
 
-
- @*<div id="video-container">
-
-    <div class="overlay">
-        <video id="looper-video" playsinline autoplay loop muted>
-
-            <source src="video/slowLookAround.mp4" type="video/mp4" />
-
-        </video>
-        <h3>Showcase your art to the world</h3>
-    </div>
- </div>*@
-
 <div id="gtco-products">
     <div class="gtco-container">
         <div class="row">
@@ -72,7 +48,6 @@
                         <p>@Model.Exhibits[i].Name <br>@Model.Exhibits[i].StartDate.Date.Year-@Model.Exhibits[i].StartDate.Date.Month-@Model.Exhibits[i].StartDate.Date.Day to @Model.Exhibits[i].StopDate.Date.Year-@Model.Exhibits[i].StopDate.Date.Month-@Model.Exhibits[i].StopDate.Date.Day</p>
                     </div>
                 }
-               
             </div>
         </div>
     </div>

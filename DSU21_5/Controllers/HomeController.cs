@@ -12,8 +12,8 @@ namespace DSU21_5.Controllers
 {
     public class HomeController : Controller
     {
-        public IArtRepository ArtRepository { get; set; }
-        public IMemberRepository MemberRepository { get; set; }
+        private IArtRepository ArtRepository { get; set; }
+        private IMemberRepository MemberRepository { get; set; }
 
 
         private readonly ILogger<HomeController> _logger;

@@ -10,8 +10,8 @@ namespace DSU21_5.Controllers
 {
     public class ArtworkDetailController : Controller
     {
-        public IArtRepository ArtRepository { get; set; }
-        public IMemberRepository MemberRepository { get; set; }
+        private IArtRepository ArtRepository { get; set; }
+        private IMemberRepository MemberRepository { get; set; }
         public ArtworkDetailViewModel artworkDetailViewModel { get; set; }
         public ArtworkDetailController(IArtRepository artRepository, IMemberRepository memberRepository)
         {

@@ -9,7 +9,6 @@ namespace DSU21_5.Models.ViewModel
 {
     public class ProfileViewModel 
     {
-
         public List<Artwork> AllArtwork { get; set; }
         public Member Member { get; set; }
         public Artwork Artwork { get; set; }
@@ -29,18 +28,7 @@ namespace DSU21_5.Models.ViewModel
         {
 
         }
-        public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image, ObservableCollection<ArtworkInformation> collection, List<Artwork> artworks)
-        {
-            //TODO: den här konstruktorn använder vi aldrig? 
-            ListOfArtwork = artworks;
-            ListOfArtInExhibits = collection;
-            Member = member;
-            Member.ProfilePicture = ChangeProfilePictureIfNull(image);
-            Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
-
-            AllArtwork = artwork.ToList();
-        }
-
+        
         public ProfileViewModel(IEnumerable<Artwork> artwork, Member member, Image image)
         {
             AllArtwork = artwork.ToList();
@@ -116,6 +104,7 @@ namespace DSU21_5.Models.ViewModel
           
             return image.ImageName;
         }
+
         /// <summary>
         /// If member has not yet provided a ProfilePicture, this will give them a default profilepicture
         /// </summary>
