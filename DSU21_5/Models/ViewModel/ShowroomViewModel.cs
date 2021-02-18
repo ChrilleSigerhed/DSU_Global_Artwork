@@ -33,15 +33,21 @@ namespace DSU21_5.Models.ViewModel
 
         }
 
+        /// <summary>
+        /// Sets a random number for the elevator randomizer in Showroom
+        /// </summary>
         public void SetRandomIndex()
         {
-            //Sets a random number for the elevator randomizer in Showroom.
             RandomIndex = random.Next(0, Exhibits.Count);
         }
 
+        /// <summary>
+        /// Figures out which position in the list the current member is located, and then sets the previous and next Id's
+        /// </summary>
+        /// <param name="exhibit"></param>
+        /// <param name="exhibits"></param>
         public void SetShowroomPositionsInList(Exhibit exhibit, List<Exhibit> exhibits)
         {
-            //Figures out which position in the list the current member is located, and then sets the previous and next Id's.
             for (int i = 0; i < exhibits.Count; i++)
             {
                 if (exhibit.Id == exhibits[i].Id)
@@ -73,17 +79,23 @@ namespace DSU21_5.Models.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets a list of image paths from a text file, and then randomize which of the path floors that should be used(ShowroomFloor)
+        /// </summary>
         public void SetShowRoomFloor()
         {
-            //Gets a list of image paths from a text file, and then randomize which of the path floors that should be used(ShowroomFloor).
             List<string> floors = new List<string>();
             floors = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText("mock/floorImages.json"));
             ShowroomFloor = floors[random.Next(0, 5)];  
         }
 
+        /// <summary>
+        /// Fills out the list of artworks that should be presented incase, there is less than 17 paintings, as Index(Showroom) always try to display 17 items
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public List<Artwork> FillOutListWithArtworks(List<Artwork> list)
         {
-            //Fills out the list of artworks that should be presented incase, there is less than 17 paintings, as Index(Showroom) always try to display 17 items.
             for (int i = list.Count; i < 17; i++)
             {
                 list.Add(new Artwork
