@@ -37,9 +37,17 @@ namespace DSU21_5.Models.ViewModel
             Member.Bio = ChangeMemberDescriptionIfNull(Member.Bio);
         }
 
-        public ProfileViewModel(Member member, List<Artwork> art)
+        public ProfileViewModel(Member member, List<Artwork> art, Exhibit exhibit)
         {
             Member = member;
+            if(exhibit == null)
+            {
+                exhibit = new Exhibit()
+                {
+                    Publish = false,
+                };
+            }
+            Exhibit = exhibit;
             ArtworkConnectedToExhibition = art;
             SetStopDate();
         }

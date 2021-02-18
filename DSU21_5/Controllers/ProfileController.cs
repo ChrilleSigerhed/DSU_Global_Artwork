@@ -201,7 +201,8 @@ namespace DSU21_5.Controllers
         {
             Member member = await MemberRepository.GetMember(Id);
             var art = ArtRepository.GetArtFromExhibit(member);
-            ProfileViewModel = new ProfileViewModel(member, art);
+            var exhibit = ArtRepository.GetExhibitId(member);
+            ProfileViewModel = new ProfileViewModel(member, art, exhibit);
             return View(ProfileViewModel);
         }
         [HttpPost("/Profile/CreateExhibition/{id}")]
