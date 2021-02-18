@@ -19,11 +19,11 @@ namespace DSU21_5.Controllers
     {
         private readonly ImageDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
-        // TODO: var det dessa properties som vi skulle göra om till private? 
-        public IImageRepository ImageRepository { get; set; }
-        public IMemberRepository MemberRepository { get; set; }
-        public IArtRepository ArtRepository { get; set; }
-        public IRelationshipRepository RelationshipRepository { get; set; }
+      
+        private IImageRepository ImageRepository { get; set; }
+        private IMemberRepository MemberRepository { get; set; }
+        private IArtRepository ArtRepository { get; set; }
+        private IRelationshipRepository RelationshipRepository { get; set; }
         private readonly UserManager<ApplicationUser> _userManager;
         public ProfileViewModel ProfileViewModel { get; set; }
 
