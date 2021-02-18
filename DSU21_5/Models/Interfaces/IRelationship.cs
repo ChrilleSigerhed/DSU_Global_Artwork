@@ -9,18 +9,18 @@ namespace DSU21_5.Models
 {
     public interface IRelationship
     {
+
         [Key]
         public int RelationshipId { get; set; }
 
-        //[Required]
         [Column(TypeName = "nvarchar(100)")]
+        [ForeignKey("Member")]
         public string Requester { get; set; }
 
-        //[Required]
         [Column(TypeName = "nvarchar(100)")]
+        [ForeignKey("Member")]
         public string Requestee { get; set; }
 
-        //[Required]
         [Column(TypeName = "nvarchar(100)")]
         public int Status { get; set; }
     }

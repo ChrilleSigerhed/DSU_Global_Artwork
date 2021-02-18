@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DSU21_5.Models
 {
-    public class Relationship
+    public class Relationship : IRelationship
     {
         [Key]
         public int RelationshipId { get; set; }
