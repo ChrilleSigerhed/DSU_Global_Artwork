@@ -23,11 +23,11 @@ namespace DSU21_5.Data
         /// <summary>
         /// Input is UserId from current user that is using the application, the method takes that ID and checks it against the DataBase, to controll if the user already has a profilepicture uploaded.
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public Image GetImageFromDb(string Id)
+        public Image GetImageFromDb(string id)
         {
-            var image = db.Images.Where(x => x.UserId == Id).FirstOrDefault();
+            var image = db.Images.Where(x => x.UserId == id).FirstOrDefault();
             return image;
         }
         /// <summary>
