@@ -13,6 +13,7 @@ namespace DSU21_5.Models.ViewModel
         public List<Member> Members { get; set; }
         public List<ArtworkInformation> ArtworkInformation { get; set; } = new List<ArtworkInformation>();
         public List<Exhibit> Exhibits { get; set; }
+
         public Random random = new Random();
 
         /// <summary>
@@ -105,10 +106,8 @@ namespace DSU21_5.Models.ViewModel
 
                         });
                     }
-
                 }
             }
-
             return ArtworkInformation;
         }
     }
